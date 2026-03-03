@@ -4,7 +4,7 @@ const path = require('path')
 // API endpoints that should remain public (no authentication required)
 const PUBLIC_ENDPOINTS = [
   'healthcheck.ts',
-  'UIUC-api/isSignedIn.ts', // This is used for auth checking
+  'OSC-api/isSignedIn.ts', // This is used for auth checking
 ]
 
 // API endpoints that are already secured or don't need securing

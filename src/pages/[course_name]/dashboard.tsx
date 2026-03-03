@@ -1,20 +1,20 @@
 import { type NextPage } from 'next'
-import MakeOldCoursePage from '~/components/UIUC-Components/MakeOldCoursePage'
+import MakeOldCoursePage from '~/components/OSC-Components/MakeOldCoursePage'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { useAuth } from 'react-oidc-context'
-import { CannotEditGPT4Page } from '~/components/UIUC-Components/CannotEditGPT4'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
+import { CannotEditGPT4Page } from '~/components/OSC-Components/CannotEditGPT4'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
 import {
   LoadingPlaceholderForAdminPages,
   MainPageBackground,
-} from '~/components/UIUC-Components/MainPageBackground'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+} from '~/components/OSC-Components/MainPageBackground'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
-import Navbar from '~/components/UIUC-Components/navbars/Navbar'
+import Navbar from '~/components/OSC-Components/navbars/Navbar'
 import { initiateSignIn } from '~/utils/authHelpers'
 
 const CourseMain: NextPage = () => {

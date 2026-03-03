@@ -24,8 +24,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { montserrat_heading } from 'fonts'
 import { v4 as uuidv4 } from 'uuid'
 import { selectBestTemperature } from '~/components/Chat/Temperature'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import {
   useFetchConversationHistory, useFetchLastConversation,
   useUpdateConversation,
@@ -44,7 +44,7 @@ import {
 } from '~/utils/modelProviders/LLMProvider'
 import { type OpenAIModelID } from '~/utils/modelProviders/types/openai'
 
-import Navbar from '~/components/UIUC-Components/navbars/Navbar'
+import Navbar from '~/components/OSC-Components/navbars/Navbar'
 
 const Home = ({
                 current_email,
@@ -743,7 +743,7 @@ const Home = ({
         }}
       >
         <Head>
-          <title>UIUC.chat</title>
+          <title>OSC.chat</title>
           <meta name="description" content="ChatGPT but better." />
           <meta
             name="viewport"

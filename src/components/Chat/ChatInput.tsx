@@ -741,7 +741,7 @@ export const ChatInput = ({
           }
         } else {
           // For non-image files, use the regular file processing
-          const response = await fetch('/api/UIUC-api/chat-file-upload', {
+          const response = await fetch('/api/OSC-api/chat-file-upload', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -932,7 +932,7 @@ export const ChatInput = ({
               selectedConversation.messages.length - 1
             ]?.role === 'user' && (
               <button
-                className={`absolute -top-14 left-0 right-0 mx-auto mb-12 flex w-fit items-center gap-3 rounded border border-[--primary] bg-[--primary] px-4 py-2 text-[--illinois-white] opacity-[.85] hover:opacity-100 md:mb-0 md:mt-2`}
+                className={`absolute -top-14 left-0 right-0 mx-auto mb-12 flex w-fit items-center gap-3 rounded border border-[--primary] bg-[--primary] px-4 py-2 text-[--osc-white] opacity-[.85] hover:opacity-100 md:mb-0 md:mt-2`}
                 style={{ pointerEvents: 'auto' }}
                 onClick={onRegenerate}
               >
@@ -972,7 +972,7 @@ export const ChatInput = ({
                       return (
                         <IconFileTypePdf
                           {...iconProps}
-                          style={{ color: 'var(--illinois-orange)' }}
+                          style={{ color: 'var(--osc-orange)' }}
                         />
                       )
                     }
@@ -984,7 +984,7 @@ export const ChatInput = ({
                       return (
                         <IconFileTypeDocx
                           {...iconProps}
-                          style={{ color: 'var(--illinois-orange)' }}
+                          style={{ color: 'var(--osc-orange)' }}
                         />
                       )
                     }
@@ -992,14 +992,14 @@ export const ChatInput = ({
                       return (
                         <IconFileTypeTxt
                           {...iconProps}
-                          style={{ color: 'var(--illinois-orange)' }}
+                          style={{ color: 'var(--osc-orange)' }}
                         />
                       )
                     }
                     return (
                       <IconFile
                         {...iconProps}
-                        style={{ color: 'var(--illinois-orange)' }}
+                        style={{ color: 'var(--osc-orange)' }}
                       />
                     )
                   }
@@ -1030,7 +1030,7 @@ export const ChatInput = ({
                               alignItems: 'center',
                               justifyContent: 'center',
                               borderRadius: '50%',
-                              backgroundColor: 'var(--illinois-prairie)',
+                              backgroundColor: 'var(--osc-prairie)',
                             }}
                           >
                             <svg
@@ -1212,7 +1212,7 @@ export const ChatInput = ({
                   overflow: 'hidden',
                   pointerEvents: 'auto',
                 }}
-                placeholder={'Message Illinois Chat'}
+                placeholder={'Message OSC Chat'}
                 value={content}
                 rows={1}
                 onCompositionStart={() => setIsTyping(true)}

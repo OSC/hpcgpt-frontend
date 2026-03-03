@@ -31,7 +31,7 @@ import {
   recommendedModelIds,
   warningLargeModelIds,
 } from '~/utils/modelProviders/ConfigWebLLM'
-import { LoadingSpinner } from '../UIUC-Components/LoadingSpinner'
+import { LoadingSpinner } from '../OSC-Components/LoadingSpinner'
 
 interface ModelDropdownProps {
   title: string

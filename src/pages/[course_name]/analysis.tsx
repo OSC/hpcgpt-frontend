@@ -1,18 +1,18 @@
 import { type NextPage } from 'next'
-import MakeQueryAnalysisPage from '~/components/UIUC-Components/MakeQueryAnalysisPage'
+import MakeQueryAnalysisPage from '~/components/OSC-Components/MakeQueryAnalysisPage'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { CannotEditGPT4Page } from '~/components/UIUC-Components/CannotEditGPT4'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
+import { CannotEditGPT4Page } from '~/components/OSC-Components/CannotEditGPT4'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
 import {
   LoadingPlaceholderForAdminPages,
   MainPageBackground,
-} from '~/components/UIUC-Components/MainPageBackground'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+} from '~/components/OSC-Components/MainPageBackground'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { type CourseMetadata } from '~/types/courseMetadata'
-import NomicDocumentMap from '~/components/UIUC-Components/NomicDocumentsMap'
-import GlobalFooter from '~/components/UIUC-Components/GlobalFooter'
+import NomicDocumentMap from '~/components/OSC-Components/NomicDocumentsMap'
+import GlobalFooter from '~/components/OSC-Components/GlobalFooter'
 import { useAuth } from 'react-oidc-context'
 import { initiateSignIn } from '~/utils/authHelpers'
 

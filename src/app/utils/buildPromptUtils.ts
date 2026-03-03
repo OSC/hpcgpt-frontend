@@ -1,12 +1,12 @@
 import { type CourseMetadata } from '~/types/courseMetadata'
-import { getCourseMetadata } from '~/pages/api/UIUC-api/getCourseMetadata'
+import { getCourseMetadata } from '~/pages/api/OSC-api/getCourseMetadata'
 import {
   type Content,
   type ContextWithMetadata,
   type Conversation,
   type MessageType,
   type OpenAIChatMessage,
-  type UIUCTool,
+  type OSCTool,
 } from '@/types/chat'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { type AnySupportedModel } from '~/utils/modelProviders/LLMProvider'
@@ -135,7 +135,7 @@ export const buildPrompt = async ({
     const [lastUserTextInput, lastToolResult, systemPrompt] =
       (await Promise.all(allPromises)) as [
         string,
-        UIUCTool[],
+        OSCTool[],
         string | undefined,
       ]
 
@@ -440,10 +440,10 @@ const _getLastToolResult = async ({
   conversation,
 }: {
   conversation: Conversation
-}): Promise<UIUCTool[] | undefined> => {
-  const toolResults: UIUCTool[] = conversation.messages?.[
+}): Promise<OSCTool[] | undefined> => {
+  const toolResults: OSCTool[] = conversation.messages?.[
     conversation.messages.length - 1
-  ]?.tools as UIUCTool[]
+  ]?.tools as OSCTool[]
   return toolResults
 }
 

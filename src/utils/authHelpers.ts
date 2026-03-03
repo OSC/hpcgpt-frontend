@@ -28,8 +28,8 @@ export const getKeycloakBaseUrl = () => {
     return 'http://localhost:8080/'
   }
 
-  if (hostname === 'uiuc.chat') {
-    return 'https://login.uiuc.chat/'
+  if (hostname === 'osc.chat') {
+    return 'https://login.osc.chat/'
   }
 
   return `${window.location.origin}/keycloak/`
@@ -41,6 +41,6 @@ export function getKeycloakBaseFromHost(hostname: string|undefined): string {
     return process.env.NEXT_PUBLIC_KEYCLOAK_URL;
   }
   if (hostname === 'localhost') return 'http://localhost:8080/';
-  if (hostname === 'uiuc.chat') return 'https://login.uiuc.chat/';
+  if (hostname === 'osc.chat') return 'https://login.osc.chat/';
   return `https://${hostname}/keycloak/`;
 }

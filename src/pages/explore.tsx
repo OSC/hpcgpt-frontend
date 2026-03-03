@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import Explore from '~/components/UIUC-Components/Explore'
+import Explore from '~/components/OSC-Components/Explore'
 
 import { useAuth } from 'react-oidc-context'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 
 const ExplorePage = () => {
   const router = useRouter()

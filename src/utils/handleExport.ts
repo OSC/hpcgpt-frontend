@@ -9,7 +9,7 @@ export const handleExport = async (
 ): Promise<ExportResult> => {
   try {
     const response = await fetch(
-      `/api/UIUC-api/exportAllDocuments?course_name=${course_name}`,
+      `/api/OSC-api/exportAllDocuments?course_name=${course_name}`,
       { method: 'GET' },
     )
 

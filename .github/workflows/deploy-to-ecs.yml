@@ -2,7 +2,7 @@ name: Deploy Frontend to AWS ECS Fargate
 
 on:
   push:
-    branches: [ illinois-chat ]
+    branches: [ osc-chat ]
     paths:
       - 'src/**'
       - 'pages/**'
@@ -24,9 +24,9 @@ on:
 # Environment variables. Edit to match the setup for this service.
 env:
   AWS_REGION: us-east-2
-  ECR_REPOSITORY: uiuc-chat-frontend
+  ECR_REPOSITORY: osc-chat-frontend
   ECS_SERVICE: frontend-service-olcwyy3s
-  ECS_CLUSTER: uiuc-chat-dev
+  ECS_CLUSTER: osc-chat-dev
   ECS_TASK_DEFINITION: frontend
   CONTAINER_NAME: frontend
 
@@ -70,7 +70,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         BRANCH_TAG: ${{ steps.set-tag.outputs.branch_tag }}
-        BANNER_CONTENT: ${{ vars.NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT }}
+        BANNER_CONTENT: ${{ vars.NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT }}
       run: |
         set -euo pipefail
         echo "Building image with tag: $IMAGE_TAG"
@@ -80,8 +80,8 @@ jobs:
         docker build \
           --build-arg NEXT_PUBLIC_KEYCLOAK_REALM="${{ vars.NEXT_PUBLIC_KEYCLOAK_REALM }}" \
           --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_ID="${{ vars.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}" \
-          --build-arg NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG="${{ vars.NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG }}" \
-          --build-arg NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT="$BANNER_CONTENT" \
+          --build-arg NEXT_PUBLIC_USE_OSC_CHAT_CONFIG="${{ vars.NEXT_PUBLIC_USE_OSC_CHAT_CONFIG }}" \
+          --build-arg NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT="$BANNER_CONTENT" \
           --build-arg NEXT_PUBLIC_POSTHOG_KEY="${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}" \
           --build-arg NEXT_PUBLIC_POSTHOG_HOST="${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}" \
           -t "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}" .

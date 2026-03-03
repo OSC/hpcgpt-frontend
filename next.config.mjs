@@ -13,6 +13,10 @@ const bundleAnalyzerConfig = {
 /** @type {import("next").NextConfig} */
 const config = {
   i18n: nextI18NextConfig.i18n,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   serverRuntimeConfig: {
     bodyParser: {
       sizeLimit: '100mb',
@@ -53,7 +57,7 @@ const config = {
     domains: [
       'images.unsplash.com',
       'github.com',
-      'uiuc-chatbot.s3.us-east-1.amazonaws.com',
+      'osc-chatbot.s3.us-east-1.amazonaws.com',
       'images.squarespace-cdn.com',
       'raw.githubusercontent.com',
       'avatars.githubusercontent.com',

@@ -1869,8 +1869,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.uiuc-course-table": {
-      "name": "uiuc-course-table",
+    "public.osc-course-table": {
+      "name": "osc-course-table",
       "schema": "",
       "columns": {
         "id": {

@@ -4,7 +4,7 @@ import { type NextPage } from 'next'
 import { Montserrat } from 'next/font/google'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-import MakeNewCoursePage from '~/components/UIUC-Components/MakeNewCoursePage'
+import MakeNewCoursePage from '~/components/OSC-Components/MakeNewCoursePage'
 
 import {
   Button,
@@ -27,13 +27,13 @@ import {
   type MantineTheme,
 } from '@mantine/core'
 import { useAuth } from 'react-oidc-context'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
-import { CannotEditGPT4Page } from '~/components/UIUC-Components/CannotEditGPT4'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
+import { CannotEditGPT4Page } from '~/components/OSC-Components/CannotEditGPT4'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
 import {
   LoadingPlaceholderForAdminPages,
   MainPageBackground,
-} from '~/components/UIUC-Components/MainPageBackground'
+} from '~/components/OSC-Components/MainPageBackground'
 
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
@@ -60,7 +60,7 @@ import SettingsLayout, {
 } from '~/components/Layout/SettingsLayout'
 import { LinkGeneratorModal } from '~/components/Modals/LinkGeneratorModal'
 import CustomSwitch from '~/components/Switches/CustomSwitch'
-import { findDefaultModel } from '~/components/UIUC-Components/api-inputs/LLMsApiKeyInputForm'
+import { findDefaultModel } from '~/components/OSC-Components/api-inputs/LLMsApiKeyInputForm'
 import { type ChatBody } from '~/types/chat'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { callSetCourseMetadata } from '~/utils/apiUtils'
@@ -82,7 +82,7 @@ import {
 } from '~/utils/modelProviders/LLMProvider'
 import { type AnthropicModel } from '~/utils/modelProviders/types/anthropic'
 import { useResponsiveCardWidth } from '~/utils/responsiveGrid'
-import GlobalFooter from '../../components/UIUC-Components/GlobalFooter'
+import GlobalFooter from '../../components/OSC-Components/GlobalFooter'
 
 const montserrat = Montserrat({
   weight: '700',
@@ -314,7 +314,7 @@ Key Objectives:
 7. Technical Requirements:
    - Keep all special syntax and formatting intact
    - Preserve any API-specific formatting
-   - Maintain compatibility with UIUC.chat's citation system (OPTIONAL, ONLY IF APPLICABLE and mentioned in the original prompt)
+   - Maintain compatibility with OSC.chat's citation system (OPTIONAL, ONLY IF APPLICABLE and mentioned in the original prompt)
    - Ensure proper handling of code blocks and markdown
 
 Output Format:
@@ -329,7 +329,7 @@ Return ONLY the optimized system prompt with no additional commentary. The promp
 CRITICAL: The optimized prompt must:
 - Preserve ALL core functionality from the original
 - Enhance clarity and effectiveness
-- Maintain compatibility with UIUC.chat's features (OPTIONAL, ONLY IF APPLICABLE and mentioned in the original prompt)
+- Maintain compatibility with OSC.chat's features (OPTIONAL, ONLY IF APPLICABLE and mentioned in the original prompt)
 - Support both RAG and non-RAG interactions appropriately
 - Keep any existing citation or formatting requirements
 - SHOULD NOT MENTION SPECIAL MODE HANDLING OR OPTIONAL SECTIONS IF THEY ARE NOT EXPLICITLY PRESENT IN THE ORIGINAL PROMPT
@@ -486,12 +486,12 @@ CRITICAL: The optimized prompt must:
         return
       }
       const response = await fetch(
-        `/api/UIUC-api/getCourseExists?course_name=${course_name}`,
+        `/api/OSC-api/getCourseExists?course_name=${course_name}`,
       )
       const data = await response.json()
       setCourseExists(data)
       const response_metadata = await fetch(
-        `/api/UIUC-api/getCourseMetadata?course_name=${course_name}`,
+        `/api/OSC-api/getCourseMetadata?course_name=${course_name}`,
       )
       const fetchedMetadata = (await response_metadata.json()).course_metadata
       setCourseMetadata(fetchedMetadata)
@@ -686,7 +686,7 @@ CRITICAL: The optimized prompt must:
         currentSwitchState.systemPromptOnly
       ) {
         changes.push(
-          `Bypass UIUC.chat's internal prompting ${currentSwitchState.systemPromptOnly ? 'enabled' : 'disabled'}`,
+          `Bypass OSC.chat's internal prompting ${currentSwitchState.systemPromptOnly ? 'enabled' : 'disabled'}`,
         )
       }
 
@@ -811,8 +811,8 @@ CRITICAL: The optimized prompt must:
         >
           You&apos;ve encountered a software bug!<br></br>Your account has no
           email address. Please shoot me an email so I can fix it for you:{' '}
-          <a className="goldUnderline" href="mailto:rohan13@illinois.edu">
-            rohan13@illinois.edu
+          <a className="goldUnderline" href="mailto:rohan13@osc.edu">
+            rohan13@osc.edu
           </a>
         </Title>
       </MainPageBackground>
@@ -885,7 +885,7 @@ CRITICAL: The optimized prompt must:
                         <Text className="text-[--foreground]">/</Text>
                         <Title
                           order={3}
-                          className={`${montserrat_heading.variable} min-w-0 font-montserratHeading text-base text-[--illinois-orange] sm:text-xl ${
+                          className={`${montserrat_heading.variable} min-w-0 font-montserratHeading text-base text-[--osc-orange] sm:text-xl ${
                             course_name.length > 40
                               ? 'max-w-[120px] truncate sm:max-w-[300px] lg:max-w-[400px]'
                               : ''
@@ -1748,7 +1748,7 @@ CRITICAL: The optimized prompt must:
 
                           <CustomSwitch
                             label="Smart Document Search"
-                            tooltip="When enabled, UIUC.chat optimizes your queries to better search through course materials and find relevant content. Note: This only affects how documents are searched - your chat messages remain exactly as you write them."
+                            tooltip="When enabled, OSC.chat optimizes your queries to better search through course materials and find relevant content. Note: This only affects how documents are searched - your chat messages remain exactly as you write them."
                             checked={vectorSearchRewrite}
                             onChange={(value: boolean) => {
                               handleSettingChange({
@@ -1815,7 +1815,7 @@ CRITICAL: The optimized prompt must:
                               />
 
                               <CustomSwitch
-                                label="Bypass UIUC.chat's internal prompting"
+                                label="Bypass OSC.chat's internal prompting"
                                 tooltip="Internally, we prompt the model to (1) add citations and (2) always be as helpful as possible. You can bypass this for full un-modified control over your bot."
                                 checked={systemPromptOnly}
                                 onChange={(value: boolean) =>
@@ -1834,7 +1834,7 @@ CRITICAL: The optimized prompt must:
                                   className="mt-[-4px] pl-[82px]"
                                 >
                                   <CustomCopyButton
-                                    label="Copy UIUC.chat's internal prompt"
+                                    label="Copy OSC.chat's internal prompt"
                                     tooltip="You can use and customize our default internal prompting to suit your needs. Note, only the specific citation formatting described will work with our citation 'find and replace' system. This provides a solid starting point for defining AI behavior in raw prompt mode."
                                     onClick={handleCopyDefaultPrompt}
                                   />

@@ -298,7 +298,7 @@ CREATE TABLE IF NOT EXISTS "pubmed_daily_update" (
 	"xml_filename" text
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "uiuc-course-table" (
+CREATE TABLE IF NOT EXISTS "osc-course-table" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"total_tokens" jsonb,

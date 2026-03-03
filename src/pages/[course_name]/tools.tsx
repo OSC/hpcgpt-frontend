@@ -1,18 +1,18 @@
 import { type NextPage } from 'next'
-import MakeNewCoursePage from '~/components/UIUC-Components/MakeNewCoursePage'
+import MakeNewCoursePage from '~/components/OSC-Components/MakeNewCoursePage'
 import React, { useEffect, useState } from 'react'
 import { Montserrat } from 'next/font/google'
 import { useRouter } from 'next/router'
 
-import { CannotEditGPT4Page } from '~/components/UIUC-Components/CannotEditGPT4'
+import { CannotEditGPT4Page } from '~/components/OSC-Components/CannotEditGPT4'
 import {
   LoadingPlaceholderForAdminPages,
   MainPageBackground,
-} from '~/components/UIUC-Components/MainPageBackground'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+} from '~/components/OSC-Components/MainPageBackground'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 import { Title } from '@mantine/core'
 
-import MakeToolsPage from '~/components/UIUC-Components/N8NPage'
+import MakeToolsPage from '~/components/OSC-Components/N8NPage'
 import posthog from 'posthog-js'
 import { useAuth } from 'react-oidc-context'
 import { ProtectedRoute } from '~/components/ProtectedRoute'
@@ -43,12 +43,12 @@ const ToolsPage: NextPage = () => {
         return
       }
       const response = await fetch(
-        `/api/UIUC-api/getCourseExists?course_name=${course_name}`,
+        `/api/OSC-api/getCourseExists?course_name=${course_name}`,
       )
       const data = await response.json()
       if (data) {
         const response = await fetch(
-          `/api/UIUC-api/getAllCourseData?course_name=${course_name}`,
+          `/api/OSC-api/getAllCourseData?course_name=${course_name}`,
         )
         const data = await response.json()
         const courseData = data.distinct_files
@@ -107,8 +107,8 @@ const ToolsPage: NextPage = () => {
         >
           You&apos;ve encountered a software bug!<br></br>Your account has no
           email address. Please shoot me an email so I can fix it for you:{' '}
-          <a className="goldUnderline" href="mailto:rohan13@illinois.edu">
-            rohan13@illinois.edu
+          <a className="goldUnderline" href="mailto:rohan13@osc.edu">
+            rohan13@osc.edu
           </a>
         </Title>
       </MainPageBackground>

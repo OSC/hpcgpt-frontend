@@ -7,12 +7,12 @@ import Home from '../api/home/home'
 import { useRouter } from 'next/router'
 
 import { type CourseMetadata } from '~/types/courseMetadata'
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
 import { montserrat_heading } from 'fonts'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 
 const ChatPage: NextPage = () => {
   const auth = useAuth()
@@ -64,7 +64,7 @@ const ChatPage: NextPage = () => {
 
       // Fetch course metadata
       const metadataResponse = await fetch(
-        `/api/UIUC-api/getCourseMetadata?course_name=${courseName}`,
+        `/api/OSC-api/getCourseMetadata?course_name=${courseName}`,
       )
       const metadataData = await metadataResponse.json()
 

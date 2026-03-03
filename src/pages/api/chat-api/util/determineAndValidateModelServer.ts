@@ -1,4 +1,4 @@
-import { getCourseMetadata } from '~/pages/api/UIUC-api/getCourseMetadata'
+import { getCourseMetadata } from '~/pages/api/OSC-api/getCourseMetadata'
 import { getModels } from '~/pages/api/models'
 import type { AllLLMProviders, GenericSupportedModel } from '~/utils/modelProviders/LLMProvider'
 import { webLLMModels } from '~/utils/modelProviders/WebLLM'
@@ -29,7 +29,7 @@ export async function determineAndValidateModelServer(
   if (!activeModel) {
     console.error(`Model with ID ${modelId} not found in available models.`)
     throw new Error(
-      `The requested model '${modelId}' is not available in this project. It has likely been restricted by the project's admins. You can enable this model on the admin page here: https://uiuc.chat/${projectName}/dashboard. These models are available to use: ${Array.from(
+      `The requested model '${modelId}' is not available in this project. It has likely been restricted by the project's admins. You can enable this model on the admin page here: https://osc.chat/${projectName}/dashboard. These models are available to use: ${Array.from(
         availableModels,
       )
         .filter(

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 
 const Gpt4 = () => {
   const router = useRouter()

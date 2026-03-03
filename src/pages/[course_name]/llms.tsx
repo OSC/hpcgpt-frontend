@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { useAuth } from 'react-oidc-context'
-import { CannotEditGPT4Page } from '~/components/UIUC-Components/CannotEditGPT4'
-import { LoadingPlaceholderForAdminPages } from '~/components/UIUC-Components/MainPageBackground'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+import { CannotEditGPT4Page } from '~/components/OSC-Components/CannotEditGPT4'
+import { LoadingPlaceholderForAdminPages } from '~/components/OSC-Components/MainPageBackground'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { type CourseMetadata } from '~/types/courseMetadata'
-import APIKeyInputForm from '~/components/UIUC-Components/api-inputs/LLMsApiKeyInputForm'
+import APIKeyInputForm from '~/components/OSC-Components/api-inputs/LLMsApiKeyInputForm'
 
 const CourseMain: NextPage = () => {
   const router = useRouter()

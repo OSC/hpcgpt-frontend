@@ -11,7 +11,7 @@ import {
   type Content,
   type ContextWithMetadata,
   type Role,
-  type UIUCTool,
+  type OSCTool,
 } from '@/types/chat'
 import { Database } from 'database.types'
 import { v4 as uuidv4, validate as isUUID } from 'uuid'
@@ -143,7 +143,7 @@ export function convertDBToChatConversation(
         role: msg.role as Role,
         content: content,
         contexts: processedContexts,
-        tools: (msg.tools as any as UIUCTool[]) || [],
+        tools: (msg.tools as any as OSCTool[]) || [],
         latestSystemMessage: msg.latest_system_message || undefined,
         finalPromtEngineeredMessage:
           msg.final_prompt_engineered_message || undefined,

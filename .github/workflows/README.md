@@ -1,6 +1,6 @@
 # GitHub Actions Workflows
 
-This directory contains GitHub Actions workflows for the UIUC Chat Frontend project.
+This directory contains GitHub Actions workflows for the OSC Chat Frontend project.
 
 ## 📁 Available Workflows
 
@@ -12,7 +12,7 @@ Runs end-to-end tests against the production environment.
 
 ## 🚀 ECS Deployment - How It Works
 
-The `deploy-to-ecs.yml` workflow triggers on pushes to `illinois-chat` branch when these files change:
+The `deploy-to-ecs.yml` workflow triggers on pushes to `osc-chat` branch when these files change:
 - `src/**` - React/Next.js source code
 - `pages/**` - Next.js pages (if using pages router)
 - `components/**` - React components
@@ -35,9 +35,9 @@ Update these environment variables in `deploy-to-ecs.yml` to match your AWS setu
 ```yaml
 env:
   AWS_REGION: us-east-2
-  ECR_REPOSITORY: uiuc-chat-frontend
+  ECR_REPOSITORY: osc-chat-frontend
   ECS_SERVICE: frontend-service-358yl957
-  ECS_CLUSTER: uiuc-chat-dev
+  ECS_CLUSTER: osc-chat-dev
   ECS_TASK_DEFINITION: frontend
   CONTAINER_NAME: frontend
 ```
@@ -53,8 +53,8 @@ Add these secrets in GitHub repository settings for ECS deployment:
 ### Frontend Build Environment Variables:
 - `NEXT_PUBLIC_KEYCLOAK_REALM` - Keycloak realm name
 - `NEXT_PUBLIC_KEYCLOAK_CLIENT_ID` - Keycloak client ID
-- `NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG` - "True" to use Illinois Chat config which controls the appearance 
-- `NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT` - Illinois Chat Banner content HTML
+- `NEXT_PUBLIC_USE_OSC_CHAT_CONFIG` - "True" to use OSC Chat config which controls the appearance 
+- `NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT` - OSC Chat Banner content HTML
 - `NEXT_PUBLIC_POSTHOG_KEY` - PostHog analytics key
 - `NEXT_PUBLIC_POSTHOG_HOST` - PostHog host URL
 
@@ -88,7 +88,7 @@ Trigger ECS deployment manually via GitHub Actions tab → "Run workflow" button
 
 - **GitHub Actions**: Watch workflow progress in Actions tab
 - **ECS Console**: Monitor deployment in AWS ECS service console
-- **CloudWatch**: View application logs in `/ecs/uiuc-chat-frontend` log group
+- **CloudWatch**: View application logs in `/ecs/osc-chat-frontend` log group
 
 ## 🚫 ECS Deployment - Skip Conditions
 
@@ -118,19 +118,19 @@ Changes to these files won't trigger ECS deployment:
 ### Quick Commands:
 ```bash
 # Check ECS service status
-aws ecs describe-services --cluster uiuc-chat-dev --services frontend-service-358yl957
+aws ecs describe-services --cluster osc-chat-dev --services frontend-service-358yl957
 
 # View recent logs
-aws logs tail /ecs/uiuc-chat-frontend --follow
+aws logs tail /ecs/osc-chat-frontend --follow
 
 # Force new deployment (if needed)
-aws ecs update-service --cluster uiuc-chat-dev --service frontend-service-358yl957 --force-new-deployment
+aws ecs update-service --cluster osc-chat-dev --service frontend-service-358yl957 --force-new-deployment
 
 # Check ECR repository
-aws ecr describe-repositories --repository-names uiuc-chat-frontend
+aws ecr describe-repositories --repository-names osc-chat-frontend
 
 # List recent images
-aws ecr describe-images --repository-name uiuc-chat-frontend --query 'imageDetails[*].[imageTags[0],imagePushedAt]' --output table
+aws ecr describe-images --repository-name osc-chat-frontend --query 'imageDetails[*].[imageTags[0],imagePushedAt]' --output table
 ```
 
 ## 🏗️ Frontend-Specific Notes

@@ -9,7 +9,7 @@ import {
 import fetchCourseMetadataServer from '~/pages/api/chat-api/util/fetchCourseMetadataServer'
 import { determineAndValidateModelServer } from '~/pages/api/chat-api/util/determineAndValidateModelServer'
 import { validateApiKeyAndRetrieveData } from './keys/validate'
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
 import posthog from 'posthog-js'
 import { NextApiRequest, type NextApiResponse } from 'next'
 import { type CourseMetadata } from '~/types/courseMetadata'

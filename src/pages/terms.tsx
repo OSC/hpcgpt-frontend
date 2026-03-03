@@ -1,6 +1,6 @@
 import { type NextPage } from 'next'
 import { useState } from 'react'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import ChatUI from '~/utils/modelProviders/WebLLM'
 import { MLCEngine } from '@mlc-ai/web-llm'
 import { set } from 'zod'
@@ -20,7 +20,7 @@ const terms_string = `TERMS OF USE
 Last updated August 21, 2023
 
 AGREEMENT TO TERMS
-These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity "UIUC.chat", concerning your access to and use of the https://uiuc.chat website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Services"). You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING the Services AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity "OSC.chat", concerning your access to and use of the https://osc.chat website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Services"). You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING the Services AND YOU MUST DISCONTINUE USE IMMEDIATELY.
 Supplemental terms and conditions or documents that may be posted on the Services from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms of Use at any time and for any reason. We will alert you about any changes by updating the "Last Updated" date of these Terms of Use, and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Terms of Use to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms of Use by your continued use of the Services after the date such revised Terms of Use are posted.
 The information provided on the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Services from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable.
 The the Services is intended for users who are at least 13 years of age. All users who are minors in the jurisdiction in which they reside (generally under the age of 18) must have the permission of, and be directly supervised by, their parent or guardian to use the Services. If you are a minor, you must have your parent or guardian read and agree to these Terms of Use prior to you using the Services.
@@ -133,5 +133,5 @@ These Terms of Use and any policies or operating rules posted by us on the Servi
 CONTACT US
 In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:
 Rohan Marwaha
-rohan13@illinois.edu
+rohan13@osc.edu
 `

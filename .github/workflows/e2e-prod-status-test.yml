@@ -27,4 +27,4 @@ jobs:
       - name: Run Nightwatch e2e tests on Prod
         env:
           CHROME_BIN: ${{ steps.setup_chrome.outputs.chrome-path }}
-        run: npx nightwatch nightwatch/e2e-test-of-uiucchat-prod.js
+        run: npx nightwatch nightwatch/e2e-test-of-oscchat-prod.js

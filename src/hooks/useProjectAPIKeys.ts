@@ -1,7 +1,7 @@
 import { type QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 import { debounce } from 'lodash'
 import { useMemo, useRef } from 'react'
-import { showConfirmationToast } from '~/components/UIUC-Components/api-inputs/LLMsApiKeyInputForm'
+import { showConfirmationToast } from '~/components/OSC-Components/api-inputs/LLMsApiKeyInputForm'
 import { type AllLLMProviders } from '~/utils/modelProviders/LLMProvider'
 
 export function useGetProjectLLMProviders({
@@ -53,7 +53,7 @@ export function useSetProjectLLMProviders(queryClient: QueryClient) {
           resolve: (value: any) => void,
           reject: (reason?: any) => void,
         ) => {
-          fetch('/api/UIUC-api/upsertLLMProviders', {
+          fetch('/api/OSC-api/upsertLLMProviders', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

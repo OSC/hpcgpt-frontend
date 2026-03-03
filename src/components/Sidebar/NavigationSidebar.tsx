@@ -20,7 +20,7 @@ import {
   ReportAnalytics,
 } from 'tabler-icons-react'
 import { useTheme } from '~/contexts/ThemeContext'
-import { ThemeToggle } from '../UIUC-Components/ThemeToggle'
+import { ThemeToggle } from '../OSC-Components/ThemeToggle'
 
 interface NavItem {
   name: React.ReactNode

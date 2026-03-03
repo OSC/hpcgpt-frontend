@@ -2,7 +2,7 @@ import {
   type Action,
   type Conversation,
   type Message,
-  type UIUCTool,
+  type OSCTool,
 } from '@/types/chat'
 import { type ErrorMessage } from '@/types/error'
 import {
@@ -48,7 +48,7 @@ export interface HomeInitialState {
   wasQueryRewritten: boolean | undefined
   queryRewriteText: string | undefined
   documentGroups: Action[]
-  tools: UIUCTool[]
+  tools: OSCTool[]
   webLLMModelIdLoading: {
     id: string | undefined
     isLoading: boolean | undefined

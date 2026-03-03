@@ -4,9 +4,9 @@ import jwt from 'jsonwebtoken'
 
 // Keycloak configuration
 const KEYCLOAK_REALM =
-  process.env.NEXT_PUBLIC_KEYCLOAK_REALM || 'illinois_chat_realm'
+  process.env.NEXT_PUBLIC_KEYCLOAK_REALM || 'osc_chat_realm'
 const KEYCLOAK_CLIENT_ID =
-  process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'illinois_chat'
+  process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'osc_chat'
 const KEYCLOAK_CLIENT_SECRET = process.env.KEYCLOAK_CLIENT_SECRET
 
 // Keycloak Admin Client instance

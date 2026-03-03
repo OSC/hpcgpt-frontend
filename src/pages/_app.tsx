@@ -3,7 +3,7 @@ import { Notifications } from '@mantine/notifications'
 import { appWithTranslation } from 'next-i18next'
 import { type AppType } from 'next/app'
 
-import Maintenance from '~/components/UIUC-Components/Maintenance'
+import Maintenance from '~/components/OSC-Components/Maintenance'
 import '~/styles/citation-tooltips.css'
 import '~/styles/globals.css'
 
@@ -25,7 +25,7 @@ if (typeof window !== 'undefined') {
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY
   const host =
     process.env.NEXT_PUBLIC_POSTHOG_HOST ||
-    'https://posthog-dev.ilchat.mss.illinois.edu'
+    'https://posthog-dev.ilchat.mss.osc.edu'
 
   if (!key) {
     console.warn('⚠️  No POSTHOG key—skipping init.')
@@ -73,7 +73,7 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
       if (effectRan.current) return
 
       try {
-        const response = await fetch('/api/UIUC-api/getMaintenanceModeFast')
+        const response = await fetch('/api/OSC-api/getMaintenanceModeFast')
         const data = await response.json()
         setIsMaintenanceMode(data.isMaintenanceMode)
       } catch (error) {
@@ -108,16 +108,16 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
                 colorScheme: 'dark',
                 colors: {
                   // Using CSS variables for colors
-                  deepBlue: ['var(--illinois-blue)'],
-                  primary: ['var(--illinois-orange)'],
-                  secondary: ['var(--illinois-blue)'],
-                  accent: ['var(--illinois-industrial)'],
-                  background: ['var(--illinois-background-dark)'],
-                  nearlyBlack: ['var(--illinois-background-darker)'],
-                  nearlyWhite: ['var(--illinois-white)'],
-                  disabled: ['var(--illinois-storm-dark)'],
-                  errorBackground: ['var(--illinois-berry)'],
-                  errorBorder: ['var(--illinois-berry)'],
+                  deepBlue: ['var(--osc-blue)'],
+                  primary: ['var(--osc-orange)'],
+                  secondary: ['var(--osc-blue)'],
+                  accent: ['var(--osc-industrial)'],
+                  background: ['var(--osc-background-dark)'],
+                  nearlyBlack: ['var(--osc-background-darker)'],
+                  nearlyWhite: ['var(--osc-white)'],
+                  disabled: ['var(--osc-storm-dark)'],
+                  errorBackground: ['var(--osc-berry)'],
+                  errorBorder: ['var(--osc-berry)'],
                 },
                 shadows: {
                   // md: '1px 1px 3px rgba(0, 0, 0, .25)',
@@ -131,8 +131,8 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
                   },
                 },
                 defaultGradient: {
-                  from: 'var(--illinois-berry)',
-                  to: 'var(--illinois-earth)',
+                  from: 'var(--osc-berry)',
+                  to: 'var(--osc-earth)',
                   deg: 80,
                 },
               }}

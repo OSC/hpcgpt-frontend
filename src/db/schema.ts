@@ -41,8 +41,8 @@ export const llmConvoMonitor = pgTable('llm-convo-monitor', {
   convo_analysis_tags: jsonb('convo_analysis_tags'),
 })
 
-// uiuc-course-table table
-export const uiucCourseTable = pgTable('uiuc-course-table', {
+// osc-course-table table
+export const oscCourseTable = pgTable('osc-course-table', {
   id: serial('id').primaryKey(),
   created_at: timestamp('created_at').defaultNow().notNull(),
   total_tokens: jsonb('total_tokens'),

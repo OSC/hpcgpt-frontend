@@ -10,7 +10,7 @@ import {
 
 export const getBaseUrl = () => {
   if (typeof window !== 'undefined') return '' // browser should use relative url
-  if (process.env.VERCEL_ENV == 'production') return 'https://uiuc.chat'
+  if (process.env.VERCEL_ENV == 'production') return 'https://osc.chat'
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}` // SSR should use vercel url
   return `http://localhost:${process.env.PORT ?? 3000}` // dev SSR should use localhost
 }
@@ -45,7 +45,7 @@ export const callSetCourseMetadata = async (
   courseMetadata: CourseMetadata | CourseMetadataOptionalForUpsert,
 ): Promise<boolean> => {
   try {
-    const endpoint = '/api/UIUC-api/upsertCourseMetadata'
+    const endpoint = '/api/OSC-api/upsertCourseMetadata'
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -106,7 +106,7 @@ export const uploadToS3 = async (
   }
 
   try {
-    const endpoint = '/api/UIUC-api/uploadToS3'
+    const endpoint = '/api/OSC-api/uploadToS3'
     const response = await fetch(endpoint, requestObject)
     const data: PresignedPostResponse = await response.json()
     const { url, fields } = data.post
@@ -162,7 +162,7 @@ export async function fetchPresignedUrl(
  */
 export async function fetchCourseMetadata(course_name: string): Promise<any> {
   try {
-    const endpoint = `${getBaseUrl()}/api/UIUC-api/getCourseMetadata?course_name=${course_name}`
+    const endpoint = `${getBaseUrl()}/api/OSC-api/getCourseMetadata?course_name=${course_name}`
     const response = await fetch(endpoint)
 
     if (!response.ok) {
@@ -328,7 +328,7 @@ export const createProject = async (
   is_private = false,
 ): Promise<boolean> => {
   try {
-    const response = await fetch('/api/UIUC-api/createProject', {
+    const response = await fetch('/api/OSC-api/createProject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

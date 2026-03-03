@@ -12,30 +12,32 @@ RUN npm install
 # Copy over the entire repo
 COPY . .
 
-# Accept public env vars from build args
-ARG NEXT_PUBLIC_KEYCLOAK_URL
-ARG NEXT_PUBLIC_KEYCLOAK_REALM
-ARG NEXT_PUBLIC_KEYCLOAK_CLIENT_ID
-ARG NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG
-ARG NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT
-ARG NEXT_PUBLIC_POSTHOG_KEY
-ARG NEXT_PUBLIC_POSTHOG_HOST
+# # Accept public env vars from build args
+# ARG NEXT_PUBLIC_KEYCLOAK_URL
+# ARG NEXT_PUBLIC_KEYCLOAK_REALM
+# ARG NEXT_PUBLIC_KEYCLOAK_CLIENT_ID
+# ARG NEXT_PUBLIC_USE_OSC_CHAT_CONFIG
+# ARG NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT
+# ARG NEXT_PUBLIC_POSTHOG_KEY
+# ARG NEXT_PUBLIC_POSTHOG_HOST
+# 
+# # Make them available during the build
+# ENV NEXT_PUBLIC_KEYCLOAK_URL=$NEXT_PUBLIC_KEYCLOAK_URL
+# ENV NEXT_PUBLIC_KEYCLOAK_REALM=$NEXT_PUBLIC_KEYCLOAK_REALM
+# ENV NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=$NEXT_PUBLIC_KEYCLOAK_CLIENT_ID
+# 
+# # OSC Chat specfic config
+# ENV NEXT_PUBLIC_USE_OSC_CHAT_CONFIG=$NEXT_PUBLIC_USE_OSC_CHAT_CONFIG
+# ENV NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT=$NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT
+# 
+# # posthog config
+# ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
+# ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
 
-# Make them available during the build
-ENV NEXT_PUBLIC_KEYCLOAK_URL=$NEXT_PUBLIC_KEYCLOAK_URL
-ENV NEXT_PUBLIC_KEYCLOAK_REALM=$NEXT_PUBLIC_KEYCLOAK_REALM
-ENV NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=$NEXT_PUBLIC_KEYCLOAK_CLIENT_ID
-
-# Illinois Chat specfic config
-ENV NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG=$NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG
-ENV NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT=$NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT
-
-# posthog config
-ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
-ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
-
+RUN echo "Open file limit:" && ulimit -n
+RUN cat /proc/self/limits | grep "open files"
 # Build Next.js production assets
-RUN npm run build:self-hosted
+RUN NEXT_PRIVATE_MAX_WORKER_THREADS=1 NODE_OPTIONS="--max-old-space-size=4096" npm run build:self-hosted
 
 # ---- 2) Runner Stage ----
 FROM node:18-alpine AS runner
@@ -50,7 +52,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/next-i18next.config.mjs ./
 COPY --from=builder /app/src ./
-# the .env file is handled by docker-compose in the self-hostable repo: https://github.com/Center-for-AI-Innovation/self-hostable-uiuc-chat
+# the .env file is handled by docker-compose in the self-hostable repo: https://github.com/Center-for-AI-Innovation/self-hostable-osc-chat
+RUN chmod -R o+rX /app
 
 ENV NODE_ENV=production
 

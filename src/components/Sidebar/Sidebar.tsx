@@ -18,7 +18,7 @@ import { Button, Tooltip } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { useAuth } from 'react-oidc-context'
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
 
 interface Props<T> {
   isOpen: boolean
@@ -76,7 +76,7 @@ const Sidebar = <T,>({
         s3_path: courseMetadata?.banner_image_s3 as string,
         course_name: courseName as string,
       })
-      const res = await fetch(`/api/UIUC-api/getPresignedUrl?${params}`)
+      const res = await fetch(`/api/OSC-api/getPresignedUrl?${params}`)
       if (!res.ok) throw new Error('Failed to fetch banner URL')
       const json = await res.json()
       return json.presignedUrl as string
@@ -84,7 +84,7 @@ const Sidebar = <T,>({
   })
   const imageSrc =
     courseName === 'chat'
-      ? '/media/logo_illinois.png'
+      ? '/media/logo_osc.png'
       : presignedBannerUrl || null
 
   const allowDrop = (e: any) => {
@@ -184,7 +184,7 @@ const Sidebar = <T,>({
                   <Image
                     src={imageSrc}
                     alt={
-                      courseName === 'chat' ? 'Illinois logo' : 'Course banner'
+                      courseName === 'chat' ? 'OSC logo' : 'Course banner'
                     }
                     fill
                     sizes="(max-width: 768px) 56px, 64px"
@@ -199,7 +199,7 @@ const Sidebar = <T,>({
               {/* Name */}
               <div className="line-clamp-3 max-w-full break-words text-[15px] font-bold leading-[125%] md:text-[16px]">
                 {courseName === 'chat'
-                  ? 'Illinois flagship chatbot'
+                  ? 'OSC flagship chatbot'
                   : (() => {
                       const normalized = (courseName || '').replace(/-/g, ' ')
                       return normalized

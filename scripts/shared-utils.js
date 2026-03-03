@@ -9,7 +9,7 @@
 function getKeycloakBaseUrl(hostname = null, protocol = null) {
   // For Node.js environment (scripts)
   if (typeof window === 'undefined') {
-    return process.env.KEYCLOAK_BASE_URL || 'https://login.uiuc.chat/'
+    return process.env.KEYCLOAK_BASE_URL || 'https://login.osc.chat/'
   }
   
   // For browser environment
@@ -17,8 +17,8 @@ function getKeycloakBaseUrl(hostname = null, protocol = null) {
     return 'http://localhost:8080/'
   }
   
-  if (hostname === 'uiuc.chat') {
-    return 'https://login.uiuc.chat/'
+  if (hostname === 'osc.chat') {
+    return 'https://login.osc.chat/'
   }
   
   return `${protocol}://${hostname}/keycloak/`

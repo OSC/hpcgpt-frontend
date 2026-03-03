@@ -7,7 +7,7 @@ import HomeContext from '~/pages/api/home/home.context'
 
 import { Key } from '../../Settings/Key'
 import { SidebarButton } from '../../Sidebar/SidebarButton'
-import { ThemeToggle } from '../../UIUC-Components/ThemeToggle'
+import { ThemeToggle } from '../../OSC-Components/ThemeToggle'
 import ChatbarContext from '../Chatbar.context'
 import { ClearConversations } from './ClearConversations'
 

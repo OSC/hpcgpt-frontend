@@ -10,55 +10,55 @@
 
 :root {
   /* Primary Colors */
-  --illinois-orange: #ff5f05;
-  --illinois-blue: #13294b;
+  --osc-orange: #ff5f05;
+  --osc-blue: #13294b;
 
   /* Secondary Colors (Storm) */
-  --illinois-storm-dark: #707372;
-  --illinois-storm-medium: #9c9a9d;
-  --illinois-storm-light: #c8c6c7;
-  --illinois-white: #ffffff;
-  --illinois-black: #000000;
+  --osc-storm-dark: #707372;
+  --osc-storm-medium: #9c9a9d;
+  --osc-storm-light: #c8c6c7;
+  --osc-white: #ffffff;
+  --osc-black: #000000;
 
   /* Supporting Colors */
-  --illinois-industrial: #1d58a7;
-  --illinois-arches: #009fd4;
-  --illinois-patina: #007e8e;
-  --illinois-berry: #5c0e41;
-  --illinois-harvest: #fcb316;
-  --illinois-prairie: #006230;
-  --illinois-earth: #7d3e13;
+  --osc-industrial: #1d58a7;
+  --osc-arches: #009fd4;
+  --osc-patina: #007e8e;
+  --osc-berry: #5c0e41;
+  --osc-harvest: #fcb316;
+  --osc-prairie: #006230;
+  --osc-earth: #7d3e13;
 
   /* Accessibility Colors */
-  --illinois-altgeld: #c84113;
+  --osc-altgeld: #c84113;
 
   /* Background Colors */
-  --illinois-storm-95: #f4f4f4;
-  --illinois-storm-10: #252525;
+  --osc-storm-95: #f4f4f4;
+  --osc-storm-10: #252525;
 
   /* Additional UI Colors */
-  --illinois-background-dark: #0d1d36; /* #202123; */
-  --illinois-background-darker: #0b182b; /* #0e1116; */
-  --illinois-purple: #2e026d;
-  --illinois-purple-dark: #15162c;
-  --illinois-link: #4a4ae8;
-  --illinois-scrollbar-hover: #807f7f;
-  --illinois-gold: #ffd700;
-  --illinois-purple-light: #9d4edd;
+  --osc-background-dark: #0d1d36; /* #202123; */
+  --osc-background-darker: #0b182b; /* #0e1116; */
+  --osc-purple: #2e026d;
+  --osc-purple-dark: #15162c;
+  --osc-link: #4a4ae8;
+  --osc-scrollbar-hover: #807f7f;
+  --osc-gold: #ffd700;
+  --osc-purple-light: #9d4edd;
 
   /* Gradients */
-  --illinois-blue-gradient: linear-gradient(135deg, #1d58a7, #13294b);
-  --illinois-orange-gradient: linear-gradient(-135deg, #fcb316, #ff5f05);
+  --osc-blue-gradient: linear-gradient(135deg, #1d58a7, #13294b);
+  --osc-orange-gradient: linear-gradient(-135deg, #fcb316, #ff5f05);
 
   /* Scrollbar Colors */
-  --illinois-scrollbar-track: transparent;
-  --illinois-scrollbar-track-hover: rgba(255, 255, 255, 0.06);
-  --illinois-scrollbar-thumb: rgba(156, 154, 157, 0.5);
-  --illinois-scrollbar-thumb-hover: var(--illinois-storm-dark);
+  --osc-scrollbar-track: transparent;
+  --osc-scrollbar-track-hover: rgba(255, 255, 255, 0.06);
+  --osc-scrollbar-thumb: rgba(156, 154, 157, 0.5);
+  --osc-scrollbar-thumb-hover: var(--osc-storm-dark);
 
-  /* Existing variables mapped to UIUC colors */
-  --foreground: var(--illinois-blue);
-  --background: var(--illinois-white);
+  /* Existing variables mapped to OSC colors */
+  --foreground: var(--osc-blue);
+  --background: var(--osc-white);
 
   --error: #f00;
 
@@ -81,27 +81,27 @@
     var(--foreground) 10%
   );
 
-  --primary: var(--illinois-orange);
+  --primary: var(--osc-orange);
   --primary-foreground: var(--background);
 
   --secondary: var(--foreground);
   --secondary-foreground: var(--background);
 
-  --muted: var(--illinois-storm-95);
-  --muted-foreground: var(--illinois-storm-dark);
+  --muted: var(--osc-storm-95);
+  --muted-foreground: var(--osc-storm-dark);
 
-  --accent: var(--illinois-industrial);
-  --accent-foreground: var(--illinois-white);
+  --accent: var(--osc-industrial);
+  --accent-foreground: var(--osc-white);
 
-  --destructive: var(--illinois-berry);
-  --destructive-foreground: var(--illinois-white);
+  --destructive: var(--osc-berry);
+  --destructive-foreground: var(--osc-white);
 
-  --border: var(--illinois-storm-light);
-  --input: var(--illinois-storm-light);
+  --border: var(--osc-storm-light);
+  --input: var(--osc-storm-light);
   
   /* Font Variables */
   --font-montserrat-heading: 'Montserrat', sans-serif;
-  --ring: var(--illinois-blue);
+  --ring: var(--osc-blue);
 
   --padding: 1rem;
   --padding-xs: calc(var(--padding) * 0.1);
@@ -116,7 +116,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.25);
 
-  --badge: var(--illinois-orange);
+  --badge: var(--osc-orange);
   --badge-error: #f00;
 
   --link: var(--primary);
@@ -149,15 +149,15 @@
   --citation-foreground: var(--link);
   --citation-background: color-mix(in srgb, var(--background), var(--link) 5%);
   --citation-border: color-mix(in srgb, var(--background), var(--link) 15%);
-  --citation-hover-foreground: var(--illinois-white);
+  --citation-hover-foreground: var(--osc-white);
   --citation-hover-background: var(--link);
   --citation-hover-border: var(--link);
 
   --message: white;
   --message-faded: rgba(from var(--message-color) r g b / 0.5);
   --message-background: rgba(
-    from color-mix(in srgb, var(--illinois-blue), black 30%) r g b / 0.9
-  ); /* will always be a darker version of illinois-blue */
+    from color-mix(in srgb, var(--osc-blue), black 30%) r g b / 0.9
+  ); /* will always be a darker version of osc-blue */
   /*
   --message-color: var(--background);
   --message-color-faded: rgba(from var(--background) r g b / .7);
@@ -180,12 +180,12 @@
   --navbar-text: var(--foreground);
   --navbar-border: var(--dashboard-border);
   --navbar-shadow: color-mix(in srgb, var(--background), black 30%);
-  --navbar-active: var(--illinois-orange);
+  --navbar-active: var(--osc-orange);
   --navbar-hover: var(--navbar-text);
   --navbar-hover-background: var(--background-faded);
 
   --notification: rgba(
-    from color-mix(in srgb, var(--illinois-blue), black 30%) r g b / 0.8
+    from color-mix(in srgb, var(--osc-blue), black 30%) r g b / 0.8
   ); /* background - similar to sidebar-background but darker since we have a bit of opacity */
   --notification-title: white;
   --notification-message: white;
@@ -195,7 +195,7 @@
   --sources-foreground: var(--foreground);
   --sources-background: var(--background-dark);
   --sources-border: var(--dashboard-border);
-  --sources-border-hover: var(--illinois-orange);
+  --sources-border-hover: var(--osc-orange);
   --sources-header-background: var(--background-dark);
   --sources-item-background: var(--background);
   --sources-item-header-background: var(--background-faded);
@@ -207,18 +207,18 @@
 
   --dashboard-stat: var(
     --accent
-  ); /* #3b75af; not offical uiuc colors, --accent is */
-  --dashboard-foreground: var(--foreground); /* var(--illinois-white); */
+  ); /* #3b75af; not offical osc colors, --accent is */
+  --dashboard-foreground: var(--foreground); /* var(--osc-white); */
   --dashboard-foreground-faded: rgba(
     from var(--dashboard-foreground) r g b / 0.7
   );
-  --dashboard-background: white; /* color-mix(in srgb, var(--illinois-blue), white 5%); */
+  --dashboard-background: white; /* color-mix(in srgb, var(--osc-blue), white 5%); */
   --dashboard-background-faded: color-mix(
     in srgb,
     var(--dashboard-background),
     black 5%
   );
-  --dashboard-background-dark: #ddd; /* color-mix(in srgb, var(--illinois-background-dark), white 5%); */
+  --dashboard-background-dark: #ddd; /* color-mix(in srgb, var(--osc-background-dark), white 5%); */
   --dashboard-background-darker: color-mix(
     in srgb,
     var(--dashboard-background-dark),
@@ -233,8 +233,8 @@
     --background
   ); /* var(--dashboard-background-faded); */
 
-  --dashboard-button-foreground: var(--illinois-white);
-  --dashboard-button: var(--illinois-orange);
+  --dashboard-button-foreground: var(--osc-white);
+  --dashboard-button: var(--osc-orange);
   --dashboard-button-hover: color-mix(
     in srgb,
     var(--dashboard-button),
@@ -243,12 +243,12 @@
   --dashboard-table-selected: color-mix(
     in srgb,
     var(--dashboard-button),
-    var(--illinois-white) 20%
+    var(--osc-white) 20%
   );
 
   --footer-foreground: var(--foreground-faded);
   --footer-link: var(--foreground-dark);
-  --footer-link-hover: var(--illinois-orange);
+  --footer-link-hover: var(--osc-orange);
 
   --pulsate: var(
     --foreground
@@ -260,13 +260,13 @@
   --sidebar: white;
   --sidebar-background: color-mix(
     in srgb,
-    var(--illinois-blue),
+    var(--osc-blue),
     black 25%
   );
   */
   --sidebar: var(--foreground);
   --sidebar-background: var(--background);
-  --sidebar-selected: var(--background-faded); /* var(--illinois-orange); */
+  --sidebar-selected: var(--background-faded); /* var(--osc-orange); */
 
   --spinner: var(--foreground-faded);
 
@@ -280,11 +280,11 @@
 
   --welcome-foreground: color-mix(in srgb, var(--foreground), black 0%);
   --welcome-background: color-mix(in srgb, var(--background), black 10%);
-  --welcome-button-hover: color-mix(in srgb, var(--illinois-blue), white 20%);
+  --welcome-button-hover: color-mix(in srgb, var(--osc-blue), white 20%);
 }
 
-.illinois-blue-gradient-bg {
-  /*  background-image: var(--illinois-blue-gradient);*/
+.osc-blue-gradient-bg {
+  /*  background-image: var(--osc-blue-gradient);*/
   color: var(--foreground);
   background: var(--background);
 }
@@ -331,18 +331,18 @@
 
 /* use existing formulas dark/light as described above as much as possible and only change the primary colors as needed */
 .dark {
-  --foreground: var(--illinois-white);
-  --background: var(--illinois-blue);
+  --foreground: var(--osc-white);
+  --background: var(--osc-blue);
 
   --chat-background: color-mix(in srgb, var(--background), black 20%);
 
-  --dashboard-background: var(--illinois-blue);
+  --dashboard-background: var(--osc-blue);
   --dashboard-background-faded: color-mix(
     in srgb,
     var(--dashboard-background),
     black 20%
   );
-  --dashboard-background-dark: var(--illinois-background-dark);
+  --dashboard-background-dark: var(--osc-background-dark);
   --dashboard-background-darker: color-mix(
     in srgb,
     var(--dashboard-background-dark),
@@ -369,22 +369,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--illinois-scrollbar-track);
+  background-color: var(--osc-scrollbar-track);
   transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-track:hover {
-  background-color: var(--illinois-scrollbar-track-hover);
+  background-color: var(--osc-scrollbar-track-hover);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--illinois-scrollbar-thumb);
+  background-color: var(--osc-scrollbar-thumb);
   border-radius: 6px;
   transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--illinois-scrollbar-thumb-hover);
+  background-color: var(--osc-scrollbar-thumb-hover);
   border-radius: 6px;
 }
 
@@ -393,7 +393,7 @@
 }
 
 html {
-  background: var(--illinois-white);
+  background: var(--osc-white);
 }
 
 @media (max-width: 720px) {
@@ -436,11 +436,11 @@ pre:has(div.codeblock) {
     linear,
     left top,
     left bottom,
-    from(var(--illinois-blue)),
-    to(var(--illinois-background-darker)),
-    color-stop(0.75, var(--illinois-background-dark))
+    from(var(--osc-blue)),
+    to(var(--osc-background-darker)),
+    color-stop(0.75, var(--osc-background-dark))
   );
-  background-color: var(--illinois-background-darker);
+  background-color: var(--osc-background-darker);
   background-size:
     100% 45%,
     0%;
@@ -455,11 +455,11 @@ pre:has(div.codeblock) {
     linear,
     left top,
     left bottom,
-    from(var(--illinois-blue)),
-    to(var(--illinois-background-darker)),
-    color-stop(0.75, var(--illinois-background-dark))
+    from(var(--osc-blue)),
+    to(var(--osc-background-darker)),
+    color-stop(0.75, var(--osc-background-dark))
   );
-  background-color: var(--illinois-background-darker);
+  background-color: var(--osc-background-darker);
   */
   background-color: var(--background);
   background-size:
@@ -497,7 +497,7 @@ pre:has(div.codeblock) {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
-    var(--illinois-background-darker) 90%
+    var(--osc-background-darker) 90%
   );
 }
 
@@ -512,7 +512,7 @@ pre:has(div.codeblock) {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
-    var(--illinois-background-darker) 90%
+    var(--osc-background-darker) 90%
   );
 }
 
@@ -533,7 +533,7 @@ li {
 
 .kas-gradient-text {
   background-color: #f3ec78;
-  background-image: var(--illinois-warm-gradient);
+  background-image: var(--osc-warm-gradient);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -586,7 +586,7 @@ li {
 
 .goldUnderline {
   text-decoration: underline;
-  text-decoration-color: var(--illinois-gold);
+  text-decoration-color: var(--osc-gold);
   color: inherit;
 }
 
@@ -616,7 +616,7 @@ li {
   position: relative;
   overflow: hidden;
   /* background-color: #020307; */
-  background-color: var(--illinois-blue);
+  background-color: var(--osc-blue);
 }
 
 .skeleton-box::after {
@@ -629,9 +629,9 @@ li {
   background-image: linear-gradient(
     90deg,
     rgba(19, 41, 75, 0),
-    /* illinois-blue */ rgba(112, 115, 114, 0.2),
-    /* illinois-storm-dark */ rgba(29, 88, 167, 0.5),
-    /* illinois-industrial */ rgba(92, 14, 65, 0) /* illinois-berry */
+    /* osc-blue */ rgba(112, 115, 114, 0.2),
+    /* osc-storm-dark */ rgba(29, 88, 167, 0.5),
+    /* osc-industrial */ rgba(92, 14, 65, 0) /* osc-berry */
   );
 
   animation: shimmer 5s infinite;
@@ -652,21 +652,21 @@ li {
   /* For vertical scrollbars */
   height: 6px;
   /* For horizontal scrollbars */
-  background-color: var(--illinois-storm-dark);
+  background-color: var(--osc-storm-dark);
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: var(--illinois-blue);
+  background-color: var(--osc-blue);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--illinois-storm-medium);
+  background-color: var(--osc-storm-medium);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--illinois-scrollbar-hover);
+  background-color: var(--osc-scrollbar-hover);
   border-radius: 4px;
 }
 

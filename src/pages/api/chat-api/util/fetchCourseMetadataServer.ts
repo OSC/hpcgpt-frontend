@@ -1,4 +1,4 @@
-import { getCourseMetadata } from '~/pages/api/UIUC-api/getCourseMetadata'
+import { getCourseMetadata } from '~/pages/api/OSC-api/getCourseMetadata'
 import type { CourseMetadata } from '~/types/courseMetadata'
 
 /**

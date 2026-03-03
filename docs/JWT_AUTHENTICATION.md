@@ -35,9 +35,9 @@ All API endpoints in `/src/pages/api/` are now secured with JWT authentication m
 ### Environment Variables
 
 ```env
-NEXT_PUBLIC_KEYCLOAK_REALM=illinois-chat-realm
-NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=illinois-chat
-NEXT_PUBLIC_KEYCLOAK_BASE_URL=https://auth.illinois.edu
+NEXT_PUBLIC_KEYCLOAK_REALM=osc-chat-realm
+NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=osc-chat
+NEXT_PUBLIC_KEYCLOAK_BASE_URL=https://auth.osc.edu
 KEYCLOAK_CLIENT_SECRET=your-client-secret  # Optional, for admin operations
 ```
 
@@ -144,7 +144,7 @@ interface AuthenticatedUser {
 The following endpoints remain public (no authentication required):
 
 - `/api/healthcheck` - Health check endpoint
-- `/api/UIUC-api/isSignedIn` - Authentication status check
+- `/api/OSC-api/isSignedIn` - Authentication status check
 - `/api/auth/*` - Authentication callback endpoints
 
 ## Error Handling

@@ -1162,6 +1162,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+/*
 --
 -- Name: subscription tr_check_filters; Type: TRIGGER; Schema: realtime; Owner: supabase_admin
 --
@@ -1192,3 +1193,4 @@ BEGIN
   END IF;
 END;
 $$ LANGUAGE plpgsql;
+*/

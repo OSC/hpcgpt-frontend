@@ -1,4 +1,4 @@
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { Title, Text, Group, Badge } from '@mantine/core'
 
 import { montserrat_heading, montserrat_paragraph } from 'fonts'
@@ -36,7 +36,7 @@ export default function Unsubscribe() {
     }
 
     try {
-      const response = await fetch('/api/UIUC-api/newsletterUnsubscribe', {
+      const response = await fetch('/api/OSC-api/newsletterUnsubscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function Unsubscribe() {
           id: 'network-error-notification',
           title: 'Our database is having a bad day. 😢',
           message:
-            "Seems like we couldn't unsubscribe you. Please try again later. Email help@uiuc.chat for assistance.",
+            "Seems like we couldn't unsubscribe you. Please try again later. Email help@osc.chat for assistance.",
           autoClose: 20000,
           color: 'red',
           radius: 'lg',
@@ -83,7 +83,7 @@ export default function Unsubscribe() {
       notifications.show({
         id: 'network-error-notification',
         title: 'Our database is having a bad day. 😢',
-        message: `Seems like we couldn't unsubscribe you. Please try again later. Email help@uiuc.chat for assistance. Full error: ${error}`,
+        message: `Seems like we couldn't unsubscribe you. Please try again later. Email help@osc.chat for assistance. Full error: ${error}`,
         autoClose: 20000,
         color: 'red',
         radius: 'lg',
@@ -110,7 +110,7 @@ export default function Unsubscribe() {
           size="md"
           className={`label ${montserrat_paragraph.className} inline-block select-text p-0 text-neutral-200`}
         >
-          Unsubscribe from the UIUC.chat email newsletter.
+          Unsubscribe from the OSC.chat email newsletter.
         </Text>
         <Text
           size="sm"

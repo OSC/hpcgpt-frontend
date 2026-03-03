@@ -2,11 +2,11 @@ import { useAuth } from 'react-oidc-context'
 import { type NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { CanViewOnlyCourse } from '~/components/UIUC-Components/CanViewOnlyCourse'
-import { CannotViewCourse } from '~/components/UIUC-Components/CannotViewCourse'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
+import { CanViewOnlyCourse } from '~/components/OSC-Components/CanViewOnlyCourse'
+import { CannotViewCourse } from '~/components/OSC-Components/CannotViewCourse'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { initiateSignIn } from '~/utils/authHelpers'
 
@@ -33,7 +33,7 @@ const NotAuthorizedPage: NextPage = () => {
     async function fetchCourseMetadata(course_name: string) {
       try {
         const response = await fetch(
-          `/api/UIUC-api/getCourseMetadata?course_name=${course_name}`,
+          `/api/OSC-api/getCourseMetadata?course_name=${course_name}`,
         )
 
         // TODO: replace this with the util functions for fetchCourseMetadata() and with get_user_permission()
@@ -138,7 +138,7 @@ const NotAuthorizedPage: NextPage = () => {
             }}
           >
             <IconArrowBackUp className="mr-1 text-sm" />
-            <div>Return to Illinois Chat Home</div>
+            <div>Return to OSC Chat Home</div>
           </Button>
         </div>
 

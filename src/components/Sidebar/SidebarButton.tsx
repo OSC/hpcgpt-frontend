@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { LoadingSpinner } from '../UIUC-Components/LoadingSpinner'
+import { LoadingSpinner } from '../OSC-Components/LoadingSpinner'
 
 interface Props {
   text: string

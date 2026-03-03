@@ -2,8 +2,8 @@ import { Group, List, Title, Text, Flex } from '@mantine/core'
 import { IconExternalLink } from '@tabler/icons-react'
 import { type NextPage } from 'next'
 import Link from 'next/link'
-import { MainPageBackground } from '../components/UIUC-Components/MainPageBackground'
-import GlobalFooter from '../components/UIUC-Components/GlobalFooter'
+import { MainPageBackground } from '../components/OSC-Components/MainPageBackground'
+import GlobalFooter from '../components/OSC-Components/GlobalFooter'
 
 const CropwizardLicenses: NextPage = () => {
   return (
@@ -122,7 +122,7 @@ export const CropwizardLicenseDisclaimer = () => {
           . Usage is subject to{' '}
           <Link
             className="hover:[--dashboard-button-hover] text-[--dashboard-button] active:text-[--dashboard-button]"
-            href="https://www.vpaa.uillinois.edu/resources/terms_of_use"
+            href="https://www.vpaa.uosc.edu/resources/terms_of_use"
             style={{ transition: 'color 0.2s' }}
             target="_blank"
             rel="noopener noreferrer"
@@ -132,7 +132,7 @@ export const CropwizardLicenseDisclaimer = () => {
           , a{' '}
           <Link
             className="hover:[--dashboard-button-hover] text-[--dashboard-button] active:text-[--dashboard-button]"
-            href="https://www.vpaa.uillinois.edu/resources/web_privacy"
+            href="https://www.vpaa.uosc.edu/resources/web_privacy"
             style={{ transition: 'color 0.2s' }}
             target="_blank"
             rel="noopener noreferrer"
@@ -142,7 +142,7 @@ export const CropwizardLicenseDisclaimer = () => {
           , and{' '}
           <Link
             className="hover:[--dashboard-button-hover] text-[--dashboard-button] active:text-[--dashboard-button]"
-            href="https://www.vpaa.uillinois.edu/digital_risk_management/generative_ai/"
+            href="https://www.vpaa.uosc.edu/digital_risk_management/generative_ai/"
             style={{ transition: 'color 0.2s' }}
             target="_blank"
             rel="noopener noreferrer"

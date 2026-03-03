@@ -123,7 +123,7 @@ export type Database = {
         }
         Relationships: []
       }
-      depricated_uiuc_chatbot: {
+      depricated_osc_chatbot: {
         Row: {
           content: string | null
           created_at: string | null
@@ -948,7 +948,7 @@ export type Database = {
         }
         Relationships: []
       }
-      "uiuc-course-table": {
+      "osc-course-table": {
         Row: {
           course_name: string | null
           created_at: string

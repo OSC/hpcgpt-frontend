@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import NavigationSidebar from '~/components/Sidebar/NavigationSidebar'
-import Navbar from '~/components/UIUC-Components/navbars/Navbar'
+import Navbar from '~/components/OSC-Components/navbars/Navbar'
 
 interface SettingsLayoutProps {
   children: React.ReactNode

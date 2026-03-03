@@ -1,5 +1,5 @@
 import { type NextPage } from 'next'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 // import { Card, Image, Text, Title, Badge, Button, Group } from '@mantine/core'
 
 const PrivacyStatementPage: NextPage = () => {
@@ -13,11 +13,11 @@ const PrivacyStatementPage: NextPage = () => {
 const terms_string = `PRIVACY POLICY
 Last updated August 21, 2023
 
-Thank you for choosing to be part of our community at UIUC.chat ("Company", "we", "us", "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at rohan13@illinois.edu.
+Thank you for choosing to be part of our community at OSC.chat ("Company", "we", "us", "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at rohan13@osc.edu.
 
-When you visit our website https://uiuc.chat, mobile application, and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy notice, we describe our privacy policy. We seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue use of our Sites or Apps and our services.
+When you visit our website https://osc.chat, mobile application, and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy notice, we describe our privacy policy. We seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue use of our Sites or Apps and our services.
 
-This privacy policy applies to all information collected through our website (such as https://uiuc.chat), mobile application, ("Apps"), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Sites").
+This privacy policy applies to all information collected through our website (such as https://osc.chat), mobile application, ("Apps"), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Sites").
 
 Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us.
 
@@ -236,14 +236,14 @@ We may update this privacy policy from time to time. The updated version will be
 
 12. HOW CAN YOU CONTACT US ABOUT THIS POLICY?
 
-If you have questions or comments about this policy, you may email us at rohan13@illinois.edu or by post to:
+If you have questions or comments about this policy, you may email us at rohan13@osc.edu or by post to:
 
 Kastan Day
 1517 NE 91st ST
 Seattle , WA 98115
 United States
 Phone: 2068010466
-rohan13@illinois.edu
+rohan13@osc.edu
 `
 
 export default PrivacyStatementPage

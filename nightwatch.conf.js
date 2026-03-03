@@ -43,7 +43,7 @@ module.exports = {
   test_settings: {
     default: {
       disable_error_log: false,
-      launch_url: 'https://www.uiuc.chat/',
+      launch_url: 'https://www.osc.chat/',
 
       screenshots: {
         enabled: false,

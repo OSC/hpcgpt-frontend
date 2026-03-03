@@ -81,7 +81,7 @@ export default async function middleware(request: NextRequest) {
     const authUrl = new URL(keycloakUrl)
     authUrl.searchParams.set(
       'client_id',
-      process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'uiucchat',
+      process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'oscchat',
     )
     authUrl.searchParams.set('redirect_uri', origin)
     authUrl.searchParams.set('state', encodedState)

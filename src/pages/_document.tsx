@@ -14,7 +14,7 @@ export default function Document(props: Props) {
   useEffect(() => {
     const checkMaintenanceMode = async () => {
       try {
-        const response = await fetch('/api/UIUC-api/getMaintenanceModeFast')
+        const response = await fetch('/api/OSC-api/getMaintenanceModeFast')
         const data = await response.json()
         setIsMaintenanceMode(data.isMaintenanceMode)
       } catch (error) {
@@ -31,7 +31,7 @@ export default function Document(props: Props) {
       <Html lang={currentLocale}>
         <Head>
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-title" content="UIUC.chat"></meta>
+          <meta name="apple-mobile-web-app-title" content="OSC.chat"></meta>
           {/* Prevent search engine indexing of Maintenance page: https://github.com/vercel/next.js/discussions/12850#discussioncomment-3335807  */}
           <meta name="robots" content="noindex" />
         </Head>
@@ -47,7 +47,7 @@ export default function Document(props: Props) {
     <Html lang={currentLocale}>
       <Head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="UIUC.chat"></meta>
+        <meta name="apple-mobile-web-app-title" content="OSC.chat"></meta>
         {/* TODO: review if this is actually necessary, given toggle ThemeToggle.tsx */}
         <script
           dangerouslySetInnerHTML={{

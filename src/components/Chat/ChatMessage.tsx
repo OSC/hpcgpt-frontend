@@ -43,8 +43,8 @@ import HomeContext from '~/pages/api/home/home.context'
 import { fetchPresignedUrl } from '~/utils/apiUtils'
 import { CodeBlock } from '../Markdown/CodeBlock'
 import { MemoizedReactMarkdown } from '../Markdown/MemoizedReactMarkdown'
-import { LoadingSpinner } from '../UIUC-Components/LoadingSpinner'
-import SourcesSidebar from '../UIUC-Components/SourcesSidebar'
+import { LoadingSpinner } from '../OSC-Components/LoadingSpinner'
+import SourcesSidebar from '../OSC-Components/SourcesSidebar'
 import { ImagePreview } from './ImagePreview'
 import MessageActions from './MessageActions'
 import ThinkTagDropdown, { extractThinkTagContent } from './ThinkTagDropdown'
@@ -56,7 +56,7 @@ import { montserrat_heading, montserrat_paragraph } from 'fonts'
 import rehypeMathjax from 'rehype-mathjax'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
-import { IntermediateStateAccordion } from '../UIUC-Components/IntermediateStateAccordion'
+import { IntermediateStateAccordion } from '../OSC-Components/IntermediateStateAccordion'
 import { FeedbackModal } from './FeedbackModal'
 
 const useStyles = createStyles((theme) => ({
@@ -117,15 +117,15 @@ const FileCard: React.FC<{
     const iconProps = { size: 20 }
 
     if (type?.includes('pdf') || extension === 'pdf') {
-      return <IconFileTypePdf {...iconProps} style={{ color: 'var(--illinois-orange)' }} />
+      return <IconFileTypePdf {...iconProps} style={{ color: 'var(--osc-orange)' }} />
     }
     if (type?.includes('doc') || extension === 'docx' || extension === 'doc') {
-      return <IconFileTypeDocx {...iconProps} style={{ color: 'var(--illinois-orange)' }} />
+      return <IconFileTypeDocx {...iconProps} style={{ color: 'var(--osc-orange)' }} />
     }
     if (type?.includes('text') || extension === 'txt') {
-      return <IconFileTypeTxt {...iconProps} style={{ color: 'var(--illinois-orange)' }} />
+      return <IconFileTypeTxt {...iconProps} style={{ color: 'var(--osc-orange)' }} />
     }
-    return <IconFile {...iconProps} style={{ color: 'var(--illinois-orange)' }} />
+    return <IconFile {...iconProps} style={{ color: 'var(--osc-orange)' }} />
   }
 
   const truncateFileName = (name: string, maxLength = 30) => {
@@ -176,9 +176,9 @@ const FileCard: React.FC<{
         {truncateFileName(fileName)}
       </span>
       {isPreviewable ? (
-        <IconEye size={16} style={{ color: 'var(--illinois-orange)' }} />
+        <IconEye size={16} style={{ color: 'var(--osc-orange)' }} />
       ) : (
-        <IconFile size={16} style={{ color: 'var(--illinois-orange)' }} />
+        <IconFile size={16} style={{ color: 'var(--osc-orange)' }} />
       )}
     </div>
   )
@@ -1955,7 +1955,7 @@ export const ChatMessage = memo(
                                         styles={{
                                           root: {
                                             color: response.error
-                                              ? 'var(--illinois-white)'
+                                              ? 'var(--osc-white)'
                                               : 'var(--foreground)',
                                             backgroundColor: response.error
                                               ? 'var(--badge-error)'

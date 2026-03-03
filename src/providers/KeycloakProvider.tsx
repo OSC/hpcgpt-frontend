@@ -54,7 +54,7 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
 
   const [oidcConfig, setOidcConfig] = useState({
     authority: `${getKeycloakBaseUrl()}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}`,
-    client_id: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'uiucchat',
+    client_id: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'oscchat',
     redirect_uri: '',
     silent_redirect_uri: '',
     post_logout_redirect_uri: '',
@@ -69,10 +69,10 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
           redirectPath = '/'
         }
 
-        // Extra logic: if root path and Illinois Chat config enabled → go to /chat
+        // Extra logic: if root path and OSC Chat config enabled → go to /chat
         if (
           redirectPath === '/' &&
-          process.env.NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG === 'True'
+          process.env.NEXT_PUBLIC_USE_OSC_CHAT_CONFIG === 'True'
         ) {
           redirectPath = '/chat'
         }
@@ -205,8 +205,8 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
                     className={`text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] ${montserrat_heading.variable} font-montserratHeading`}
                   >
                     {' '}
-                    <span className="${inter.style.fontFamily} mr-2 text-[--illinois-orange]">
-                      Illinois
+                    <span className="${inter.style.fontFamily} mr-2 text-[--osc-orange]">
+                      OSC
                     </span>
                     <span className="${inter.style.fontFamily} text-[--foreground]">
                       Chat

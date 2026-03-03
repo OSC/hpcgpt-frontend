@@ -6,8 +6,8 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { ArrowNarrowRight, ExternalLink, Link } from 'tabler-icons-react'
 
 import { doto_font, montserrat_heading, montserrat_paragraph } from 'fonts'
-import GlobalFooter from '~/components/UIUC-Components/GlobalFooter'
-import { LandingPageHeader } from '~/components/UIUC-Components/navbars/GlobalHeader'
+import GlobalFooter from '~/components/OSC-Components/GlobalFooter'
+import { LandingPageHeader } from '~/components/OSC-Components/navbars/GlobalHeader'
 import router from 'next/router'
 
 // Typing animation component
@@ -76,7 +76,7 @@ const TypingAnimation: React.FC = () => {
           fontWeight: 'bold',
           fontSize: 'inherit',
           lineHeight: 1,
-          color: 'var(--illinois-white)',
+          color: 'var(--osc-white)',
           fontFamily: 'var(--font-doto)',
         }}
       >
@@ -87,7 +87,7 @@ const TypingAnimation: React.FC = () => {
             display: 'inline-block',
             width: '3px',
             height: '1.2em',
-            backgroundColor: 'var(--illinois-white)',
+            backgroundColor: 'var(--osc-white)',
             marginLeft: '2px',
             verticalAlign: 'middle',
             animation: 'blink 1s step-start infinite',
@@ -128,17 +128,17 @@ const TypingAnimation: React.FC = () => {
 
 const Home: NextPage = () => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false)
-  const useIllinoisChatConfig = useMemo(() => {
-    return process.env.NEXT_PUBLIC_USE_ILLINOIS_CHAT_CONFIG === 'True'
+  const useOSCChatConfig = useMemo(() => {
+    return process.env.NEXT_PUBLIC_USE_OSC_CHAT_CONFIG === 'True'
   }, [])
-  const IllinoisChatBannerContent = useMemo(() => {
-    return process.env.NEXT_PUBLIC_ILLINOIS_CHAT_BANNER_CONTENT || null
+  const OSCChatBannerContent = useMemo(() => {
+    return process.env.NEXT_PUBLIC_OSC_CHAT_BANNER_CONTENT || null
   }, [])
 
   return (
     <>
       <Head>
-        <title>Illinois Chat</title>
+        <title>OSC Chat</title>
         <meta
           name="description"
           content="Chat with your documents, with full support for any format and web scraping."
@@ -168,8 +168,8 @@ const Home: NextPage = () => {
       <div
         className="relative w-full py-2 text-center"
         style={{
-          background: 'var(--illinois-orange)',
-          color: 'var(--illinois-white)',
+          background: 'var(--osc-orange)',
+          color: 'var(--osc-white)',
         }}
       >
         <div
@@ -181,20 +181,20 @@ const Home: NextPage = () => {
               onMouseEnter={() => setIsTooltipVisible(true)}
               onMouseLeave={() => setIsTooltipVisible(false)}
             >
-              {/*1. If useIllinoisChatConfig && IllinoisChatBannerContent → render HTML from IllinoisChatBannerContent*/}
-              {/*2. If !useIllinoisChatConfig → render default "Heads up" banner*/}
+              {/*1. If useOSCChatConfig && OSCChatBannerContent → render HTML from OSCChatBannerContent*/}
+              {/*2. If !useOSCChatConfig → render default "Heads up" banner*/}
               {/*3. Otherwise → render nothing*/}
-              {useIllinoisChatConfig && IllinoisChatBannerContent ? (
+              {useOSCChatConfig && OSCChatBannerContent ? (
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: IllinoisChatBannerContent,
+                    __html: OSCChatBannerContent,
                   }}
                 />
-              ) : !useIllinoisChatConfig ? (
+              ) : !useOSCChatConfig ? (
                 <>
-                  Heads up: we’ve rebranded to Illinois Chat — please visit{' '}
-                  <a href="https://chat.illinois.edu" className="underline">
-                    chat.illinois.edu
+                  Heads up: we’ve rebranded to OSC Chat — please visit{' '}
+                  <a href="https://chat.osc.edu" className="underline">
+                    chat.osc.edu
                   </a>
                 </>
               ) : null}
@@ -206,7 +206,7 @@ const Home: NextPage = () => {
       <LandingPageHeader />
 
       <main
-        className={`illinois-blue-gradient-bg flex min-h-screen flex-col items-center justify-center overflow-hidden
+        className={`osc-blue-gradient-bg flex min-h-screen flex-col items-center justify-center overflow-hidden
           ${montserrat_paragraph.variable} font-montserratParagraph`}
       >
         <div className="container flex w-full max-w-5xl flex-col items-center justify-center gap-4 px-4 py-8 sm:px-8 sm:py-20">
@@ -245,8 +245,8 @@ const Home: NextPage = () => {
               <Button
                 variant="light"
                 style={{
-                  backgroundColor: 'var(--illinois-orange)',
-                  color: 'var(--illinois-white)',
+                  backgroundColor: 'var(--osc-orange)',
+                  color: 'var(--osc-white)',
                 }}
                 radius="sm"
                 onClick={() => {
@@ -261,7 +261,7 @@ const Home: NextPage = () => {
 
             <div className="order-first text-center sm:order-last sm:w-1/2">
               <div className="min-h-8 rounded-xl sm:p-4">
-                {/* p-10                style={{ background: 'var(--illinois-orange-gradient)' }} */}
+                {/* p-10                style={{ background: 'var(--osc-orange-gradient)' }} */}
                 <div className="">
                   <img
                     src="/media/banner_upload_materials.png"
@@ -285,14 +285,14 @@ const Home: NextPage = () => {
 
               <div
                 className="mr-8 mt-[2px] hidden text-right text-xs sm:mr-4 sm:mt-[-8px]"
-                style={{ color: 'var(--illinois-orange)' }}
+                style={{ color: 'var(--osc-orange)' }}
               >
                 Upload almost anything
               </div>
             </div>
           </div>
 
-          {!useIllinoisChatConfig && (
+          {!useOSCChatConfig && (
             <div className="mt-12 w-[100vw] rounded-lg bg-[--dashboard-background-faded] p-8 pb-14">
               <div className="mb-6 w-full pt-8 text-center">
                 <h2
@@ -301,7 +301,7 @@ const Home: NextPage = () => {
                   text-2xl font-bold sm:pt-2 
                   ${montserrat_heading.variable} font-montserratHeading
                 `}
-                  style={{ color: 'var(--illinois-blue)' }}
+                  style={{ color: 'var(--osc-blue)' }}
                 >
                   Flagship Chatbots
                 </h2>
@@ -311,7 +311,7 @@ const Home: NextPage = () => {
                   ${montserrat_paragraph.variable} font-montserratParagraph
                 `}
                 >
-                  Dive right into our bots trained on everything Illinois
+                  Dive right into our bots trained on everything OSC
                 </p>
               </div>
 
@@ -324,7 +324,7 @@ const Home: NextPage = () => {
 
         {/* orange banner */}
         <div
-          style={{ background: 'var(--illinois-orange-gradient)' }}
+          style={{ background: 'var(--osc-orange-gradient)' }}
           className="
           my-14
           flex w-full items-center justify-center
@@ -384,7 +384,7 @@ const Home: NextPage = () => {
             >
               <div
                 className="min-h-8 rounded-xl p-10 sm:order-last sm:w-1/2"
-                style={{ background: 'var(--illinois-orange-gradient)' }}
+                style={{ background: 'var(--osc-orange-gradient)' }}
               >
                 <img
                   src="/media/banner_step_001.png"
@@ -399,7 +399,7 @@ const Home: NextPage = () => {
                       text-4xl font-black
                       ${montserrat_heading.variable} font-montserratHeading
                     `}
-                    style={{ color: 'var(--illinois-orange)' }}
+                    style={{ color: 'var(--osc-orange)' }}
                   >
                     1
                   </div>
@@ -446,8 +446,8 @@ const Home: NextPage = () => {
                   className="mt-4 bg-neutral-400"
                   variant="light"
                   style={{
-                    color: 'var(--illinois-white)',
-                    backgroundColor: 'var(--illinois-blue)',
+                    color: 'var(--osc-white)',
+                    backgroundColor: 'var(--osc-blue)',
                   }}
                   radius="sm"
                 >
@@ -455,7 +455,7 @@ const Home: NextPage = () => {
                   <ExternalLink
                     size={20}
                     strokeWidth={1.75}
-                    color={'var(--illinois-white)'}
+                    color={'var(--osc-white)'}
                     className="ml-1"
                   />
                 </Button>
@@ -473,7 +473,7 @@ const Home: NextPage = () => {
             >
               <div
                 className="min-h-8 rounded-xl p-10 sm:w-1/2"
-                style={{ background: 'var(--illinois-orange-gradient)' }}
+                style={{ background: 'var(--osc-orange-gradient)' }}
               >
                 <img
                   src="/media/banner_step_002.png"
@@ -488,7 +488,7 @@ const Home: NextPage = () => {
                       text-4xl font-black
                       ${montserrat_heading.variable} font-montserratHeading
                     `}
-                    style={{ color: 'var(--illinois-orange)' }}
+                    style={{ color: 'var(--osc-orange)' }}
                   >
                     2
                   </div>
@@ -531,8 +531,8 @@ const Home: NextPage = () => {
                   className="mt-4 bg-neutral-400"
                   variant="light"
                   style={{
-                    color: 'var(--illinois-white)',
-                    backgroundColor: 'var(--illinois-blue)',
+                    color: 'var(--osc-white)',
+                    backgroundColor: 'var(--osc-blue)',
                   }}
                   radius="sm"
                 >
@@ -540,7 +540,7 @@ const Home: NextPage = () => {
                   <ExternalLink
                     size={20}
                     strokeWidth={1.75}
-                    color={'var(--illinois-white)'}
+                    color={'var(--osc-white)'}
                     className="ml-1"
                   />
                 </Button>
@@ -558,7 +558,7 @@ const Home: NextPage = () => {
             >
               <div
                 className="min-h-8 rounded-xl p-10 sm:order-last sm:w-1/2"
-                style={{ background: 'var(--illinois-orange-gradient)' }}
+                style={{ background: 'var(--osc-orange-gradient)' }}
               >
                 <img
                   src="/media/banner_step_003.png"
@@ -573,7 +573,7 @@ const Home: NextPage = () => {
                       text-4xl font-black
                       ${montserrat_heading.variable} font-montserratHeading
                     `}
-                    style={{ color: 'var(--illinois-orange)' }}
+                    style={{ color: 'var(--osc-orange)' }}
                   >
                     3
                   </div>
@@ -600,15 +600,15 @@ const Home: NextPage = () => {
                   >
                     discover other chatbots
                   </span>{' '}
-                  from the Illinois Chat community.
+                  from the OSC Chat community.
                 </div>
                 {/*
                 <Button
                   className="mt-4 bg-neutral-400"
                   variant="light"
                   style={{
-                    color: 'var(--illinois-white)',
-                    backgroundColor: 'var(--illinois-blue)',
+                    color: 'var(--osc-white)',
+                    backgroundColor: 'var(--osc-blue)',
                   }}
                   radius="sm"
                 >
@@ -616,7 +616,7 @@ const Home: NextPage = () => {
                   <ExternalLink
                     size={20}
                     strokeWidth={1.75}
-                    color={'var(--illinois-white)'}
+                    color={'var(--osc-white)'}
                     className="ml-1"
                   />
                 </Button>
@@ -628,7 +628,7 @@ const Home: NextPage = () => {
 
         {/* blue banner */}
         <div
-          style={{ background: 'var(--illinois-blue-gradient)' }}
+          style={{ background: 'var(--osc-blue-gradient)' }}
           className="
             my-12
             w-full overflow-hidden px-4
@@ -668,20 +668,20 @@ const Home: NextPage = () => {
                 that&apos;s trained to understand your data, come build on our
                 API with 52+ models to choose from. We&apos;re always updated
                 with the latest State of the Art (SOTA) open source LLMs for
-                free, hosted here at Illinois.
+                free, hosted here at OSC.
               </div>
 
               <Button
                 className="mt-8 bg-neutral-400"
                 variant="light"
                 style={{
-                  color: 'var(--illinois-white)',
+                  color: 'var(--osc-white)',
                   backgroundColor: 'transparent',
-                  border: '1px solid var(--illinois-white)',
+                  border: '1px solid var(--osc-white)',
                 }}
                 radius="sm"
                 component="a"
-                href="https://docs.uiuc.chat/api"
+                href="https://docs.osc.chat/api"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -689,7 +689,7 @@ const Home: NextPage = () => {
                 <ExternalLink
                   size={20}
                   strokeWidth={1.75}
-                  color={'var(--illinois-white)'}
+                  color={'var(--osc-white)'}
                   className="ml-1"
                 />
               </Button>
@@ -742,7 +742,7 @@ const Home: NextPage = () => {
                       &quot;content&quot;
                     </span>:{' '}
                     <span className="text-[#ce9178]">
-                      &quot;How do I use the Illinois Chat API?&quot;
+                      &quot;How do I use the OSC Chat API?&quot;
                     </span>
                     {'\n'}
                     {'    '}
@@ -757,7 +757,7 @@ const Home: NextPage = () => {
                     <span className="text-[#dcdcaa]">post</span>({'\n'}
                     {'  '}
                     <span className="text-[#ce9178]">
-                      &quot;https://uiuc.chat/api/chat-api/chat&quot;
+                      &quot;https://osc.chat/api/chat-api/chat&quot;
                     </span>
                     ,{'\n'}
                     {'  '}
@@ -797,8 +797,8 @@ const Home: NextPage = () => {
                 custom features on this platform. For inquiries, please contact
                 us at{' '}
                 <a
-                  style={{ color: 'var(--illinois-orange)' }}
-                  href="mailto:caii_ai@lists.illinois.edu"
+                  style={{ color: 'var(--osc-orange)' }}
+                  href="mailto:caii_ai@lists.osc.edu"
                 >
                   contact us
                 </a>
@@ -831,8 +831,8 @@ const Home: NextPage = () => {
               <div className="text-md">
                 If you have any questions or would like to submit a bug please{' '}
                 <a
-                  style={{ color: 'var(--illinois-orange)' }}
-                  href="mailto:genaisupport@mx.uillinois.edu"
+                  style={{ color: 'var(--osc-orange)' }}
+                  href="mailto:genaisupport@mx.uosc.edu"
                 >
                   email us
                 </a>
@@ -852,7 +852,7 @@ const Home: NextPage = () => {
               <div className="text-md">
                 All code is open source. Join us on{' '}
                 <a
-                  style={{ color: 'var(--illinois-orange)' }}
+                  style={{ color: 'var(--osc-orange)' }}
                   href="https://github.com/Center-for-AI-Innovation"
                 >
                   GitHub
@@ -867,20 +867,20 @@ const Home: NextPage = () => {
                 ${montserrat_heading.variable} font-montserratHeading
               `}
               >
-                Developed at Illinois
+                Developed at OSC
               </h3>
               <div className="text-md">
                 Developed by the{' '}
                 <a
-                  style={{ color: 'var(--illinois-orange)' }}
-                  href="https://ai.ncsa.illinois.edu/"
+                  style={{ color: 'var(--osc-orange)' }}
+                  href="https://ai.ncsa.osc.edu/"
                 >
                   Center of AI Innovation
                 </a>{' '}
                 at{' '}
                 <a
-                  style={{ color: 'var(--illinois-orange)' }}
-                  href="https://ncsa.illinois.edu/"
+                  style={{ color: 'var(--osc-orange)' }}
+                  href="https://ncsa.osc.edu/"
                 >
                   National Center for Supercomputing Applications
                 </a>
@@ -900,22 +900,22 @@ export default Home
 function FlagshipChatbots() {
   const cards = [
     // {
-    //   course_slug: 'Illinois', // TODO: Replace the "research finder" to Illinois when ready
+    //   course_slug: 'OSC', // TODO: Replace the "research finder" to OSC when ready
     //   imageSrc: '/media/hero_courses_banners/UofI.png',
-    //   title: 'University of Illinois',
-    //   badge: 'Illinois',
+    //   title: 'University of OSC',
+    //   badge: 'OSC',
     //   tagline: 'Ask anything about U of I',
     //   description:
-    //     "Using all of Illinois's documentation, get detailed examples, advice and information about the conference.",
+    //     "Using all of OSC's documentation, get detailed examples, advice and information about the conference.",
     // },
     {
-      course_slug: 'Research', // TODO: Replace the "research finder" to Illinois when ready
+      course_slug: 'Research', // TODO: Replace the "research finder" to OSC when ready
       imageSrc: '/media/hero_courses_banners/UofI.png',
-      title: 'Illinois Research Finder',
-      badge: 'Illinois',
+      title: 'OSC Research Finder',
+      badge: 'OSC',
       tagline: 'Find professors based on your research interests',
       description:
-        "Using all of Illinois's documentation, get detailed examples, advice and information about the conference.",
+        "Using all of OSC's documentation, get detailed examples, advice and information about the conference.",
     },
     {
       course_slug: 'NeurIPS-2024',
@@ -993,8 +993,8 @@ function FlagshipChatbots() {
           radius="md"
           className="flex h-56 flex-col"
           style={{
-            color: 'var(--illinois-blue)',
-            background: 'var(--illinois-white)',
+            color: 'var(--osc-blue)',
+            background: 'var(--osc-white)',
           }}
         >
           <Card.Section className="h-12">
@@ -1023,7 +1023,7 @@ function FlagshipChatbots() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    backgroundColor: 'var(--illinois-white)',
+                    backgroundColor: 'var(--osc-white)',
                   }}
                 />
               </div>

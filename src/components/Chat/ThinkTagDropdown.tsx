@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { IconBrain, IconChevronDown } from '@tabler/icons-react'
 import { montserrat_paragraph } from 'fonts'
-import { LoadingSpinner } from '../UIUC-Components/LoadingSpinner'
+import { LoadingSpinner } from '../OSC-Components/LoadingSpinner'
 
 interface ThinkTagDropdownProps {
   content: string

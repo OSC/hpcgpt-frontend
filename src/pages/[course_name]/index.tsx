@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { type CourseMetadata } from '~/types/courseMetadata'
 
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 
 const AUTH_ROUTES = ['sign-in', 'sign-up']

@@ -9,7 +9,7 @@ import { runAnthropicChat } from '~/app/utils/anthropic'
 import { runOllamaChat } from '~/app/utils/ollama'
 import { runVLLM } from '~/app/utils/vllm'
 import { fetchContexts, fetchMQRContexts } from '~/utils/fetchContexts'
-import { fetchImageDescription } from '~/pages/api/UIUC-api/fetchImageDescription'
+import { fetchImageDescription } from '~/pages/api/OSC-api/fetchImageDescription'
 import {
   type ChatApiBody,
   type ChatBody,
@@ -303,7 +303,7 @@ export async function determineAndValidateModel(
   if (!activeModel) {
     console.error(`Model with ID ${modelId} not found in available models.`)
     throw new Error(
-      `The requested model '${modelId}' is not available in this project. It has likely been restricted by the project's admins. You can enable this model on the admin page here: https://uiuc.chat/${projectName}/dashboard. These models are available to use: ${Array.from(
+      `The requested model '${modelId}' is not available in this project. It has likely been restricted by the project's admins. You can enable this model on the admin page here: https://osc.chat/${projectName}/dashboard. These models are available to use: ${Array.from(
         availableModels,
       )
         .filter(
@@ -638,7 +638,7 @@ export async function updateConversationInDatabase(
   // Log conversation
   try {
     const baseUrl = await getBaseUrl()
-    const response = await fetch(`${baseUrl}/api/UIUC-api/logConversation`, {
+    const response = await fetch(`${baseUrl}/api/OSC-api/logConversation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ import {
   type Content,
   type Conversation,
   type Message,
-  type UIUCTool,
+  type OSCTool,
 } from '@/types/chat'
 import { type Plugin } from '@/types/plugin'
 import posthog from 'posthog-js'
@@ -62,7 +62,7 @@ import { useFetchEnabledDocGroups } from '~/hooks/docGroupsQueries'
 import { useDeleteMessages } from '~/hooks/messageQueries'
 import { CropwizardLicenseDisclaimer } from '~/pages/cropwizard-licenses'
 
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
 
 import {
   handleFunctionCall,
@@ -267,7 +267,7 @@ export const Chat = memo(
     const onMessageReceived = async (conversation: Conversation) => {
       // Log conversation to database
       try {
-        const response = await fetch(`/api/UIUC-api/logConversation`, {
+        const response = await fetch(`/api/OSC-api/logConversation`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -297,7 +297,7 @@ export const Chat = memo(
         message: Message,
         deleteCount = 0,
         plugin: Plugin | null = null,
-        tools: UIUCTool[],
+        tools: OSCTool[],
         documentGroups: string[],
         llmProviders: AllLLMProviders,
       ) => {
@@ -860,7 +860,7 @@ export const Chat = memo(
             try {
               homeDispatch({ field: 'isRouting', value: true })
               // Check if any tools need to be run
-              const uiucToolsToRun = await handleFunctionCall(
+              const oscToolsToRun = await handleFunctionCall(
                 message,
                 tools,
                 imageUrls,
@@ -869,11 +869,11 @@ export const Chat = memo(
                 getOpenAIKey(llmProviders, courseMetadata, apiKey),
               )
               homeDispatch({ field: 'isRouting', value: false })
-              if (uiucToolsToRun.length > 0) {
+              if (oscToolsToRun.length > 0) {
                 homeDispatch({ field: 'isRunningTool', value: true })
                 // Run the tools
                 await handleToolCall(
-                  uiucToolsToRun,
+                  oscToolsToRun,
                   updatedConversation,
                   courseName,
                 )
@@ -1903,7 +1903,7 @@ export const Chat = memo(
           await updateConversationMutation.mutateAsync(updatedConversation)
 
           // Log to database
-          await fetch('/api/UIUC-api/logConversation', {
+          await fetch('/api/OSC-api/logConversation', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -1939,7 +1939,7 @@ export const Chat = memo(
     return (
       <>
         <Head>
-          <title>{getCurrentPageName()} - Illinois Chat</title>
+          <title>{getCurrentPageName()} - OSC Chat</title>
           <meta
             name="description"
             content="The easiest way to train your own AI model and share it like a Google doc."

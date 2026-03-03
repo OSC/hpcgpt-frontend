@@ -35,7 +35,7 @@ export interface Message {
   role: Role
   content: string | Content[]
   contexts?: ContextWithMetadata[]
-  tools?: UIUCTool[]
+  tools?: OSCTool[]
   latestSystemMessage?: string
   finalPromtEngineeredMessage?: string // after all prompt enginering, to generate final response.
   responseTimeSec?: number
@@ -53,7 +53,7 @@ export type MessageFeedback = {
   details: string | null
 }
 
-export interface UIUCTool {
+export interface OSCTool {
   id: string // This is the N8N workflow ID
   invocationId?: string // This is the unique ID for a specific tool *call* from OpenAI
   name: string // Openai uses this

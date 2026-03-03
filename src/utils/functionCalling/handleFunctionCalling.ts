@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { type ChatCompletionMessageToolCall } from 'openai/resources/chat/completions'
 import posthog from 'posthog-js'
-import { runN8nFlowBackend } from '~/pages/api/UIUC-api/runN8nFlow'
+import { runN8nFlowBackend } from '~/pages/api/OSC-api/runN8nFlow'
 import type { ToolOutput } from '~/types/chat'
-import { type Conversation, type Message, type UIUCTool } from '~/types/chat'
+import { type Conversation, type Message, type OSCTool } from '~/types/chat'
 import {
   type N8NParameter,
   type N8nWorkflow,
@@ -13,16 +13,16 @@ import { getBackendUrl } from '~/utils/apiUtils'
 
 export async function handleFunctionCall(
   message: Message,
-  availableTools: UIUCTool[],
+  availableTools: OSCTool[],
   imageUrls: string[],
   imageDescription: string,
   selectedConversation: Conversation,
   openaiKey: string,
   base_url?: string,
-): Promise<UIUCTool[]> {
+): Promise<OSCTool[]> {
   try {
-    // Convert UIUCTool to OpenAICompatibleTool
-    const openAITools = getOpenAIToolFromUIUCTool(availableTools)
+    // Convert OSCTool to OpenAICompatibleTool
+    const openAITools = getOpenAIToolFromOSCTool(availableTools)
     // console.log('OpenAI compatible tools (handle tools): ', openaiKey)
     const url = base_url
       ? `${base_url}/api/chat/openaiFunctionCall`
@@ -55,8 +55,8 @@ export async function handleFunctionCall(
       openaiFunctionCallResponse.choices?.[0]?.message?.tool_calls || []
     console.log('OpenAI tools to run: ', openaiResponse)
 
-    // Map tool into UIUCTool, parse arguments, and add invocation ID
-    const uiucToolsToRun: UIUCTool[] = openaiResponse.map((openaiTool) => {
+    // Map tool into OSCTool, parse arguments, and add invocation ID
+    const oscToolsToRun: OSCTool[] = openaiResponse.map((openaiTool) => {
       const baseTool = availableTools.find(
         (availableTool) => availableTool.name === openaiTool.function.name,
       )
@@ -77,7 +77,7 @@ export async function handleFunctionCall(
           description: 'Tool definition not found',
           aiGeneratedArgumentValues: JSON.parse(openaiTool.function.arguments),
           error: 'Tool definition not found in available tools list.',
-        } as UIUCTool
+        } as OSCTool
       }
 
       // Create a new object for this specific invocation
@@ -89,7 +89,7 @@ export async function handleFunctionCall(
     })
 
     // Filter out any tools that weren't found (if we didn't throw an error)
-    const validUiucToolsToRun = uiucToolsToRun.filter(
+    const validUiucToolsToRun = oscToolsToRun.filter(
       (tool) => tool.id !== 'error',
     )
 
@@ -98,7 +98,7 @@ export async function handleFunctionCall(
     selectedConversation.messages[selectedConversation.messages.length - 1] =
       message
     console.log(
-      'UIUC tools to run (with invocation IDs): ',
+      'OSC tools to run (with invocation IDs): ',
       validUiucToolsToRun,
     )
 
@@ -113,16 +113,16 @@ export async function handleFunctionCall(
 }
 
 export async function handleToolCall(
-  uiucToolsToRun: UIUCTool[],
+  oscToolsToRun: OSCTool[],
   selectedConversation: Conversation,
   projectName: string,
   base_url?: string,
 ) {
   try {
-    if (uiucToolsToRun.length > 0) {
+    if (oscToolsToRun.length > 0) {
       // Tool calling in Parallel here!!
       console.log('Running tools in parallel')
-      const toolResultsPromises = uiucToolsToRun.map(async (tool) => {
+      const toolResultsPromises = oscToolsToRun.map(async (tool) => {
         // Ensure the tool has an invocationId before proceeding
         if (!tool.invocationId) {
           console.error(
@@ -191,7 +191,7 @@ export async function handleToolCall(
 
 export async function handleToolsServer(
   message: Message,
-  availableTools: UIUCTool[],
+  availableTools: OSCTool[],
   imageUrls: string[],
   imageDescription: string,
   selectedConversation: Conversation,
@@ -200,7 +200,7 @@ export async function handleToolsServer(
   base_url?: string,
 ): Promise<Conversation> {
   try {
-    const uiucToolsToRun = await handleFunctionCall(
+    const oscToolsToRun = await handleFunctionCall(
       message,
       availableTools,
       imageUrls,
@@ -210,9 +210,9 @@ export async function handleToolsServer(
       base_url,
     )
 
-    if (uiucToolsToRun.length > 0) {
+    if (oscToolsToRun.length > 0) {
       await handleToolCall(
-        uiucToolsToRun,
+        oscToolsToRun,
         selectedConversation,
         projectName,
         base_url,
@@ -227,7 +227,7 @@ export async function handleToolsServer(
 }
 
 const callN8nFunction = async (
-  tool: UIUCTool,
+  tool: OSCTool,
   projectName: string,
   n8n_api_key: string | undefined,
   base_url?: string,
@@ -238,8 +238,8 @@ const callN8nFunction = async (
   // get n8n api key per project
   if (!n8n_api_key) {
     const url = base_url
-      ? `${base_url}/api/UIUC-api/tools/getN8nKeyFromProject?course_name=${projectName}`
-      : `/api/UIUC-api/tools/getN8nKeyFromProject?course_name=${projectName}`
+      ? `${base_url}/api/OSC-api/tools/getN8nKeyFromProject?course_name=${projectName}`
+      : `/api/OSC-api/tools/getN8nKeyFromProject?course_name=${projectName}`
 
     const response = await fetch(url, {
       method: 'GET',
@@ -261,7 +261,7 @@ const callN8nFunction = async (
 
   if (isClientSide) {
     // Client-side: use our API route
-    const response = await fetch('/api/UIUC-api/runN8nFlow', {
+    const response = await fetch('/api/OSC-api/runN8nFlow', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -418,8 +418,8 @@ const callN8nFunction = async (
   return toolOutput
 }
 
-export function getOpenAIToolFromUIUCTool(
-  tools: UIUCTool[],
+export function getOpenAIToolFromOSCTool(
+  tools: OSCTool[],
 ): OpenAICompatibleTool[] {
   return tools.map((tool) => {
     return {
@@ -461,8 +461,8 @@ export function getOpenAIToolFromUIUCTool(
   })
 }
 
-export function getUIUCToolFromN8n(workflows: N8nWorkflow[]): UIUCTool[] {
-  const extractedObjects: UIUCTool[] = []
+export function getOSCToolFromN8n(workflows: N8nWorkflow[]): OSCTool[] {
+  const extractedObjects: OSCTool[] = []
 
   for (const workflow of workflows) {
     // Only active workflows
@@ -529,7 +529,7 @@ export async function fetchTools(
   if (!api_key || api_key === 'undefined') {
     try {
       const response = await fetch(
-        `${base_url ? base_url : ''}/api/UIUC-api/tools/getN8nKeyFromProject?course_name=${course_name}`,
+        `${base_url ? base_url : ''}/api/OSC-api/tools/getN8nKeyFromProject?course_name=${course_name}`,
         {
           method: 'GET',
         },
@@ -564,7 +564,7 @@ export async function fetchTools(
   if (isClientSide) {
     // Client-side: use our API route
     response = await fetch(
-      `/api/UIUC-api/getN8nWorkflows?api_key=${api_key}&limit=${limit}&pagination=${parsedPagination}`,
+      `/api/OSC-api/getN8nWorkflows?api_key=${api_key}&limit=${limit}&pagination=${parsedPagination}`,
     )
   } else {
     // Server-side: use direct backend call
@@ -587,8 +587,8 @@ export async function fetchTools(
   const workflows = await response.json()
   if (full_details) return workflows[0]
 
-  const uiucTools = getUIUCToolFromN8n(workflows[0])
-  return uiucTools
+  const oscTools = getOSCToolFromN8n(workflows[0])
+  return oscTools
 }
 
 export const useFetchAllWorkflows = (
@@ -605,7 +605,7 @@ export const useFetchAllWorkflows = (
 
   return useQuery({
     queryKey: ['tools', api_key],
-    queryFn: async (): Promise<UIUCTool[]> =>
+    queryFn: async (): Promise<OSCTool[]> =>
       fetchTools(course_name!, api_key!, limit, pagination, full_details),
   })
 }

@@ -155,11 +155,11 @@ export const LinkGeneratorModal = ({
           />
 
           <CustomSwitch
-            label="Bypass UIUC.chat's internal prompting"
+            label="Bypass OSC.chat's internal prompting"
             tooltip={
               currentSettings.systemPromptOnly
                 ? 'This setting is currently enabled course-wide. Enabling it here will ensure it stays active even if course settings change.'
-                : "Use raw system prompt without additional internal prompting. This bypasses UIUC.chat's built-in prompts for citations and helpfulness."
+                : "Use raw system prompt without additional internal prompting. This bypasses OSC.chat's built-in prompts for citations and helpfulness."
             }
             checked={linkSettings.systemPromptOnly}
             onChange={(checked) =>

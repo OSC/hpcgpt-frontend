@@ -21,7 +21,7 @@ import {
   useUpdateConversation,
 } from '~/hooks/conversationQueries'
 import { AnimatePresence, motion } from 'framer-motion'
-import { LoadingSpinner } from '../UIUC-Components/LoadingSpinner'
+import { LoadingSpinner } from '../OSC-Components/LoadingSpinner'
 import { useDebouncedState } from '@mantine/hooks'
 import posthog from 'posthog-js'
 import { saveConversationToServer } from '~/utils/app/conversation'
@@ -161,7 +161,7 @@ export const Chatbar = ({
 
     try {
       const response = await fetch(
-        `/api/UIUC-api/downloadConvoHistoryUser?projectName=${encodeURIComponent(projectName)}`,
+        `/api/OSC-api/downloadConvoHistoryUser?projectName=${encodeURIComponent(projectName)}`,
         {
           method: 'GET',
           headers: {

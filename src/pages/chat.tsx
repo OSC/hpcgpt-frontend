@@ -1,17 +1,17 @@
-// This is uiuc.chat/chat - useful to everyone as a free alternative to ChatGPT.com and Claude.ai.
+// This is osc.chat/chat - useful to everyone as a free alternative to ChatGPT.com and Claude.ai.
 
 import { montserrat_heading } from 'fonts'
 import { type NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from 'react-oidc-context'
-import { LoadingSpinner } from '~/components/UIUC-Components/LoadingSpinner'
-import { MainPageBackground } from '~/components/UIUC-Components/MainPageBackground'
-import { get_user_permission } from '~/components/UIUC-Components/runAuthCheck'
+import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
+import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
+import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
 import Home from '~/pages/api/home/home'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
 
 const ChatPage: NextPage = () => {
   const [metadata, setMetadata] = useState<CourseMetadata | null>()

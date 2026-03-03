@@ -8,11 +8,11 @@ import { useAuth } from 'react-oidc-context'
 import SettingsLayout, {
   getInitialCollapsedState,
 } from '~/components/Layout/SettingsLayout'
-import { AuthComponent } from '~/components/UIUC-Components/AuthToEditCourse'
-import { CannotEditCourse } from '~/components/UIUC-Components/CannotEditCourse'
-import { CannotEditGPT4Page } from '~/components/UIUC-Components/CannotEditGPT4'
-import GlobalFooter from '~/components/UIUC-Components/GlobalFooter'
-import { LoadingPlaceholderForAdminPages } from '~/components/UIUC-Components/MainPageBackground'
+import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
+import { CannotEditCourse } from '~/components/OSC-Components/CannotEditCourse'
+import { CannotEditGPT4Page } from '~/components/OSC-Components/CannotEditGPT4'
+import GlobalFooter from '~/components/OSC-Components/GlobalFooter'
+import { LoadingPlaceholderForAdminPages } from '~/components/OSC-Components/MainPageBackground'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 
@@ -87,8 +87,8 @@ const CourseMain: NextPage = () => {
       <Head>
         <title>{projectName}/upload</title>
         <meta
-          name="UIUC.chat"
-          content="The AI teaching assistant built for students at UIUC."
+          name="OSC.chat"
+          content="The AI teaching assistant built for students at OSC."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
