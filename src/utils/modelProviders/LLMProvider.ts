@@ -126,6 +126,7 @@ export const VisionCapableModels: Set<
   NCSAHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
   NCSAHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT,
   NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
+  NCSAHostedVLMModelID.QWEN3_8B,
 
   // Gemini
   GeminiModelID.Gemini_2_5_Pro_Exp_03_25,
@@ -321,6 +322,7 @@ export const preferredModelIds = [
   OpenAIModelID.GPT_3_5,
   // NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
   NCSAHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
+  NCSAHostedVLMModelID.QWEN3_8B,
 ]
 
 export const selectBestModel = (

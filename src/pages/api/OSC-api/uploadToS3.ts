@@ -7,12 +7,19 @@ import { withCourseOwnerOrAdminAccess } from '~/pages/api/authorization'
 
 const handler = async (req: AuthenticatedRequest, res: NextApiResponse) => {
   try {
-    const { uniqueFileName, user_id, courseName, uploadType } = req.body as {
-      uniqueFileName: string
-      user_id?: string
-      courseName: string
-      uploadType?: 'chat' | 'document-group'
-    }
+    //const { uniqueFileName, user_id, courseName, uploadType } = req.body as {
+    //  uniqueFileName: string
+    //  user_id?: string
+    //  courseName: string
+    //  uploadType?: 'chat' | 'document-group'
+    //}
+    //console.debug('Raw request body:', req.body);
+    const body = req.body;
+    const uniqueFileName = body.uniqueFileName || '';
+    const user_id = body.user_id || '';
+    const courseName = body.courseName || '';
+    const uploadType = body.uploadType || 'document-group';
+    //console.debug('Extracted parameters:', { uniqueFileName, user_id, courseName, uploadType });
 
     // Validate required parameters based on upload type
     if (uploadType === 'chat' && !user_id) {
@@ -27,6 +34,7 @@ const handler = async (req: AuthenticatedRequest, res: NextApiResponse) => {
       uploadType === 'chat'
         ? `users/${user_id}/${uniqueFileName}`
         : `courses/${courseName}/${uniqueFileName}`
+    //console.debug('Generated S3 filepath:', s3_filepath);
     let post
     if (courseName === 'vyriad') {
       const presignedClient = getPresignedUrlVyriadClient()
@@ -41,6 +49,7 @@ const handler = async (req: AuthenticatedRequest, res: NextApiResponse) => {
         Expires: 60 * 60, // 1 hour
       })
     } else {
+      //console.debug('Using standard MinIO configuration');
       const presignedClient = getPresignedUrlClient()
       if (!presignedClient) {
         throw new Error(
@@ -54,6 +63,12 @@ const handler = async (req: AuthenticatedRequest, res: NextApiResponse) => {
       })
     }
 
+    //console.debug('Successfully generated presigned URL:', {
+    //  bucket: process.env.S3_BUCKET_NAME!,
+    //  key: s3_filepath,
+    //  url: post.url,
+    //  fields: Object.keys(post.fields)
+    //});
     res
       .status(200)
       .json({ message: 'Presigned URL generated successfully', post })

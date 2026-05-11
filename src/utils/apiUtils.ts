@@ -107,9 +107,13 @@ export const uploadToS3 = async (
 
   try {
     const endpoint = '/api/OSC-api/uploadToS3'
+    //console.debug('Uploading file to S3: ', { fileName: file.name, uniqueFileName, uploadType });
     const response = await fetch(endpoint, requestObject)
     const data: PresignedPostResponse = await response.json()
+    //console.debug('Received presigned URL response: ', data);
     const { url, fields } = data.post
+    //console.debug('Presigned URL fields: ', fields);
+    //console.debug('Presigned URL endpoint: ', url);
 
     const formData = new FormData()
     Object.entries(fields).forEach(([key, value]) =>
@@ -117,11 +121,17 @@ export const uploadToS3 = async (
     )
     formData.append('file', file)
 
-    await fetch(url, { method: 'POST', body: formData })
-    console.debug('File uploaded to S3 successfully', { file_name: file.name })
+    //console.debug('Uploading file to MinIO with presigned URL...');
+    const uploadResponse = await fetch(url, { method: 'POST', body: fomData })
+    //console.debug('Upload response: ', uploadResponse);
+    if (!uploadResponse.ok) {
+      throw new Error(`Upload failed with status: ${uploadResponse.status}`);
+    }
+    console.debug('File uploaded to S3 successfully', { file_name: file.name, key: fields.key })
     return fields.key
   } catch (error) {
     console.error('Error uploading file to S3', { error })
+    throw error;
   }
 }
 

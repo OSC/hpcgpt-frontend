@@ -10,11 +10,12 @@ const keycloakDBConnectionString = `postgres://${process.env.KEYCLOAK_DB_USERNAM
 const isLocal =
   process.env.POSTGRES_ENDPOINT === "localhost" ||
   process.env.POSTGRES_ENDPOINT === "127.0.0.1" ||
-  process.env.POSTGRES_ENDPOINT === "postgres-illinois-chat"
+  process.env.POSTGRES_ENDPOINT === "postgres-osc-chat"
 const clientOptions = isLocal
   ? {}
   : {
-      ssl: { rejectUnauthorized: false },
+      //ssl: { rejectUnauthorized: false },
+      ssl: false,
     }
 
 export const client = postgres(connectionString, clientOptions)

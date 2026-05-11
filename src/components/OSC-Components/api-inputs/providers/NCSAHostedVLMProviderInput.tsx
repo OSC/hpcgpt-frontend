@@ -37,7 +37,7 @@ export default function NCSAHostedVLMProviderInput({
           <div>
             <a
               className="mb-3"
-              href="https://ai.ncsa.osc.edu/"
+              href="https://www.osc.edu/ai"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -48,7 +48,7 @@ export default function NCSAHostedVLMProviderInput({
                   mb="xs"
                   style={{ paddingRight: '8px' }}
                 >
-                  NCSA Hosted VLMs
+                  OSC Hosted VLMs
                 </Text>
                 <IconExternalLink size={16} className="mb-3" />
               </div>
@@ -61,7 +61,7 @@ export default function NCSAHostedVLMProviderInput({
                 labelPosition="left"
                 onLabel="ON"
                 offLabel="OFF"
-                aria-label="Enable NCSA Hosted VLMs provider"
+                aria-label="Enable OSC Hosted VLMs provider"
                 checked={field.state.value}
                 onChange={(event) => {
                   field.handleChange(event.currentTarget.checked)
@@ -94,7 +94,7 @@ export default function NCSAHostedVLMProviderInput({
           </form.Field>
         </div>
         <Text size="sm" color="dimmed" mb="md">
-          Vision Language Models hosted by NCSA. These models can understand and
+          Vision Language Models hosted by OSC. These models can understand and
           analyze images in addition to text. Free for OSC students.
         </Text>
         {provider?.error &&

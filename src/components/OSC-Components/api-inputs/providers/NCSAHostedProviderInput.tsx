@@ -37,7 +37,7 @@ export default function NCSAHostedLLmsProviderInput({
           <div>
             <a
               className="mb-3"
-              href="https://ai.ncsa.osc.edu/"
+              href="https://www.osc.edu/ai"
               target="_blank"
               rel="noopener noreferrer"
             >

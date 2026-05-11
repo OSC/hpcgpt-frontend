@@ -873,16 +873,16 @@ const Home: NextPage = () => {
                 Developed by the{' '}
                 <a
                   style={{ color: 'var(--osc-orange)' }}
-                  href="https://ai.ncsa.osc.edu/"
+                  href="https://www.osc.edu/ai"
                 >
                   Center of AI Innovation
                 </a>{' '}
                 at{' '}
                 <a
                   style={{ color: 'var(--osc-orange)' }}
-                  href="https://ncsa.osc.edu/"
+                  href="https://www.osc.edu/"
                 >
-                  National Center for Supercomputing Applications
+                  Ohio Supercomputer Center
                 </a>
                 .
               </div>

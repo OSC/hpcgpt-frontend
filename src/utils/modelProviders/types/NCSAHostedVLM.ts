@@ -15,6 +15,7 @@ export enum NCSAHostedVLMModelID {
   QWEN2_VL_72B_INSTRUCT = 'Qwen/Qwen2-VL-72B-Instruct',
   QWEN2_5VL_72B_INSTRUCT = 'Qwen/Qwen2.5-VL-72B-Instruct',
   QWEN2_5VL_32B_INSTRUCT = 'Qwen/Qwen2.5-VL-32B-Instruct',
+  QWEN3_8B = 'Qwen/Qwen3-8B',
 }
 
 export const NCSAHostedVLMModels: Record<
@@ -48,6 +49,12 @@ export const NCSAHostedVLMModels: Record<
   [NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT]: {
     id: NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
     name: 'Qwen 2.5 VL 32B',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [NCSAHostedVLMModelID.QWEN3_8B]: {
+    id: NCSAHostedVLMModelID.QWEN3_8B,
+    name: 'Qwen 3 8B',
     tokenLimit: 32000,
     enabled: true,
   },
@@ -103,7 +110,7 @@ export const getNCSAHostedVLMModels = async (
       return {
         id: model.id,
         name: knownModel ? knownModel.name : 'Experimental: ' + model.id,
-        tokenLimit: model.max_tokens || knownModel.tokenLimit,
+        tokenLimit: model.max_tokens || (knownModel ? knownModel.tokenLimit : 128000),
         enabled: existingState?.enabled ?? true,
         default: existingState?.default ?? false,
       }
