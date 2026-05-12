@@ -122,7 +122,7 @@ export const uploadToS3 = async (
     formData.append('file', file)
 
     //console.debug('Uploading file to MinIO with presigned URL...');
-    const uploadResponse = await fetch(url, { method: 'POST', body: fomData })
+    const uploadResponse = await fetch(url, { method: 'POST', body: formData })
     //console.debug('Upload response: ', uploadResponse);
     if (!uploadResponse.ok) {
       throw new Error(`Upload failed with status: ${uploadResponse.status}`);
