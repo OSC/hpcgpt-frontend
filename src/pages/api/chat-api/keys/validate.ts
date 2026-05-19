@@ -1,7 +1,6 @@
 // src/pages/api/chat-api/keys/validate.ts
 import { AuthContextProps } from 'react-oidc-context'
-import { db, apiKeys, client } from '~/db/dbClient'
-import { keycloakUsers } from '~/db/schema'
+import { db, apiKeys } from '~/db/dbClient'
 import { eq, and, sql } from 'drizzle-orm'
 import posthog from 'posthog-js'
 import { NextRequest, NextResponse } from 'next/server'
@@ -41,42 +40,19 @@ export async function validateApiKeyAndRetrieveData(apiKey: string) {
       throw new Error('Email not found')
     }
 
-    // Get user data from email from keycloak
-    let keycloakDB: any = null
-    let userData: any = null;
-    if (process.env.NEXT_PUBLIC_USE_OSC_CHAT_CONFIG?.toLowerCase() === 'true'){
-      console.log('Using OSC Chat config: connect to keycloakDB to fetch user data.')
-      const mod = await import('~/db/dbClient')
-      keycloakDB = mod.keycloakDB
-      const rows = await keycloakDB
-        .select()
-        .from(keycloakUsers)
-        .where(eq(keycloakUsers.email, email))
-        .limit(1)
-      userData = rows.length > 0 ? rows[0] : null;
-    } else {
-      console.log('Using OSC Chat config: use raw SQL to fetch user data from keycloak.user_entity.')
-      // raw SQL to avoid schema issues
-      const result = await client`
-        SELECT *
-        FROM keycloak.user_entity
-        WHERE email = ${email}
-        LIMIT 1
-      `;
-      userData = result.length > 0 ? result[0] : null;
-    }
+    // For external Keycloak, we can validate the API key directly
+    // and construct a minimal user object since we already verified the API key
+    // The actual Keycloak authentication happens via JWT tokens in the frontend
 
-    if (!userData) {
-      throw new Error('User not found');
-    }
-
-    // Construct auth context
+    // Since we're using external Keycloak and the API key is valid,
+    // we can construct a minimal user context without needing local database queries
     authContext = {
       isAuthenticated: true,
       user: {
         profile: {
-          sub: String(userData.id),
-          email: String(userData.email),
+          // For external Keycloak, we can use a placeholder or extract from existing auth
+          sub: email, // Use email as a simple identifier
+          email: email,
         },
       },
     } as AuthContextProps
