@@ -1,7 +1,7 @@
 import { AuthProvider, useAuth } from 'react-oidc-context'
 import React, { type ReactNode, useEffect, useState } from 'react'
 import { WebStorageStateStore } from 'oidc-client-ts'
-import { getKeycloakBaseUrl } from '~/utils/authHelpers'
+import { getKeycloakBaseUrl, getKeycloakIssuerUrl } from '~/utils/authHelpers'
 import Link from 'next/link'
 import { montserrat_heading } from '../../fonts'
 import { Flex, Title } from '@mantine/core'
@@ -53,7 +53,8 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
   const [isAuthCallback, setIsAuthCallback] = useState(false)
 
   const [oidcConfig, setOidcConfig] = useState({
-    authority: `${getKeycloakBaseUrl()}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}`,
+    //authority: `${getKeycloakBaseUrl()}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}`,
+    authority : `${getKeycloakIssuerUrl(undefined)}`,
     client_id: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'oscchat',
     redirect_uri: '',
     silent_redirect_uri: '',

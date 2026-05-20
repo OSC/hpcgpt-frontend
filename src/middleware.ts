@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getKeycloakBaseFromHost } from '~/utils/authHelpers'
+import { getKeycloakBaseFromHost, getKeycloakIssuerUrl } from '~/utils/authHelpers'
 
 // // Private by default, public routes are defined below (regex)
 // const isPublicRoute = createRouteMatcher([
@@ -76,8 +76,10 @@ export default async function middleware(request: NextRequest) {
       request.headers.get('host') ??
       'localhost';
 
-    const keycloakBaseUrl = getKeycloakBaseFromHost(hostname);
-    const keycloakUrl = `${keycloakBaseUrl}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}/protocol/openid-connect/auth`
+    //const keycloakBaseUrl = getKeycloakBaseFromHost(hostname);
+    //const keycloakUrl = `${keycloakBaseUrl}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}/protocol/openid-connect/auth`
+    const issuerUrl = getKeycloakIssuerUrl(hostname)
+    const keycloakUrl = `${issuerUrl}/protocol/openid-connect/auth`
     const authUrl = new URL(keycloakUrl)
     authUrl.searchParams.set(
       'client_id',
