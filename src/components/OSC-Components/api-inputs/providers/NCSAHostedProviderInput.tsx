@@ -48,7 +48,7 @@ export default function NCSAHostedLLmsProviderInput({
                   mb="xs"
                   style={{ paddingRight: '8px' }}
                 >
-                  NCSA Hosted LLMs
+                  OSC Hosted LLMs
                 </Text>
                 <IconExternalLink size={16} className="mb-3" />
               </div>
@@ -61,7 +61,7 @@ export default function NCSAHostedLLmsProviderInput({
                 labelPosition="left"
                 onLabel="ON"
                 offLabel="OFF"
-                aria-label="Enable NCSA Hosted LLMs provider"
+                aria-label="Enable OSC Hosted LLMs provider"
                 checked={field.state.value}
                 onChange={(event) => {
                   field.handleChange(event.currentTarget.checked)

@@ -10,8 +10,8 @@
 
 :root {
   /* Primary Colors */
-  --osc-orange: #ff5f05;
-  --osc-blue: #13294b;
+  --osc-orange: #c02735;
+  --osc-blue: #103f75;
 
   /* Secondary Colors (Storm) */
   --osc-storm-dark: #707372;
@@ -47,8 +47,8 @@
   --osc-purple-light: #9d4edd;
 
   /* Gradients */
-  --osc-blue-gradient: linear-gradient(135deg, #1d58a7, #13294b);
-  --osc-orange-gradient: linear-gradient(-135deg, #fcb316, #ff5f05);
+  --osc-blue-gradient: linear-gradient(135deg, #1d58a7, #103f75);
+  --osc-orange-gradient: linear-gradient(-135deg, #ff5f05, #c02735);
 
   /* Scrollbar Colors */
   --osc-scrollbar-track: transparent;

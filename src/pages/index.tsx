@@ -899,6 +899,7 @@ export default Home
 
 function FlagshipChatbots() {
   const cards = [
+/*
     // {
     //   course_slug: 'OSC', // TODO: Replace the "research finder" to OSC when ready
     //   imageSrc: '/media/hero_courses_banners/UofI.png',
@@ -937,7 +938,6 @@ function FlagshipChatbots() {
       description:
         "Using all of Delta's documentation, get detailed examples, advice and information about how to use the Delta supercomputer.",
     },
-    /*
     {
       course_slug: 'clowder-docs',
       imageSrc: '/media/hero_courses_banners/clowder_logo.png',
@@ -980,6 +980,16 @@ function FlagshipChatbots() {
     },
 */
     // Add more cards here
+    {
+      course_slug: 'OSCDocs',
+      imageSrc: '/media/hero_courses_banners/osc.png',
+      title: 'Ohio Supercomputer Center',
+      badge: 'OSC Docs',
+      tagline:
+        "Quickstart on our clusters, it'll write SLRUM scripts for you 😁",
+      description:
+        "Using all of OSC's documentation, get detailed examples, advice and information about how to use our clusters.",
+    },
   ]
 
   return (

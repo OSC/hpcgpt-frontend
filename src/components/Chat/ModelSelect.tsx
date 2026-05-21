@@ -66,9 +66,9 @@ export const getModelLogo = (modelType: string) => {
     case ProviderNames.Anthropic:
       return '/media/llm_icons/Anthropic.png'
     case ProviderNames.NCSAHosted:
-      return '/media/llm_icons/NCSAHosted.png'
+      return '/media/llm_icons/OSCHosted.png'
     case ProviderNames.NCSAHostedVLM:
-      return '/media/llm_icons/NCSAHosted.png'
+      return '/media/llm_icons/OSCHosted.png'
     case ProviderNames.Azure:
       return '/media/llm_icons/Azure.png'
     case ProviderNames.Bedrock:
@@ -564,20 +564,20 @@ export const ModelSelect = React.forwardRef<HTMLDivElement, any>(
                         className={`${montserrat_paragraph.variable} flex-1 p-4 font-montserratParagraph`}
                       >
                         <div className="space-y-6">
-                          {/* NCSA VLM Section */}
+                          {/* OSC VLM Section */}
                           <div>
                             <Text
                               size={'sm'}
                               className={`${montserrat_heading.variable} mb-2 font-montserratHeading font-semibold`}
                             >
-                              NCSA Hosted Models (100% free)
+                              OSC Hosted Models (100% free)
                             </Text>
                             <Text
                               size={'sm'}
                               className={`${montserrat_paragraph.variable} font-montserratParagraph`}
                             >
                               The best free option is the Qwen 2 72B model,
-                              hosted by NCSA.
+                              hosted by OSC.
                             </Text>
                           </div>
 

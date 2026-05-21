@@ -220,7 +220,7 @@ export interface NCSAHostedProvider extends BaseLLMProvider {
 }
 
 export interface NCSAHostedVLMProvider extends BaseLLMProvider {
-  // This uses Ollama, but hosted by NCSA. Keep it separate.
+  // This uses Ollama, but hosted by OSC. Keep it separate.
   provider: ProviderNames.NCSAHostedVLM
   models?: NCSAHostedVLMModel[]
 }

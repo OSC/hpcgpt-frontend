@@ -485,8 +485,8 @@ axios.post('${baseUrl}/api/chat-api/chat', data, {
                           spacing="xs"
                         >
                           <List.Item>
-                            NCSA hosted models like Qwen and Llama are hosted by
-                            NCSA and they are free!
+                            OSC hosted models like Qwen and Llama are hosted by
+                            OSC and they are free!
                           </List.Item>
                           <List.Item>
                             GPT-4o-mini offers the best price/performance ratio
