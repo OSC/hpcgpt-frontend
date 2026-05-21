@@ -24,10 +24,10 @@ import {
   GeminiModels,
 } from '~/utils/modelProviders/types/gemini'
 import {
-  type NCSAHostedVLMModel,
-  NCSAHostedVLMModelID,
-  NCSAHostedVLMModels,
-} from '~/utils/modelProviders/types/NCSAHostedVLM'
+  type OSCHostedVLMModel,
+  OSCHostedVLMModelID,
+  OSCHostedVLMModels,
+} from '~/utils/modelProviders/types/OSCHostedVLM'
 import {
   type OpenAIModel,
   OpenAIModelID,
@@ -46,8 +46,8 @@ export enum ProviderNames {
   Azure = 'Azure',
   Anthropic = 'Anthropic',
   WebLLM = 'WebLLM',
-  NCSAHosted = 'NCSAHosted',
-  NCSAHostedVLM = 'NCSAHostedVLM',
+  OSCHosted = 'OSCHosted',
+  OSCHostedVLM = 'OSCHostedVLM',
   Bedrock = 'Bedrock',
   Gemini = 'Gemini',
   SambaNova = 'SambaNova',
@@ -55,8 +55,8 @@ export enum ProviderNames {
 
 // Define the preferred order of providers, like in modelSelect dropdown
 export const LLM_PROVIDER_ORDER: ProviderNames[] = [
-  ProviderNames.NCSAHostedVLM,
-  ProviderNames.NCSAHosted,
+  ProviderNames.OSCHostedVLM,
+  ProviderNames.OSCHosted,
   ProviderNames.Anthropic,
   ProviderNames.OpenAI,
   ProviderNames.Azure,
@@ -73,7 +73,7 @@ export type AnySupportedModel =
   | WebllmModel
   | AnthropicModel
   | AzureModel
-  | NCSAHostedVLMModel
+  | OSCHostedVLMModel
   | BedrockModel
   | GeminiModel
   | SambaNovaModel
@@ -82,7 +82,7 @@ export const VisionCapableModels: Set<
   | OpenAIModelID
   | AzureModelID
   | AnthropicModelID
-  | NCSAHostedVLMModelID
+  | OSCHostedVLMModelID
   | GeminiModelID
   | BedrockModelID
   | SambaNovaModelID
@@ -121,12 +121,12 @@ export const VisionCapableModels: Set<
   AnthropicModelID.Claude_3_5_Haiku,
 
   // VLM
-  NCSAHostedVLMModelID.Llama_3_2_11B_Vision_Instruct,
-  NCSAHostedVLMModelID.MOLMO_7B_D_0924,
-  NCSAHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
-  NCSAHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT,
-  NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
-  NCSAHostedVLMModelID.QWEN3_8B,
+  OSCHostedVLMModelID.Llama_3_2_11B_Vision_Instruct,
+  OSCHostedVLMModelID.MOLMO_7B_D_0924,
+  OSCHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
+  OSCHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT,
+  OSCHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
+  OSCHostedVLMModelID.QWEN3_8B,
 
   // Gemini
   GeminiModelID.Gemini_2_5_Pro_Exp_03_25,
@@ -170,7 +170,7 @@ export const AllSupportedModels: Set<GenericSupportedModel> = new Set([
   ...Object.values(OpenAIModels),
   ...Object.values(AzureModels),
   ...Object.values(OllamaModels),
-  ...Object.values(NCSAHostedVLMModels),
+  ...Object.values(OSCHostedVLMModels),
   ...Object.values(BedrockModels),
   ...Object.values(GeminiModels),
   ...Object.values(SambaNovaModels),
@@ -213,16 +213,16 @@ export interface OllamaProvider extends BaseLLMProvider {
   models?: OllamaModel[]
 }
 
-export interface NCSAHostedProvider extends BaseLLMProvider {
-  // This uses Ollama, but hosted by NCSA. Keep it separate.
-  provider: ProviderNames.NCSAHosted
+export interface OSCHostedProvider extends BaseLLMProvider {
+  // This uses Ollama, but hosted by OSC. Keep it separate.
+  provider: ProviderNames.OSCHosted
   models?: OllamaModel[]
 }
 
-export interface NCSAHostedVLMProvider extends BaseLLMProvider {
+export interface OSCHostedVLMProvider extends BaseLLMProvider {
   // This uses Ollama, but hosted by OSC. Keep it separate.
-  provider: ProviderNames.NCSAHostedVLM
-  models?: NCSAHostedVLMModel[]
+  provider: ProviderNames.OSCHostedVLM
+  models?: OSCHostedVLMModel[]
 }
 
 export interface OpenAIProvider extends BaseLLMProvider {
@@ -274,8 +274,8 @@ export type LLMProvider =
   | AzureProvider
   | AnthropicProvider
   | WebLLMProvider
-  | NCSAHostedProvider
-  | NCSAHostedVLMProvider
+  | OSCHostedProvider
+  | OSCHostedVLMProvider
   | BedrockProvider
   | GeminiProvider
   | SambaNovaProvider
@@ -320,9 +320,9 @@ export const preferredModelIds = [
   OpenAIModelID.GPT_4,
   AzureModelID.GPT_4,
   OpenAIModelID.GPT_3_5,
-  // NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
-  NCSAHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
-  NCSAHostedVLMModelID.QWEN3_8B,
+  // OSCHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
+  OSCHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
+  OSCHostedVLMModelID.QWEN3_8B,
 ]
 
 export const selectBestModel = (
@@ -338,8 +338,8 @@ export const selectBestModel = (
 
   const defaultModelId = localStorage.getItem('defaultModel')
 
-  if (defaultModelId === NCSAHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT) {
-    return NCSAHostedVLMModels[NCSAHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT]
+  if (defaultModelId === OSCHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT) {
+    return OSCHostedVLMModels[OSCHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT]
   }
 
   if (defaultModelId && allModels.find((m) => m.id === defaultModelId)) {
@@ -371,5 +371,5 @@ export const selectBestModel = (
   }
 
   // If no preferred models are available, fallback to Qwen2.5-VL-72B-Instruct
-  return NCSAHostedVLMModels[NCSAHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT]
+  return OSCHostedVLMModels[OSCHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT]
 }

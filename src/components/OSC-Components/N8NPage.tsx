@@ -482,16 +482,16 @@ const MakeToolsPage = ({ course_name }: { course_name: string }) => {
                             >
                               <List.Item>
                                 Tool use via LLMs is invite-only to prevent
-                                abuse. Please shoot our admin an email for
+                                abuse. Please shoot us an email for
                                 access:{' '}
                                 <a
-                                  href="mailto:rohan13@osc.edu"
+                                  href="mailto:oschelp@osc.edu"
                                   style={{
                                     color: 'var(--link)',
                                     textDecoration: 'underline',
                                   }}
                                 >
-                                  rohan13@osc.edu
+                                  oschelp@osc.edu
                                 </a>
                               </List.Item>
                               <List.Item>

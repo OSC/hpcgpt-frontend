@@ -3,17 +3,17 @@ import { Text, Switch, Card, Skeleton } from '@mantine/core'
 import { IconCheck, IconExternalLink, IconX } from '@tabler/icons-react'
 import { ModelToggles } from '../ModelToggles'
 import {
-  type NCSAHostedProvider,
+  type OSCHostedProvider,
   ProviderNames,
 } from '~/utils/modelProviders/LLMProvider'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function NCSAHostedLLmsProviderInput({
+export default function OSCHostedLLmsProviderInput({
   provider,
   form,
   isLoading,
 }: {
-  provider: NCSAHostedProvider
+  provider: OSCHostedProvider
   form: any
   isLoading: boolean
 }) {
@@ -54,7 +54,7 @@ export default function NCSAHostedLLmsProviderInput({
               </div>
             </a>
           </div>
-          <form.Field name={`providers.${ProviderNames.NCSAHosted}.enabled`}>
+          <form.Field name={`providers.${ProviderNames.OSCHosted}.enabled`}>
             {(field: any) => (
               <Switch
                 size="md"
@@ -98,7 +98,7 @@ export default function NCSAHostedLLmsProviderInput({
           National Center for Supercomputing Applications. They&apos;re free.
         </Text>
         {provider?.error &&
-          (form.state.values?.providers?.NCSAHosted?.enabled ||
+          (form.state.values?.providers?.OSCHosted?.enabled ||
             provider.enabled) && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -121,7 +121,7 @@ export default function NCSAHostedLLmsProviderInput({
               </Text>
             </motion.div>
           )}
-        <form.Field name={`providers.${ProviderNames.NCSAHosted}.enabled`}>
+        <form.Field name={`providers.${ProviderNames.OSCHosted}.enabled`}>
           {(field: any) => (
             <AnimatePresence>
               {field.state.value && (

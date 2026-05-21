@@ -27,7 +27,7 @@ import {
   type BedrockProvider,
   type GeminiProvider,
   type GenericSupportedModel,
-  type NCSAHostedVLMProvider,
+  type OSCHostedVLMProvider,
   type OllamaProvider,
   ProviderNames,
   type SambaNovaProvider,
@@ -40,7 +40,7 @@ import { openAIAzureChat } from './modelProviders/OpenAIAzureChat'
 import { AnthropicModelID } from './modelProviders/types/anthropic'
 import { BedrockModelID } from './modelProviders/types/bedrock'
 import { GeminiModelID } from './modelProviders/types/gemini'
-import { NCSAHostedVLMModelID } from './modelProviders/types/NCSAHostedVLM'
+import { OSCHostedVLMModelID } from './modelProviders/types/OSCHostedVLM'
 import { OpenAIModelID } from './modelProviders/types/openai'
 import { SambaNovaModelID } from './modelProviders/types/SambaNova'
 import { webLLMModels } from './modelProviders/WebLLM'
@@ -822,14 +822,14 @@ export const routeModelRequest = async (
   })
 
   if (
-    Object.values(NCSAHostedVLMModelID).includes(
+    Object.values(OSCHostedVLMModelID).includes(
       selectedConversation.model.id as any,
     )
   ) {
-    // NCSA Hosted VLM
+    // OSC Hosted VLM
     return await runVLLM(
       selectedConversation,
-      chatBody?.llmProviders?.NCSAHostedVLM as NCSAHostedVLMProvider,
+      chatBody?.llmProviders?.OSCHostedVLM as OSCHostedVLMProvider,
       chatBody.stream,
     )
   } else if (

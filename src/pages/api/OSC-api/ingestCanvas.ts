@@ -35,9 +35,9 @@ const handler = async (req: AuthenticatedRequest, res: NextApiResponse) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to_recipients_list: ['rohan13@osc.edu'],
+          to_recipients_list: ['skhuvis@osc.edu'],
           bcc_recipients_list: [],
-          sender: 'rohan13@osc.edu',
+          sender: 'skhuvis@osc.edu',
           subject: 'New Canvas Course Ingestion Request',
           body_text: `New Canvas course ingestion request received:
 Course Name: ${courseName}

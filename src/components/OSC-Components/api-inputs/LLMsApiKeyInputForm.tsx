@@ -36,8 +36,8 @@ import {
   type BedrockProvider,
   type GeminiProvider,
   type LLMProvider,
-  type NCSAHostedProvider,
-  type NCSAHostedVLMProvider,
+  type OSCHostedProvider,
+  type OSCHostedVLMProvider,
   type OllamaProvider,
   type OpenAIProvider,
   type ProviderNames,
@@ -51,8 +51,8 @@ import AnthropicProviderInput from './providers/AnthropicProviderInput'
 import AzureProviderInput from './providers/AzureProviderInput'
 import BedrockProviderInput from './providers/BedrockProviderInput'
 import GeminiProviderInput from './providers/GeminiProviderInput'
-import NCSAHostedLLmsProviderInput from './providers/NCSAHostedProviderInput'
-import NCSAHostedVLMProviderInput from './providers/NCSAHostedVLMProviderInput'
+import OSCHostedLLmsProviderInput from './providers/OSCHostedProviderInput'
+import OSCHostedVLMProviderInput from './providers/OSCHostedVLMProviderInput'
 import OllamaProviderInput from './providers/OllamaProviderInput'
 import OpenAIProviderInput from './providers/OpenAIProviderInput'
 import SambaNovaProviderInput from './providers/SambaNovaProviderInput'
@@ -757,16 +757,16 @@ export default function APIKeyInputForm() {
                               w={'100%'}
                             >
                               {' '}
-                              <NCSAHostedLLmsProviderInput
+                              <OSCHostedLLmsProviderInput
                                 provider={
-                                  llmProviders?.NCSAHosted as NCSAHostedProvider
+                                  llmProviders?.OSCHosted as OSCHostedProvider
                                 }
                                 form={form}
                                 isLoading={isLoadingLLMProviders}
                               />
-                              <NCSAHostedVLMProviderInput
+                              <OSCHostedVLMProviderInput
                                 provider={
-                                  llmProviders?.NCSAHostedVLM as NCSAHostedVLMProvider
+                                  llmProviders?.OSCHostedVLM as OSCHostedVLMProvider
                                 }
                                 form={form}
                                 isLoading={isLoadingLLMProviders}

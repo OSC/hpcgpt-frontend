@@ -3,17 +3,17 @@ import { Text, Switch, Card, Skeleton } from '@mantine/core'
 import { IconCheck, IconExternalLink, IconX } from '@tabler/icons-react'
 import { ModelToggles } from '../ModelToggles'
 import {
-  type NCSAHostedVLMProvider,
+  type OSCHostedVLMProvider,
   ProviderNames,
 } from '~/utils/modelProviders/LLMProvider'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function NCSAHostedVLMProviderInput({
+export default function OSCHostedVLMProviderInput({
   provider,
   form,
   isLoading,
 }: {
-  provider: NCSAHostedVLMProvider
+  provider: OSCHostedVLMProvider
   form: any
   isLoading: boolean
 }) {
@@ -54,7 +54,7 @@ export default function NCSAHostedVLMProviderInput({
               </div>
             </a>
           </div>
-          <form.Field name={`providers.${ProviderNames.NCSAHostedVLM}.enabled`}>
+          <form.Field name={`providers.${ProviderNames.OSCHostedVLM}.enabled`}>
             {(field: any) => (
               <Switch
                 size="md"
@@ -98,7 +98,7 @@ export default function NCSAHostedVLMProviderInput({
           analyze images in addition to text. Free for OSC students.
         </Text>
         {provider?.error &&
-          (form.state.values?.providers?.NCSAHostedVLM?.enabled ||
+          (form.state.values?.providers?.OSCHostedVLM?.enabled ||
             provider.enabled) && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -121,7 +121,7 @@ export default function NCSAHostedVLMProviderInput({
               </Text>
             </motion.div>
           )}
-        <form.Field name={`providers.${ProviderNames.NCSAHostedVLM}.enabled`}>
+        <form.Field name={`providers.${ProviderNames.OSCHostedVLM}.enabled`}>
           {(field: any) => (
             <AnimatePresence>
               {field.state.value && (

@@ -141,10 +141,10 @@ const ListProjectTable: React.FC = () => {
           break
         case 'admins':
           const adminsA = metadataA.course_admins
-            .filter((admin: string) => admin !== 'rohan13@osc.edu')
+            .filter((admin: string) => admin !== 'skhuvis@osc.edu')
             .join(', ')
           const adminsB = metadataB.course_admins
-            .filter((admin: string) => admin !== 'rohan13@osc.edu')
+            .filter((admin: string) => admin !== 'skhuvis@osc.edu')
             .join(', ')
           comparison = adminsA
             .toLowerCase()
@@ -164,7 +164,7 @@ const ListProjectTable: React.FC = () => {
         if (!courseMetadata) return null
 
         const filteredAdmins = courseMetadata.course_admins.filter(
-          (admin: string) => admin !== 'rohan13@osc.edu',
+          (admin: string) => admin !== 'skhuvis@osc.edu',
         )
 
         return (

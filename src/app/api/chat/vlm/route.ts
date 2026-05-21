@@ -17,7 +17,7 @@ async function handler(req: AuthenticatedRequest): Promise<NextResponse> {
     console.log('In POST handler for VLM', conversation.messages[0].content)
 
     const openai = createOpenAI({
-      baseURL: process.env.NCSA_HOSTED_VLM_BASE_URL,
+      baseURL: process.env.OSC_HOSTED_VLM_BASE_URL,
       apiKey: 'non-empty',
       compatibility: 'compatible', // strict/compatible - enable 'strict' when using the OpenAI API
     })

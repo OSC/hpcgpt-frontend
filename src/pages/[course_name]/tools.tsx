@@ -106,9 +106,9 @@ const ToolsPage: NextPage = () => {
           style={{ marginTop: '4rem' }}
         >
           You&apos;ve encountered a software bug!<br></br>Your account has no
-          email address. Please shoot me an email so I can fix it for you:{' '}
-          <a className="goldUnderline" href="mailto:rohan13@osc.edu">
-            rohan13@osc.edu
+          email address. Please shoot us an email so we can fix it for you:{' '}
+          <a className="goldUnderline" href="mailto:oschelp@osc.edu">
+            oschelp@osc.edu
           </a>
         </Title>
       </MainPageBackground>

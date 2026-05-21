@@ -65,9 +65,9 @@ export const getModelLogo = (modelType: string) => {
       return '/media/llm_icons/WebLLM.png'
     case ProviderNames.Anthropic:
       return '/media/llm_icons/Anthropic.png'
-    case ProviderNames.NCSAHosted:
+    case ProviderNames.OSCHosted:
       return '/media/llm_icons/OSCHosted.png'
-    case ProviderNames.NCSAHostedVLM:
+    case ProviderNames.OSCHostedVLM:
       return '/media/llm_icons/OSCHosted.png'
     case ProviderNames.Azure:
       return '/media/llm_icons/Azure.png'

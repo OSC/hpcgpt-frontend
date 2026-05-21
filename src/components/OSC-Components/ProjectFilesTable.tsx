@@ -410,7 +410,7 @@ export function ProjectFilesTable({
         // position="top-center",
         title: was_error ? 'Error deleting file' : 'Deleting file...',
         message: was_error
-          ? "An error occurred while deleting the file. Please try again and I'd be so grateful if you email rohan13@osc.edu to report this bug."
+          ? "An error occurred while deleting the file. Please try again and we'd be so grateful if you email oschelp@osc.edu to report this bug."
           : 'The file is being deleted in the background.',
         icon: was_error ? <IconAlertTriangle /> : <IconCheck />,
         styles: {

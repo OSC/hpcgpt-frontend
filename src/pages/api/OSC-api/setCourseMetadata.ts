@@ -20,7 +20,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
   const banner_image_s3 = req.query.banner_image_s3 as string
   const is_private = JSON.parse((req.query.is_private as string) || 'false')
   const course_admins = JSON.parse(
-    (req.query.course_admins as string) || '["rohan13@osc.edu"]',
+    (req.query.course_admins as string) || '["skhuvis@osc.edu"]',
   )
   const approved_emails_list = JSON.parse(
     (req.query.approved_emails_list as string) || '[]',

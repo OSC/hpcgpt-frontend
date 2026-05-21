@@ -2,7 +2,7 @@ import { createOllama } from 'ollama-ai-provider'
 import { type CoreMessage, generateText, streamText } from 'ai'
 import { type Conversation } from '~/types/chat'
 import {
-  type NCSAHostedProvider,
+  type OSCHostedProvider,
   type OllamaProvider,
 } from '~/utils/modelProviders/LLMProvider'
 import { decryptKeyIfNeeded } from '~/utils/crypto'
@@ -10,7 +10,7 @@ import { NextResponse } from 'next/server'
 
 export async function runOllamaChat(
   conversation: Conversation,
-  ollamaProvider: OllamaProvider | NCSAHostedProvider,
+  ollamaProvider: OllamaProvider | OSCHostedProvider,
   stream: boolean,
 ) {
   try {
@@ -29,7 +29,7 @@ export async function runOllamaChat(
       const ollama = createOllama({
         baseURL: `${(await decryptKeyIfNeeded(ollamaProvider.baseUrl!)) as string}/api`,
         headers: {
-          Authorization: `Bearer ${process.env.NCSA_HOSTED_API_KEY || ''}`,
+          Authorization: `Bearer ${process.env.OSC_HOSTED_API_KEY || ''}`,
         },
       })
 

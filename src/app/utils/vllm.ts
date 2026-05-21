@@ -1,13 +1,13 @@
 import { type CoreMessage, generateText, streamText } from 'ai'
 import { type Conversation } from '~/types/chat'
-import { type NCSAHostedVLMProvider } from '~/utils/modelProviders/LLMProvider'
+import { type OSCHostedVLMProvider } from '~/utils/modelProviders/LLMProvider'
 export const dynamic = 'force-dynamic'
 
 import { createOpenAI } from '@ai-sdk/openai'
 
 export async function runVLLM(
   conversation: Conversation,
-  ncsaHostedVLMProvider: NCSAHostedVLMProvider,
+  oscHostedVLMProvider: OSCHostedVLMProvider,
   stream: boolean,
 ) {
   try {
@@ -16,8 +16,8 @@ export async function runVLLM(
     }
 
     const vlmModel = createOpenAI({
-      baseURL: process.env.NCSA_HOSTED_VLM_BASE_URL,
-      apiKey: process.env.NCSA_HOSTED_API_KEY || '',
+      baseURL: process.env.OSC_HOSTED_VLM_BASE_URL,
+      apiKey: process.env.OSC_HOSTED_API_KEY || '',
       compatibility: 'compatible', // strict/compatible - enable 'strict' when using the OpenAI API
     })
     if (conversation.messages.length === 0) {

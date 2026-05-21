@@ -21,7 +21,7 @@ import {
 import {
   type AllLLMProviders,
   type AzureProvider,
-  type NCSAHostedVLMProvider,
+  type OSCHostedVLMProvider,
   type OpenAIProvider,
   ProviderNames,
   ReasoningCapableModels,
@@ -85,19 +85,19 @@ export const OpenAIStream = async (
         }
       })
     } else if (
-      llmProviders.NCSAHostedVLM.enabled &&
-      (llmProviders.NCSAHostedVLM.models || [])
+      llmProviders.OSCHostedVLM.enabled &&
+      (llmProviders.OSCHostedVLM.models || [])
         .filter((m) => m.enabled)
         .some((oaiModel) => oaiModel.id === model.id)
     ) {
-      // NCSA Hosted VLM
+      // OSC Hosted VLM
       provider = llmProviders[
-        ProviderNames.NCSAHostedVLM
-        ] as NCSAHostedVLMProvider
+        ProviderNames.OSCHostedVLM
+        ] as OSCHostedVLMProvider
       // provider.apiKey = await decryptKeyIfNeeded(provider.apiKey!)
-      provider.apiKey = process.env.NCSA_HOSTED_API_KEY || ''
-      apiType = ProviderNames.NCSAHostedVLM
-      url = `${process.env.NCSA_HOSTED_VLM_BASE_URL}/chat/completions`
+      provider.apiKey = process.env.OSC_HOSTED_API_KEY || ''
+      apiType = ProviderNames.OSCHostedVLM
+      url = `${process.env.OSC_HOSTED_VLM_BASE_URL}/chat/completions`
     } else {
       throw new Error(
         'Unsupported OpenAI or Azure configuration. Try a different model, or re-configure your OpenAI/Azure API keys.',
@@ -152,7 +152,7 @@ export const OpenAIStream = async (
         OPENAI_ORGANIZATION && {
           'OpenAI-Organization': OPENAI_ORGANIZATION,
         }),
-      ...(apiType === ProviderNames.NCSAHostedVLM && {
+      ...(apiType === ProviderNames.OSCHostedVLM && {
         Authorization: `Bearer ${provider!.apiKey}`,
       }),
     },

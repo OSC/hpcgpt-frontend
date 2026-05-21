@@ -160,7 +160,7 @@ function NomicDocumentMap({ course_name }: { course_name: string }) {
                   Note you are unable to login or edit this map. It&apos;s for
                   your visualization only. Please{' '}
                   <a
-                    href="mailto:rohan13@osc.edu"
+                    href="mailto:skhuvis@osc.edu"
                     className="text-[--dashboard-button] underline hover:text-[--dashboard-button-hover]"
                   >
                     contact us

@@ -1,18 +1,18 @@
 import {
   ProviderNames,
-  type NCSAHostedProvider,
+  type OSCHostedProvider,
 } from '~/utils/modelProviders/LLMProvider'
 import { OllamaModelIDs, OllamaModels, type OllamaModel } from './ollama'
 
-export const getNCSAHostedModels = async (
-  ncsaHostedProvider: NCSAHostedProvider,
-): Promise<NCSAHostedProvider> => {
-  delete ncsaHostedProvider.error // Remove the error property if it exists
-  ncsaHostedProvider.provider = ProviderNames.NCSAHosted
+export const getOSCHostedModels = async (
+  oscHostedProvider: OSCHostedProvider,
+): Promise<OSCHostedProvider> => {
+  delete oscHostedProvider.error // Remove the error property if it exists
+  oscHostedProvider.provider = ProviderNames.OSCHosted
 
-  if (!ncsaHostedProvider.enabled) {
-    ncsaHostedProvider.models = []
-    return ncsaHostedProvider
+  if (!oscHostedProvider.enabled) {
+    oscHostedProvider.models = []
+    return oscHostedProvider
   }
 
   // Store existing model states
@@ -20,8 +20,8 @@ export const getNCSAHostedModels = async (
     string,
     { enabled: boolean; default: boolean }
   >()
-  if (ncsaHostedProvider.models) {
-    ncsaHostedProvider.models.forEach((model) => {
+  if (oscHostedProvider.models) {
+    oscHostedProvider.models.forEach((model) => {
       existingModelStates.set(model.id, {
         enabled: model.enabled ?? true,
         default: model.default ?? false,
@@ -34,7 +34,7 @@ export const getNCSAHostedModels = async (
     // /api/ps - all HOT AND LOADED models
 
     const headers = {
-      Authorization: `Bearer ${process.env.NCSA_HOSTED_API_KEY || ''}`,
+      Authorization: `Bearer ${process.env.OSC_HOSTED_API_KEY || ''}`,
     }
 
     const response = await fetch(process.env.OLLAMA_SERVER_URL + '/api/tags', {
@@ -42,9 +42,9 @@ export const getNCSAHostedModels = async (
     })
 
     if (!response.ok) {
-      ncsaHostedProvider.error = `HTTP error ${response.status} ${response.statusText}.`
-      ncsaHostedProvider.models = [] // clear any previous models.
-      return ncsaHostedProvider as NCSAHostedProvider
+      oscHostedProvider.error = `HTTP error ${response.status} ${response.statusText}.`
+      oscHostedProvider.models = [] // clear any previous models.
+      return oscHostedProvider as OSCHostedProvider
     }
 
     const data = await response.json()
@@ -62,7 +62,7 @@ export const getNCSAHostedModels = async (
       Object.values(OllamaModelIDs) as string[],
     )
 
-    const ncsaModels: OllamaModel[] = downloadedModelIds
+    const oscModels: OllamaModel[] = downloadedModelIds
       .filter((id: string) => availableSupportedIds.has(id))
       .map((id: string) => {
         const model = OllamaModels[id as OllamaModelIDs]
@@ -74,13 +74,13 @@ export const getNCSAHostedModels = async (
         }
       })
 
-    ncsaHostedProvider.models = ncsaModels
-    return ncsaHostedProvider as NCSAHostedProvider
+    oscHostedProvider.models = oscModels
+    return oscHostedProvider as OSCHostedProvider
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error)
-    ncsaHostedProvider.error = message
-    console.warn('ERROR in getNCSAHostedModels', error)
-    ncsaHostedProvider.models = [] // clear any previous models.
-    return ncsaHostedProvider as NCSAHostedProvider
+    oscHostedProvider.error = message
+    console.warn('ERROR in getOSCHostedModels', error)
+    oscHostedProvider.models = [] // clear any previous models.
+    return oscHostedProvider as OSCHostedProvider
   }
 }

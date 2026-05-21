@@ -31,7 +31,7 @@ export enum OllamaModelIDs {
   QWEN25_14b_fp16 = 'qwen2.5:14b-instruct-fp16',
   QWEN25_7b_fp16 = 'qwen2.5:7b-instruct-fp16',
 
-  // Newly added for NCSA hosted
+  // Newly added for OSC hosted
   GPT_OSS_120B = 'gpt-oss:120b',
   GPT_OSS_20B = 'gpt-oss:20b',
   DEEPSEEK_R1_32B = 'deepseek-r1:32b',
@@ -94,7 +94,7 @@ export const OllamaModels: Record<OllamaModelIDs, OllamaModel> = {
     enabled: true,
   },
 
-  // Newly added for NCSA hosted
+  // Newly added for OSC hosted
   [OllamaModelIDs.GPT_OSS_120B]: {
     id: OllamaModelIDs.GPT_OSS_120B,
     name: 'GPT-OSS 120B',

@@ -3,8 +3,8 @@ import {
   type AnthropicProvider,
   type AzureProvider,
   type LLMProvider,
-  type NCSAHostedProvider,
-  type NCSAHostedVLMProvider,
+  type OSCHostedProvider,
+  type OSCHostedVLMProvider,
   type OllamaProvider,
   type OpenAIProvider,
   type BedrockProvider,
@@ -19,10 +19,10 @@ import { getAnthropicModels } from '~/utils/modelProviders/routes/anthropic'
 import { getWebLLMModels } from '~/utils/modelProviders/WebLLM'
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { withAuth, AuthenticatedRequest } from '~/utils/authMiddleware'
-import { getNCSAHostedModels } from '~/utils/modelProviders/NCSAHosted'
+import { getOSCHostedModels } from '~/utils/modelProviders/OSCHosted'
 import { getOpenAIModels } from '~/utils/modelProviders/routes/openai'
 import { ensureRedisConnected } from '~/utils/redisClient'
-import { getNCSAHostedVLMModels } from '~/utils/modelProviders/types/NCSAHostedVLM'
+import { getOSCHostedVLMModels } from '~/utils/modelProviders/types/OSCHostedVLM'
 import { getBedrockModels } from '~/utils/modelProviders/routes/bedrock'
 import { getGeminiModels } from '~/utils/modelProviders/routes/gemini'
 import { getSambaNovaModels } from '~/utils/modelProviders/routes/sambanova'
@@ -91,14 +91,14 @@ export async function getModels(
           llmProvider as WebLLMProvider,
         )
         break
-      case ProviderNames.NCSAHosted:
-        allLLMProviders[providerName] = await getNCSAHostedModels(
-          llmProvider as NCSAHostedProvider,
+      case ProviderNames.OSCHosted:
+        allLLMProviders[providerName] = await getOSCHostedModels(
+          llmProvider as OSCHostedProvider,
         )
         break
-      case ProviderNames.NCSAHostedVLM:
-        allLLMProviders[providerName] = await getNCSAHostedVLMModels(
-          llmProvider as NCSAHostedVLMProvider,
+      case ProviderNames.OSCHostedVLM:
+        allLLMProviders[providerName] = await getOSCHostedVLMModels(
+          llmProvider as OSCHostedVLMProvider,
         )
         break
       case ProviderNames.Bedrock:
