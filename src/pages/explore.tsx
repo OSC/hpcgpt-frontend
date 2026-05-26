@@ -5,7 +5,7 @@ import Explore from '~/components/OSC-Components/Explore'
 import { useAuth } from 'react-oidc-context'
 import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
-import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
+import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
 
 const ExplorePage = () => {
   const router = useRouter()
@@ -33,7 +33,7 @@ const ExplorePage = () => {
       'NewCoursePage',
     )
     return (
-      <AuthComponent
+      <PermissionGate
         course_name={course_name ? (course_name as string) : 'new'}
       />
     )

@@ -15,8 +15,9 @@ import {
   IconChevronDown,
   IconInfoCircle,
 } from '@tabler/icons-react'
-import { useGetProjectLLMProviders } from '~/hooks/useProjectAPIKeys'
+import { useFetchLLMProviders } from '@/hooks/queries/useFetchLLMProviders'
 import { findDefaultModel } from './api-inputs/LLMsApiKeyInputForm'
+import { type AnySupportedModel } from '~/utils/modelProviders/LLMProvider'
 import { montserrat_heading, montserrat_paragraph } from 'fonts'
 
 interface APIRequestBuilderProps {
@@ -46,7 +47,7 @@ export default function APIRequestBuilder({
   const [streamEnabled, setStreamEnabled] = useState(true)
   const [temperature, setTemperature] = useState(0.1)
 
-  const { data: llmProviders } = useGetProjectLLMProviders({
+  const { data: llmProviders } = useFetchLLMProviders({
     projectName: course_name,
   })
 
@@ -75,8 +76,8 @@ export default function APIRequestBuilder({
     ? Object.entries(llmProviders).flatMap(([provider, config]) =>
         config.enabled && config.models && provider !== 'WebLLM'
           ? config.models
-              .filter((model) => model.enabled)
-              .map((model) => ({
+              .filter((model: AnySupportedModel) => model.enabled)
+              .map((model: AnySupportedModel) => ({
                 group: provider,
                 value: model.id,
                 label: model.name,
@@ -91,6 +92,37 @@ export default function APIRequestBuilder({
     setTimeout(() => setCopiedCodeSnippet(false), 2000)
   }
 
+  /** Escape string for safe embedding inside JSON string value (newlines → \\n, quotes escaped). */
+  const escapeForJson = (s: string) => JSON.stringify(s).slice(1, -1)
+  /** Escape apostrophes for safe embedding inside a single-quoted shell string. */
+  const escapeForSingleQuotedShell = (s: string) => s.replace(/'/g, `'\"'\"'`)
+  /** Escape for JSON, then for single-quoted curl -d payload. */
+  const escapeForCurlJson = (s: string) =>
+    escapeForSingleQuotedShell(escapeForJson(s))
+
+  // Fix WCAG: Mantine v5 puts aria-label on wrapper div (generic role) instead of
+  // the interactive [role=combobox] / [role=slider] elements. We set labels directly
+  // on the correct elements via a post-render DOM fix.
+  useEffect(() => {
+    const container = document.querySelector('.api-request-builder')
+    if (!container) return
+
+    const comboboxes = container.querySelectorAll('[role="combobox"]')
+    comboboxes[0]?.setAttribute('aria-label', 'Select language')
+    comboboxes[1]?.setAttribute('aria-label', 'Select model')
+
+    container
+      .querySelector('[role="slider"]')
+      ?.setAttribute('aria-label', 'Temperature')
+
+    // Remove stray aria-label from wrapper divs with generic role
+    container
+      .querySelectorAll(
+        '.mantine-Select-root[aria-label], .mantine-Slider-root[aria-label]',
+      )
+      .forEach((el) => el.removeAttribute('aria-label'))
+  }, [selectedLanguage, selectedModel, temperature])
+
   const baseUrl = process.env.VERCEL_URL || window.location.origin
 
   const codeSnippets = {
@@ -101,11 +133,11 @@ export default function APIRequestBuilder({
     "messages": [
       {
         "role": "system",
-        "content": "${systemPrompt}"
+        "content": "${escapeForCurlJson(systemPrompt)}"
       },
       {
         "role": "user",
-        "content": "${userQuery}"
+        "content": "${escapeForCurlJson(userQuery)}"
       }
     ],
     "api_key": "${apiKey || 'YOUR-API-KEY'}",
@@ -125,11 +157,11 @@ data = {
   "messages": [
     {
       "role": "system",
-      "content": "${systemPrompt}"
+      "content": "${escapeForJson(systemPrompt)}"
     },
     {
       "role": "user",
-      "content": "${userQuery}"
+      "content": "${escapeForJson(userQuery)}"
     }
   ],
   "api_key": "${apiKey || 'YOUR-API-KEY'}",
@@ -156,11 +188,11 @@ print(response.json().get('message'))
   "messages": [
     {
       "role": "system",
-      "content": "${systemPrompt}"
+      "content": "${escapeForJson(systemPrompt)}"
     },
     {
       "role": "user",
-      "content": "${userQuery}"
+      "content": "${escapeForJson(userQuery)}"
     }
   ],
   "api_key": "${apiKey || 'YOUR-API-KEY'}",
@@ -210,7 +242,7 @@ fetch('${baseUrl}/api/chat-api/chat', {
   }
 
   return (
-    <div className="w-full px-4 sm:px-10">
+    <div className="api-request-builder w-full px-4 sm:px-10">
       <Title
         order={3}
         className={`text-left ${montserrat_heading.variable} font-montserratHeading text-[--dashboard-foreground]`}
@@ -276,7 +308,7 @@ fetch('${baseUrl}/api/chat-api/chat', {
               },
             })}
             className={`w-full flex-shrink-0 sm:w-[150px] ${montserrat_paragraph.variable} font-montserratParagraph`}
-            rightSection={<IconChevronDown size={14} />}
+            rightSection={<IconChevronDown size={14} aria-hidden="true" />}
           />
           <div className="flex w-full items-center gap-2">
             <Select
@@ -328,17 +360,22 @@ fetch('${baseUrl}/api/chat-api/chat', {
                 },
               })}
               className={`min-w-0 flex-1 ${montserrat_paragraph.variable} font-montserratParagraph`}
-              rightSection={<IconChevronDown size={14} />}
+              rightSection={<IconChevronDown size={14} aria-hidden="true" />}
             />
             <Button
+              aria-label="Copy Code Snippet"
               onClick={() =>
                 handleCopyCodeSnippet(codeSnippets[selectedLanguage])
               }
               variant="subtle"
               size="xs"
-              className="h-[36px] w-[50px] flex-shrink-0 transform rounded-md bg-[--dashboard-button] text-[--dashboard-button-foreground] hover:bg-[--dashboard-button-hover] focus:shadow-none focus:outline-none"
+              className="h-[36px] w-[50px] flex-shrink-0 transform rounded-md bg-[--dashboard-button] text-[--dashboard-button-foreground] hover:bg-[--dashboard-button-hover] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[--dashboard-button]"
             >
-              {copiedCodeSnippet ? <IconCheck /> : <IconCopy />}
+              {copiedCodeSnippet ? (
+                <IconCheck aria-hidden="true" />
+              ) : (
+                <IconCopy aria-hidden="true" />
+              )}
             </Button>
           </div>
         </div>
@@ -352,6 +389,7 @@ fetch('${baseUrl}/api/chat-api/chat', {
           </Title>
           <Textarea
             placeholder="System Prompt"
+            aria-label="System Prompt"
             value={systemPrompt}
             onChange={(e) => setSystemPrompt(e.currentTarget.value)}
             minRows={2}
@@ -380,6 +418,7 @@ fetch('${baseUrl}/api/chat-api/chat', {
           </Title>
           <Textarea
             placeholder="User Query"
+            aria-label="User Query"
             value={userQuery}
             onChange={(e) => setUserQuery(e.currentTarget.value)}
             minRows={2}
@@ -476,6 +515,7 @@ fetch('${baseUrl}/api/chat-api/chat', {
             >
               <IconInfoCircle
                 size={16}
+                aria-hidden="true"
                 className="mt-4 cursor-help text-gray-400"
               />
             </Tooltip>
@@ -508,12 +548,12 @@ fetch('${baseUrl}/api/chat-api/chat', {
           )}
         </div>
 
-        <div className="text-sm text-gray-400">
+        <div className="text-sm">
           <a
             href="https://docs.osc.chat/api/endpoints#image-input-example"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[--dashboard-button] hover:text-[--dashboard-button-hover]"
+            className="text-[--foreground] underline hover:text-[--dashboard-button-hover]"
           >
             Using image inputs (docs) →
           </a>
@@ -523,6 +563,7 @@ fetch('${baseUrl}/api/chat-api/chat', {
           value={codeSnippets[selectedLanguage]}
           autosize
           variant="unstyled"
+          aria-label="Code snippet"
           readOnly
           className="relative mt-4 w-full min-w-0 overflow-x-auto rounded-xl bg-[--background] pl-4 text-sm sm:min-w-[20rem] sm:pl-8 sm:text-base"
           styles={{

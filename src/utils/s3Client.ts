@@ -2,7 +2,6 @@ import {S3Client} from '@aws-sdk/client-s3'
 
 const region = process.env.AWS_REGION
 
-
 // S3 Client configuration
 console.log('[s3Client] Debug - Environment variables:')
 console.log('[s3Client] AWS_REGION:', process.env.AWS_REGION)

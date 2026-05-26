@@ -11,7 +11,7 @@ function getKeycloakBaseUrl(hostname = null, protocol = null) {
   if (typeof window === 'undefined') {
     return process.env.KEYCLOAK_BASE_URL || 'https://login.osc.chat/'
   }
-  
+
   // For browser environment
   if (hostname === 'localhost') {
     return 'http://localhost:8080/'
@@ -20,10 +20,10 @@ function getKeycloakBaseUrl(hostname = null, protocol = null) {
   if (hostname === 'osc.chat') {
     return 'https://login.osc.chat/'
   }
-  
+
   return `${protocol}://${hostname}/keycloak/`
 }
 
 module.exports = {
-  getKeycloakBaseUrl
+  getKeycloakBaseUrl,
 }

@@ -1,4 +1,4 @@
-import { type OSCHostedVLMProvider, ProviderNames } from '../LLMProvider'
+import { type OSCHostedVLMProvider } from '../LLMProvider'
 
 export interface OSCHostedVLMModel {
   id: string
@@ -64,7 +64,9 @@ export const getOSCHostedVLMModels = async (
   vlmProvider: OSCHostedVLMProvider,
 ): Promise<OSCHostedVLMProvider> => {
   delete vlmProvider.error // Clear any previous errors
-  vlmProvider.provider = ProviderNames.OSCHostedVLM
+  // Avoid importing ProviderNames here to prevent a circular dependency with LLMProvider.
+  vlmProvider.provider =
+    'OSCHostedVLM' as unknown as OSCHostedVLMProvider['provider']
 
   if (!vlmProvider.enabled) {
     vlmProvider.models = []

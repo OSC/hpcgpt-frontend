@@ -53,7 +53,6 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
   const [isAuthCallback, setIsAuthCallback] = useState(false)
 
   const [oidcConfig, setOidcConfig] = useState({
-    //authority: `${getKeycloakBaseUrl()}realms/${process.env.NEXT_PUBLIC_KEYCLOAK_REALM}`,
     authority : `${getKeycloakIssuerUrl(undefined)}`,
     client_id: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'oscchat',
     redirect_uri: '',
@@ -199,10 +198,14 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
         {/*If we’re on the callback URL, render a handoff screen instead of the app.*/}
         {isAuthCallback ? (
           <>
-            <main className="justify-center; course-page-main flex min-h-screen flex-col items-center">
+            <main
+              id="main-content"
+              tabIndex={-1}
+              className="justify-center; course-page-main flex min-h-screen flex-col items-center"
+            >
               <div className="container flex flex-col items-center justify-center gap-8 px-4 py-8 ">
                 <Link href="/">
-                  <h2
+                  <h1
                     className={`text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] ${montserrat_heading.variable} font-montserratHeading`}
                   >
                     {' '}
@@ -212,7 +215,7 @@ export const KeycloakProvider = ({ children }: AuthProviderProps) => {
                     <span className="${inter.style.fontFamily} text-[--foreground]">
                       Chat
                     </span>{' '}
-                  </h2>
+                  </h1>
                 </Link>
               </div>
               <div className="items-left container flex flex-col justify-center gap-2 py-0">

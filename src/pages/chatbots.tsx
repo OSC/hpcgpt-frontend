@@ -5,7 +5,7 @@ import Dashboard from '~/components/OSC-Components/Dashboard'
 import { useAuth } from 'react-oidc-context'
 import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
-import { AuthComponent } from '~/components/OSC-Components/AuthToEditCourse'
+import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
 
 const DashboardPage = () => {
   const router = useRouter()
@@ -29,7 +29,7 @@ const DashboardPage = () => {
       'NewCoursePage',
     )
     return (
-      <AuthComponent
+      <PermissionGate
         course_name={course_name ? (course_name as string) : 'new'}
       />
     )

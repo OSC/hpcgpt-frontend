@@ -90,60 +90,84 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
     return <Maintenance />
   } else {
     return (
-      <KeycloakProvider>
-        <QueryClientProvider client={queryClient}>
-          <PostHogProvider client={posthog}>
-            {/* <SpeedInsights /> */}
-            <Analytics />
-            <Notifications position="bottom-center" zIndex={2077} />
-            <ReactQueryDevtools
-              initialIsOpen={false}
-              position="left"
-              buttonPosition="bottom-right"
-            />
-            <MantineProvider
-              withGlobalStyles
-              withNormalizeCSS
-              theme={{
-                colorScheme: 'dark',
-                colors: {
-                  // Using CSS variables for colors
-                  deepBlue: ['var(--osc-blue)'],
-                  primary: ['var(--osc-orange)'],
-                  secondary: ['var(--osc-blue)'],
-                  accent: ['var(--osc-industrial)'],
-                  background: ['var(--osc-background-dark)'],
-                  nearlyBlack: ['var(--osc-background-darker)'],
-                  nearlyWhite: ['var(--osc-white)'],
-                  disabled: ['var(--osc-storm-dark)'],
-                  errorBackground: ['var(--osc-berry)'],
-                  errorBorder: ['var(--osc-berry)'],
-                },
-                shadows: {
-                  // md: '1px 1px 3px rgba(0, 0, 0, .25)',
-                  // xl: '5px 5px 3px rgba(0, 0, 0, .25)',
-                },
-                headings: {
-                  fontFamily: 'Montserrat, Roboto, sans-serif',
-                  sizes: {
-                    h1: { fontSize: '3rem' },
-                    h2: { fontSize: '2.2rem' },
+      <>
+        <nav aria-label="Skip navigation">
+          <a
+            href="#main-content"
+            className="skip-nav-link"
+            onClick={(e) => {
+              const target = document.getElementById('main-content')
+              if (target) {
+                e.preventDefault()
+                target.focus()
+                target.scrollIntoView()
+              }
+            }}
+          >
+            Skip to main content
+          </a>
+        </nav>
+        <KeycloakProvider>
+          <QueryClientProvider client={queryClient}>
+            <PostHogProvider client={posthog}>
+              {/* <SpeedInsights /> */}
+              <Analytics />
+              <aside
+                aria-label="Notifications"
+                aria-live="assertive"
+                aria-atomic="true"
+              >
+                <Notifications position="bottom-center" zIndex={2077} />
+              </aside>
+              <ReactQueryDevtools
+                initialIsOpen={false}
+                position="left"
+                buttonPosition="bottom-right"
+              />
+              <MantineProvider
+                withGlobalStyles
+                withNormalizeCSS
+                theme={{
+                  colorScheme: 'dark',
+                  colors: {
+                    // Using CSS variables for colors
+                    deepBlue: ['var(--osc-blue)'],
+                    primary: ['var(--osc-orange)'],
+                    secondary: ['var(--osc-blue)'],
+                    accent: ['var(--osc-industrial)'],
+                    background: ['var(--osc-background-dark)'],
+                    nearlyBlack: ['var(--osc-background-darker)'],
+                    nearlyWhite: ['var(--osc-white)'],
+                    disabled: ['var(--osc-storm-dark)'],
+                    errorBackground: ['var(--osc-berry)'],
+                    errorBorder: ['var(--osc-berry)'],
                   },
-                },
-                defaultGradient: {
-                  from: 'var(--osc-berry)',
-                  to: 'var(--osc-earth)',
-                  deg: 80,
-                },
-              }}
-            >
-              <ThemeProvider>
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </MantineProvider>
-          </PostHogProvider>
-        </QueryClientProvider>
-      </KeycloakProvider>
+                  shadows: {
+                    // md: '1px 1px 3px rgba(0, 0, 0, .25)',
+                    // xl: '5px 5px 3px rgba(0, 0, 0, .25)',
+                  },
+                  headings: {
+                    fontFamily: 'Montserrat, Roboto, sans-serif',
+                    sizes: {
+                      h1: { fontSize: '3rem' },
+                      h2: { fontSize: '2.2rem' },
+                    },
+                  },
+                  defaultGradient: {
+                    from: 'var(--osc-berry)',
+                    to: 'var(--osc-earth)',
+                    deg: 80,
+                  },
+                }}
+              >
+                <ThemeProvider>
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </MantineProvider>
+            </PostHogProvider>
+          </QueryClientProvider>
+        </KeycloakProvider>
+      </>
     )
   }
 }

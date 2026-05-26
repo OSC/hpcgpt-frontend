@@ -93,7 +93,7 @@ export const OpenAIStream = async (
       // OSC Hosted VLM
       provider = llmProviders[
         ProviderNames.OSCHostedVLM
-        ] as OSCHostedVLMProvider
+      ] as OSCHostedVLMProvider
       // provider.apiKey = await decryptKeyIfNeeded(provider.apiKey!)
       provider.apiKey = process.env.OSC_HOSTED_API_KEY || ''
       apiType = ProviderNames.OSCHostedVLM
