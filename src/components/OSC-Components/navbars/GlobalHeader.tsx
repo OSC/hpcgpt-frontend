@@ -317,7 +317,7 @@ export function LandingPageHeader({
             <>
               {showDocsInNav && (
                 <Link
-                  href="https://docs.osc.chat/"
+                  href="https://www.osc.edu/resources"
                   className={classes.link}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -343,7 +343,7 @@ export function LandingPageHeader({
 
               {showNewsInNav && (
                 <Link
-                  href="http://news.osc.chat/"
+                  href="https://www.osc.edu/press"
                   target="_blank"
                   className={classes.link}
                 >
@@ -450,7 +450,7 @@ export function LandingPageHeader({
                   {/* Show Docs in dropdown whenever not visible in main nav */}
                   {!showDocsInNav && (
                     <Link
-                      href="https://docs.osc.chat/"
+                      href="https://www.osc.edu/resources"
                       className="menu-item rounded transition-colors duration-200 hover:bg-orange-100"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -477,7 +477,7 @@ export function LandingPageHeader({
 
                   {!showNewsInNav && (
                     <Link
-                      href="http://news.osc.chat/"
+                      href="https://www.osc.edu/press"
                       className="menu-item rounded transition-colors duration-200 hover:bg-orange-100"
                       target="_blank"
                       rel="noopener noreferrer"

@@ -184,7 +184,7 @@ const Home: NextPage = () => {
               {/*1. If useOSCChatConfig && OSCChatBannerContent → render HTML from OSCChatBannerContent*/}
               {/*2. If !useOSCChatConfig → render default "Heads up" banner*/}
               {/*3. Otherwise → render nothing*/}
-              {useOSCChatConfig && OSCChatBannerContent ? (
+              {/*useOSCChatConfig && OSCChatBannerContent ? (
                 <div
                   dangerouslySetInnerHTML={{
                     __html: OSCChatBannerContent,
@@ -197,7 +197,7 @@ const Home: NextPage = () => {
                     chat.osc.edu
                   </a>
                 </>
-              ) : null}
+              ) :*/ null}
             </span>
           </div>
         </div>
@@ -798,7 +798,7 @@ const Home: NextPage = () => {
                 us at{' '}
                 <a
                   style={{ color: 'var(--osc-orange)' }}
-                  href="mailto:caii_ai@lists.osc.edu"
+                  href="mailto:oschelp@lists.osc.edu"
                 >
                   contact us
                 </a>
@@ -832,7 +832,7 @@ const Home: NextPage = () => {
                 If you have any questions or would like to submit a bug please{' '}
                 <a
                   style={{ color: 'var(--osc-orange)' }}
-                  href="mailto:genaisupport@mx.uosc.edu"
+                  href="mailto:oschelp@osc.edu"
                 >
                   email us
                 </a>
@@ -858,7 +858,7 @@ const Home: NextPage = () => {
                   GitHub
                 </a>
                 .
-              </div>
+              </div> 
             </div>
             <div className="flex max-w-xs flex-col gap-4 rounded-xl bg-[--dashboard-background-faded] p-6">
               <h3
@@ -867,17 +867,10 @@ const Home: NextPage = () => {
                 ${montserrat_heading.variable} font-montserratHeading
               `}
               >
-                Developed at OSC
+                Deployed at OSC
               </h3>
               <div className="text-md">
-                Developed by the{' '}
-                <a
-                  style={{ color: 'var(--osc-orange)' }}
-                  href="https://www.osc.edu/ai"
-                >
-                  Center of AI Innovation
-                </a>{' '}
-                at{' '}
+                Deployed at the {' '}
                 <a
                   style={{ color: 'var(--osc-orange)' }}
                   href="https://www.osc.edu/"
