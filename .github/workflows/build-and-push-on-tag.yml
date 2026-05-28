@@ -17,6 +17,8 @@ jobs:
           PROD_IMAGE_TAG="prod-${GIT_TAG}"
           echo "PROD_IMAGE_TAG=${PROD_IMAGE_TAG}" >> $GITHUB_ENV
           echo "prod_image_tag=${PROD_IMAGE_TAG}" >> $GITHUB_OUTPUT
+      - name: Checkout
+        uses: actions/checkout@v6
       - name: Login to docker registry
         uses: docker/login-action@v4
         with:
