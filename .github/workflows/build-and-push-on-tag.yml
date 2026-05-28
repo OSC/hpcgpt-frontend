@@ -28,8 +28,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker-registry.osc.edu/osc/hpcgpt_frontend:$PROD_IMAGE_TAG
+          tags: docker-registry.osc.edu/osc/hpcgpt_frontend:${{ env.PROD_IMAGE_TAG }}
           build-args: |
             NEXT_PUBLIC_KEYCLOAK_URL=${{ vars.KEYCLOAK_URL }}
             NEXT_PUBLIC_KEYCLOAK_ISSUER_URL=${{ vars.ISSUER_URL }}
-            NEXT_PUBLIC_USE_OSC_CHAT_CONFIG=${ vars.CHAT_CONFIG }}
+            NEXT_PUBLIC_USE_OSC_CHAT_CONFIG=${{ vars.CHAT_CONFIG }}
