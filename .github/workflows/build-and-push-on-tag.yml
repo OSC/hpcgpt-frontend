@@ -6,17 +6,16 @@ on:
       - '*'
 
 jobs:
-  build-and-push-prod:
+  build-and-push:
     name: Build and Push Image
     runs-on: ubuntu-latest
     steps:
-      - name: Set PROD image tag
+      - name: Set image tag
         id: set-tag
         run: |
           GIT_TAG=${GITHUB_REF#refs/tags/}
-          PROD_IMAGE_TAG="prod-${GIT_TAG}"
-          echo "PROD_IMAGE_TAG=${PROD_IMAGE_TAG}" >> $GITHUB_ENV
-          echo "prod_image_tag=${PROD_IMAGE_TAG}" >> $GITHUB_OUTPUT
+          echo "IMAGE_TAG=${GIT_TAG}" >> $GITHUB_ENV
+          echo "image_tag=${GIT_TAG}" >> $GITHUB_OUTPUT
       - name: Checkout
         uses: actions/checkout@v6
       - name: Login to docker registry
@@ -30,7 +29,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker-registry.osc.edu/osc/hpcgpt_frontend:${{ env.PROD_IMAGE_TAG }}
+          tags: docker-registry.osc.edu/osc/hpcgpt_frontend:${{ env.IMAGE_TAG }}
           build-args: |
             NEXT_PUBLIC_KEYCLOAK_URL=${{ vars.KEYCLOAK_URL }}
             NEXT_PUBLIC_KEYCLOAK_ISSUER_URL=${{ vars.ISSUER_URL }}
