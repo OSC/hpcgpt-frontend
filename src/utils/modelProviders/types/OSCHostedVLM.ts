@@ -16,6 +16,8 @@ export enum OSCHostedVLMModelID {
   QWEN2_5VL_72B_INSTRUCT = 'Qwen/Qwen2.5-VL-72B-Instruct',
   QWEN2_5VL_32B_INSTRUCT = 'Qwen/Qwen2.5-VL-32B-Instruct',
   QWEN3_8B = 'Qwen/Qwen3-8B',
+  QWEN3_CODER = 'qwen3-coder-30b',
+  QWEN3 = 'qwen3',
 }
 
 export const OSCHostedVLMModels: Record<
@@ -55,6 +57,18 @@ export const OSCHostedVLMModels: Record<
   [OSCHostedVLMModelID.QWEN3_8B]: {
     id: OSCHostedVLMModelID.QWEN3_8B,
     name: 'Qwen 3 8B',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [OSCHostedVLMModelID.QWEN3]: {
+    id: OSCHostedVLMModelID.QWEN3,
+    name: 'Qwen 3',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [OSCHostedVLMModelID.QWEN3_CODER]: {
+    id: OSCHostedVLMModelID.QWEN3,
+    name: 'Qwen 3 Coder 30B',
     tokenLimit: 32000,
     enabled: true,
   },
@@ -106,17 +120,23 @@ export const getOSCHostedVLMModels = async (
     }
 
     const data = await response.json()
-    const vlmModels: OSCHostedVLMModel[] = data.data.map((model: any) => {
-      const knownModel = OSCHostedVLMModels[model.id as OSCHostedVLMModelID]
-      const existingState = existingModelStates.get(model.id)
-      return {
-        id: model.id,
-        name: knownModel ? knownModel.name : 'Experimental: ' + model.id,
-        tokenLimit: model.max_tokens || (knownModel ? knownModel.tokenLimit : 128000),
-        enabled: existingState?.enabled ?? true,
-        default: existingState?.default ?? false,
-      }
-    })
+    const vlmModels: OSCHostedVLMModel[] = data.data
+      .filter((model: any) => {
+        // Filter out experimental models (those not in our known models list)
+        const knownModel = OSCHostedVLMModels[model.id as OSCHostedVLMModelID]
+        return knownModel !== undefined
+      })
+      .map((model: any) => {
+        const knownModel = OSCHostedVLMModels[model.id as OSCHostedVLMModelID]
+        const existingState = existingModelStates.get(model.id)
+        return {
+          id: model.id,
+          name: knownModel ? knownModel.name : 'Experimental: ' + model.id,
+          tokenLimit: model.max_tokens || (knownModel ? knownModel.tokenLimit : 128000),
+          enabled: existingState?.enabled ?? true,
+          default: existingState?.default ?? false,
+        }
+      })
 
     vlmProvider.models = vlmModels
     return vlmProvider as OSCHostedVLMProvider

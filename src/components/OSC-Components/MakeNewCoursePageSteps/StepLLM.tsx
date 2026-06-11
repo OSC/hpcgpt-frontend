@@ -41,7 +41,7 @@ function applyOSCOnlyDefaults(providers: AllLLMProviders): AllLLMProviders {
         ...m,
         default:
           key === ProviderNames.OSCHostedVLM &&
-          m.id === OSCHostedVLMModelID.QWEN3_8B,
+          m.id === OSCHostedVLMModelID.QWEN3_CODER,
       }))
     }
   }
