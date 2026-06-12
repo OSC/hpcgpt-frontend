@@ -29,7 +29,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker-registry.osc.edu/osc/hpcgpt_frontend:${{ env.IMAGE_TAG }}
+          tags: docker-registry.osc.edu/kubernetes/hpcgpt/frontend:${{ env.IMAGE_TAG }}
           build-args: |
             NEXT_PUBLIC_KEYCLOAK_URL=${{ vars.KEYCLOAK_URL }}
             NEXT_PUBLIC_KEYCLOAK_ISSUER_URL=${{ vars.ISSUER_URL }}
