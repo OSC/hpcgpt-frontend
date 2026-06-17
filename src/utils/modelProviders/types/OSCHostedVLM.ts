@@ -16,7 +16,7 @@ export enum OSCHostedVLMModelID {
   QWEN2_5VL_72B_INSTRUCT = 'Qwen/Qwen2.5-VL-72B-Instruct',
   QWEN2_5VL_32B_INSTRUCT = 'Qwen/Qwen2.5-VL-32B-Instruct',
   QWEN3_8B = 'Qwen/Qwen3-8B',
-  QWEN3_CODER = 'qwen3-coder-30b',
+  QWEN3_CODER = 'qwen3-coder-30b-4bit',
   QWEN3 = 'qwen3',
 }
 
