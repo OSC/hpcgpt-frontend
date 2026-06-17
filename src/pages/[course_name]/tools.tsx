@@ -14,6 +14,8 @@ import { Title } from '@mantine/core'
 import MakeToolsPage from '~/components/OSC-Components/N8NPage'
 import posthog from 'posthog-js'
 import { useAuth } from 'react-oidc-context'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const montserrat = Montserrat({
   weight: '700',
@@ -37,6 +39,7 @@ const ToolsPage: NextPage = () => {
         : undefined
   }
   const courseName = getCurrentPageName() as string
+  const { hasAccess, loading } = useGroupValidation()
 
   useEffect(() => {
     if (!router.isReady || auth.isLoading) return
@@ -91,12 +94,12 @@ const ToolsPage: NextPage = () => {
     fetchCourseData()
   }, [router.isReady, auth.isLoading, courseName])
 
-  if (auth.isLoading || isLoading || courseName === undefined) {
+  if (auth.isLoading || isLoading || loading || courseName === undefined) {
     return <LoadingPlaceholderForAdminPages />
   }
 
   if (!auth.isAuthenticated) {
-    return <PermissionGate course_name={courseName as string} />
+    return <GroupPermissionGate course_name={courseName as string} />
   }
 
   const user_emails = auth.user?.profile?.email ? [auth.user.profile.email] : []
@@ -133,9 +136,18 @@ const ToolsPage: NextPage = () => {
     )
   }
 
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={courseName ? (courseName as string) : 'new'}
+        errorType={403}
+      />
+    )
+  }
+
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
         errorType={errorType}
       />

@@ -13,6 +13,8 @@ import { montserrat_heading } from 'fonts'
 import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const ChatPage: NextPage = () => {
   const auth = useAuth()
@@ -39,6 +41,7 @@ const ChatPage: NextPage = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null)
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
   const { course_name } = router.query
+  const { hasAccess, loading } = useGroupValidation()
 
   // UseEffect to check URL parameters
   useEffect(() => {
@@ -222,7 +225,7 @@ const ChatPage: NextPage = () => {
     checkAuthorization()
   }, [auth.isLoading, auth.isAuthenticated, router.isReady, auth, router])
 
-  if (auth.isLoading) {
+  if (auth.isLoading || loading) {
     return (
       <MainPageBackground>
         <LoadingSpinner />
@@ -230,9 +233,18 @@ const ChatPage: NextPage = () => {
     )
   }
 
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={course_name ? (course_name as string) : 'new'}
+        errorType={403}
+      />
+    )
+  }
+
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={course_name ? (course_name as string) : 'new'}
         errorType={errorType}
       />
@@ -248,7 +260,7 @@ const ChatPage: NextPage = () => {
       'NewCoursePage',
     )
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={course_name ? (course_name as string) : 'new'}
       />
     )

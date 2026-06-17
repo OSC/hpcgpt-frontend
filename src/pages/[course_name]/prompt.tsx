@@ -24,6 +24,8 @@ import { useResponsiveCardWidth } from '~/utils/responsiveGrid'
 import GlobalFooter from '../../components/OSC-Components/GlobalFooter'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const montserrat = Montserrat({
   weight: '700',
@@ -53,6 +55,7 @@ const CourseMain: NextPage = () => {
     getInitialCollapsedState(),
   )
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
+  const { hasAccess, loading } = useGroupValidation()
 
   const cardWidthClasses = useResponsiveCardWidth(sidebarCollapsed)
 
@@ -88,13 +91,13 @@ const CourseMain: NextPage = () => {
     fetchCourseData()
   }, [router.isReady, auth.isLoading, courseName])
 
-  if (!isLoaded || isLoading) {
+  if (!isLoaded || isLoading || loading) {
     return <LoadingPlaceholderForAdminPages />
   }
 
   if (!isSignedIn) {
     console.log('User not logged in', isSignedIn, isLoaded, courseName)
-    return <PermissionGate course_name={courseName} />
+    return <GroupPermissionGate course_name={courseName} />
   }
 
   const user_emails = user?.profile?.email ? [user.profile.email] : []
@@ -138,9 +141,18 @@ const CourseMain: NextPage = () => {
     )
   }
 
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={courseName ? (courseName as string) : 'new'}
+        errorType={403}
+      />
+    )
+  }
+
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
         errorType={errorType}
       />

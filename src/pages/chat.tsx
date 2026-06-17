@@ -12,6 +12,8 @@ import Home from '~/pages/api/home/home'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const ChatPage: NextPage = () => {
   const [metadata, setMetadata] = useState<CourseMetadata | null>()
@@ -22,6 +24,7 @@ const ChatPage: NextPage = () => {
   const [currentEmail, setCurrentEmail] = useState('')
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null)
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
+  const { hasAccess, loading } = useGroupValidation()
 
   const course_metadata = metadata
   const getCurrentPageName = () => {
@@ -149,7 +152,7 @@ const ChatPage: NextPage = () => {
     router,
   ])
 
-  if (auth.isLoading) {
+  if (auth.isLoading || loading) {
     return (
       <MainPageBackground>
         <LoadingSpinner />
@@ -166,15 +169,24 @@ const ChatPage: NextPage = () => {
       'NewCoursePage',
     )
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
+      />
+    )
+  }
+
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={courseName ? (courseName as string) : 'new'}
+        errorType={403}
       />
     )
   }
 
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
         errorType={errorType}
       />

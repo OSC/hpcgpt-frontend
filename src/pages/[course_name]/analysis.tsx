@@ -8,12 +8,15 @@ import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { useAuth } from 'react-oidc-context'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const CourseMain: NextPage = () => {
   const router = useRouter()
   const auth = useAuth()
   const [isLoading, setIsLoading] = useState(true)
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
+  const { hasAccess, loading } = useGroupValidation()
 
   const getCurrentPageName = () => {
     const raw = router.query.course_name
@@ -51,12 +54,12 @@ const CourseMain: NextPage = () => {
     fetchCourseData()
   }, [router.isReady, auth.isLoading, courseName])
 
-  if (auth.isLoading || isLoading || courseName == null) {
+  if (auth.isLoading || loading || isLoading || courseName == null) {
     return <LoadingPlaceholderForAdminPages />
   }
 
   if ((!auth.user || !auth.isAuthenticated) && courseName) {
-    return <PermissionGate course_name={courseName as string} />
+    return <GroupPermissionGate course_name={courseName as string} />
   }
 
   // Don't edit certain special pages (no context allowed)
@@ -68,9 +71,18 @@ const CourseMain: NextPage = () => {
     return <CannotEditGPT4Page course_name={courseName as string} />
   }
 
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={courseName ? (courseName as string) : 'new'}
+        errorType={403}
+      />
+    )
+  }
+
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
         errorType={errorType}
       />

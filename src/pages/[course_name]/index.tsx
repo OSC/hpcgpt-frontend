@@ -10,6 +10,8 @@ import { get_user_permission } from '~/components/OSC-Components/runAuthCheck'
 import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const AUTH_ROUTES = ['sign-in', 'sign-up']
 
@@ -24,6 +26,7 @@ const IfCourseExists: NextPage = () => {
     null,
   )
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
+  const { hasAccess, loading } = useGroupValidation()
 
   const getCurrentPageName = () => {
     return router.query.course_name as string
@@ -31,7 +34,7 @@ const IfCourseExists: NextPage = () => {
 
   // Move all useEffect hooks before any conditional logic
   useEffect(() => {
-    if (!router.isReady || auth.isLoading) return
+    if (!router.isReady || auth.isLoading || loading) return
 
     const fetchMetadata = async () => {
       const course_name = getCurrentPageName()
@@ -98,9 +101,18 @@ const IfCourseExists: NextPage = () => {
     courseName,
   ])
 
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={course_name ? (course_name as string) : 'new'}
+        errorType={403}
+      />
+    )
+  }
+
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={course_name ? (course_name as string) : 'new'}
         errorType={errorType}
       />

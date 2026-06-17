@@ -5,19 +5,21 @@ import MakeNewCoursePage from '~/components/OSC-Components/MakeNewCoursePage'
 import { useAuth } from 'react-oidc-context'
 import { MainPageBackground } from '~/components/OSC-Components/MainPageBackground'
 import { LoadingSpinner } from '~/components/OSC-Components/LoadingSpinner'
-import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const NewCoursePage = () => {
   const router = useRouter()
 
   const auth = useAuth()
   const { course_name } = router.query
+  const { hasAccess, loading } = useGroupValidation()
 
   useEffect(() => {
     // You can add any additional logic you need here, such as fetching data based on the course_name
   }, [course_name])
 
-  if (auth.isLoading) {
+  if (auth.isLoading || loading) {
     return (
       <MainPageBackground>
         <LoadingSpinner />
@@ -33,8 +35,18 @@ const NewCoursePage = () => {
       'NewCoursePage',
     )
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={course_name ? (course_name as string) : 'new'}
+      />
+    )
+  }
+
+  // If user doesn't have group access, show access denied page
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={course_name ? (course_name as string) : 'new'}
+        errorType={403}
       />
     )
   }

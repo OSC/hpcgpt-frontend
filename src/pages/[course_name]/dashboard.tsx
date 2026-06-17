@@ -10,6 +10,8 @@ import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
 
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const CourseMain: NextPage = () => {
   const router = useRouter()
@@ -28,6 +30,7 @@ const CourseMain: NextPage = () => {
   const [metadata, setMetadata] = useState<CourseMetadata | null>()
   const [isLoading, setIsLoading] = useState(true)
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
+  const { hasAccess, loading } = useGroupValidation()
 
   useEffect(() => {
     if (!router.isReady || auth.isLoading) return
@@ -92,9 +95,18 @@ const CourseMain: NextPage = () => {
     return <CannotEditGPT4Page course_name={courseName as string} />
   }
 
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={courseName ? (courseName as string) : 'new'}
+        errorType={403}
+      />
+    )
+  }
+
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
         errorType={errorType}
       />

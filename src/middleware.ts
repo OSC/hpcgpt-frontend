@@ -156,4 +156,5 @@ export interface AuthenticatedUser {
       roles: string[]
     }
   }
+  groups?: string[]
 }

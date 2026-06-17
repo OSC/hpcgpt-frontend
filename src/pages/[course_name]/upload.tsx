@@ -15,6 +15,8 @@ import GlobalFooter from '~/components/OSC-Components/GlobalFooter'
 import { LoadingPlaceholderForAdminPages } from '~/components/OSC-Components/MainPageBackground'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const CourseMain: NextPage = () => {
   const router = useRouter()
@@ -31,6 +33,7 @@ const CourseMain: NextPage = () => {
   const getCurrentPageName = () => {
     return router.query.course_name as string
   }
+  const { hasAccess, loading } = useGroupValidation()
 
   useEffect(() => {
     if (!router.isReady) return
@@ -60,13 +63,22 @@ const CourseMain: NextPage = () => {
 
     return <CannotEditCourse course_name={getCurrentPageName() as string} />
   }
-  if (!isLoaded || isFetchingCourseMetadata || projectName == null) {
+  if (!isLoaded || isFetchingCourseMetadata || projectName == null || loading) {
     return <LoadingPlaceholderForAdminPages />
+  }
+
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={projectName as string}
+        errorType={403}
+      />
+    )
   }
 
   if (!isSignedIn) {
     console.log('User not logged in', isSignedIn, isLoaded, projectName)
-    return <PermissionGate course_name={projectName as string} />
+    return <GroupPermissionGate course_name={projectName as string} />
   }
 
   // Don't edit certain special pages (no context allowed)

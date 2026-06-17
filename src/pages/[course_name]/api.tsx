@@ -16,6 +16,8 @@ import { type CourseMetadata } from '~/types/courseMetadata'
 import { fetchCourseMetadata } from '~/utils/apiUtils'
 import { initiateSignIn } from '~/utils/authHelpers'
 import { PermissionGate } from '~/components/OSC-Components/PermissionGate'
+import { GroupPermissionGate } from '~/components/OSC-Components/GroupPermissionGate'
+import { useGroupValidation } from '~/hooks/useGroupValidation'
 
 const ApiPage: NextPage = () => {
   const router = useRouter()
@@ -28,6 +30,7 @@ const ApiPage: NextPage = () => {
     getInitialCollapsedState(),
   )
   const [errorType, setErrorType] = useState<401 | 403 | 404 | null>(null)
+  const { hasAccess, loading } = useGroupValidation()
 
   const getCurrentPageName = () => {
     const raw = router.query.course_name
@@ -97,17 +100,26 @@ const ApiPage: NextPage = () => {
     handlePermissionsAndData()
   }, [courseMetadata, auth.isAuthenticated])
 
-  if (isLoading || courseName == null) {
+  if (loading || isLoading || courseName == null) {
     return <LoadingPlaceholderForAdminPages />
   }
 
   if ((!auth.user || !auth.isAuthenticated) && courseName) {
-    return <PermissionGate course_name={courseName as string} />
+    return <GroupPermissionGate course_name={courseName as string} />
+  }
+
+  if (hasAccess === false) {
+    return (
+      <GroupPermissionGate
+        course_name={courseName ? (courseName as string) : 'new'}
+        errorType={403}
+      />
+    )
   }
 
   if (errorType !== null) {
     return (
-      <PermissionGate
+      <GroupPermissionGate
         course_name={courseName ? (courseName as string) : 'new'}
         errorType={errorType}
       />
