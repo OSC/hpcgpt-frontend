@@ -36,3 +36,33 @@ jobs:
             NEXT_PUBLIC_USE_OSC_CHAT_CONFIG=${{ vars.CHAT_CONFIG }}
             NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ vars.KEYCLOAK_CLIENT_ID }}
             NEXT_PUBLIC_ALLOWED_GROUPS=${{ vars.ALLOWED_GROUPS }}
+  build-and-push-test:
+    name: Build and Push Test Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set image tag
+        id: set-tag
+        run: |
+          GIT_TAG=${GITHUB_REF#refs/tags/}
+          echo "IMAGE_TAG=${GIT_TAG}" >> $GITHUB_ENV
+          echo "image_tag=${GIT_TAG}" >> $GITHUB_OUTPUT
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Login to docker registry
+        uses: docker/login-action@v4
+        with:
+          registry: docker-registry.osc.edu
+          username: ${{ secrets.OSC_REGISTRY_ROBOT_OSC_USERNAME }}
+          password: ${{ secrets.OSC_REGISTRY_ROBOT_OSC_TOKEN }}
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: docker-registry.osc.edu/kubernetes/hpcgpt/frontend:${{ env.IMAGE_TAG }}-test
+          build-args: |
+            NEXT_PUBLIC_KEYCLOAK_URL=${{ vars.KEYCLOAK_TEST_URL }}
+            NEXT_PUBLIC_KEYCLOAK_ISSUER_URL=${{ vars.ISSUER_TEST_URL }}
+            NEXT_PUBLIC_USE_OSC_CHAT_CONFIG=${{ vars.CHAT_CONFIG }}
+            NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ vars.KEYCLOAK_CLIENT_ID }}
+            NEXT_PUBLIC_ALLOWED_GROUPS=${{ vars.ALLOWED_GROUPS }}
