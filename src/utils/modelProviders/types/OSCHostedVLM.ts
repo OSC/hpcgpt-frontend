@@ -67,7 +67,7 @@ export const OSCHostedVLMModels: Record<
     enabled: true,
   },
   [OSCHostedVLMModelID.QWEN3_CODER]: {
-    id: OSCHostedVLMModelID.QWEN3,
+    id: OSCHostedVLMModelID.QWEN3_CODER,
     name: 'Qwen 3 Coder 30B',
     tokenLimit: 32000,
     enabled: true,
