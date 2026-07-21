@@ -931,6 +931,7 @@ export default function APIKeyInputForm({
                               w={'100%'}
                             >
                               {' '}
+                              {/*
                               <OSCHostedLLmsProviderInput
                                 provider={
                                   llmProviders?.OSCHosted as OSCHostedProvider
@@ -938,6 +939,7 @@ export default function APIKeyInputForm({
                                 form={form}
                                 isLoading={isLoadingLLMProviders}
                               />
+                              */}
                               <OSCHostedVLMProviderInput
                                 provider={
                                   llmProviders?.OSCHostedVLM as OSCHostedVLMProvider

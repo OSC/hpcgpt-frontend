@@ -21,7 +21,7 @@ import { getWebLLMModels } from '~/utils/modelProviders/WebLLM'
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { AuthenticatedRequest } from '~/utils/authMiddleware'
 import { withCourseAccessFromRequest } from '~/pages/api/authorization'
-import { getOSCHostedModels } from '~/utils/modelProviders/OSCHosted'
+//import { getOSCHostedModels } from '~/utils/modelProviders/OSCHosted'
 import { getOpenAIModels } from '~/utils/modelProviders/routes/openai'
 import { ensureRedisConnected } from '~/utils/redisClient'
 import { getOSCHostedVLMModels } from '~/utils/modelProviders/types/OSCHostedVLM'
@@ -96,9 +96,9 @@ export async function getModels(
         )
         break
       case ProviderNames.OSCHosted:
-        allLLMProviders[providerName] = await getOSCHostedModels(
-          llmProvider as OSCHostedProvider,
-        )
+      //  allLLMProviders[providerName] = await getOSCHostedModels(
+      //    llmProvider as OSCHostedProvider,
+      //  )
         break
       case ProviderNames.OSCHostedVLM:
         allLLMProviders[providerName] = await getOSCHostedVLMModels(
