@@ -138,7 +138,9 @@ export const VisionCapableModels: Set<
   OSCHostedVLMModelID.QWEN2_5VL_72B_INSTRUCT,
   OSCHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
   OSCHostedVLMModelID.QWEN3_8B,
+  OSCHostedVLMModelID.QWEN3_6,
   OSCHostedVLMModelID.QWEN3_CODER,
+  OSCHostedVLMModelID.QWEN3_CODER_NEXT,
   OSCHostedVLMModelID.QWEN3,
 
   // Gemini
@@ -419,7 +421,9 @@ export const preferredModelIds = [
   // OSCHostedVLMModelID.QWEN2_5VL_32B_INSTRUCT,
   OSCHostedVLMModelID.QWEN2_VL_72B_INSTRUCT,
   OSCHostedVLMModelID.QWEN3_8B,
+  OSCHostedVLMModelID.QWEN3_6,
   OSCHostedVLMModelID.QWEN3_CODER,
+  OSCHostedVLMModelID.QWEN3_CODER_NEXT,
   OSCHostedVLMModelID.QWEN3,
 ]
 

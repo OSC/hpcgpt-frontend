@@ -17,13 +17,13 @@ export default function OSCHostedVLMProviderInput({
 }) {
   return (
     <ProviderCard
-      providerName="OSC Hosted VLMs"
+      providerName="OSC Hosted LLMs/VLMs"
       providerKey={ProviderNames.OSCHostedVLM}
       provider={provider}
       form={form}
       isLoading={isLoading}
       externalUrl="https://www.osc.edu/ai"
-      description="Vision Language Models hosted by OSC. These models can understand and analyze images in addition to text."
+      description="Large Language and Vision Language Models hosted by OSC. These models can understand and analyze images in addition to text."
     >
       <ModelToggles form={form} provider={provider} />
     </ProviderCard>

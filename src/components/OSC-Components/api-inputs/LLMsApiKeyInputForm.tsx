@@ -673,11 +673,13 @@ export default function APIKeyInputForm({
             className="gap-4"
             w={'100%'}
           >
+            {/*
             <OSCHostedLLmsProviderInput
               provider={llmProviders?.OSCHosted as OSCHostedProvider}
               form={form}
               isLoading={isLoadingLLMProviders}
             />
+            */}
             <OSCHostedVLMProviderInput
               provider={llmProviders?.OSCHostedVLM as OSCHostedVLMProvider}
               form={form}
