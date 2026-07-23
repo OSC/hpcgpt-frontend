@@ -140,6 +140,7 @@ export const VisionCapableModels: Set<
   OSCHostedVLMModelID.QWEN3_8B,
   OSCHostedVLMModelID.QWEN3_6,
   OSCHostedVLMModelID.QWEN3_CODER,
+  OSCHostedVLMModelID.QWEN3_CODER_30B,
   OSCHostedVLMModelID.QWEN3_CODER_NEXT,
   OSCHostedVLMModelID.QWEN3,
 
@@ -423,6 +424,7 @@ export const preferredModelIds = [
   OSCHostedVLMModelID.QWEN3_8B,
   OSCHostedVLMModelID.QWEN3_6,
   OSCHostedVLMModelID.QWEN3_CODER,
+  OSCHostedVLMModelID.QWEN3_CODER_30B,
   OSCHostedVLMModelID.QWEN3_CODER_NEXT,
   OSCHostedVLMModelID.QWEN3,
 ]

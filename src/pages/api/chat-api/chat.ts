@@ -5,6 +5,7 @@ import {
   type Content,
   type Conversation,
   type Message,
+  type OSCTool,
 } from '~/types/chat'
 import fetchCourseMetadataServer from '~/pages/api/chat-api/util/fetchCourseMetadataServer'
 import { determineAndValidateModelServer } from '~/pages/api/chat-api/util/determineAndValidateModelServer'
@@ -181,7 +182,7 @@ export default async function chat(
   const lastMessage = messages[messages.length - 1] as Message
 
   // Fetch tools
-  let availableTools
+  let availableTools: OSCTool[] = []
   if (!retrieval_only) {
     try {
       availableTools = await fetchTools(

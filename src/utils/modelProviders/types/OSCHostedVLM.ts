@@ -18,6 +18,7 @@ export enum OSCHostedVLMModelID {
   QWEN3_8B = 'Qwen/Qwen3-8B',
   QWEN3_6 = 'qwen3.6-fp8',
   QWEN3_CODER = 'qwen3-coder-30b-4bit',
+  QWEN3_CODER_30B = 'qwen3-coder-30b',
   QWEN3_CODER_NEXT = 'qwen3-coder-next',
   QWEN3 = 'qwen3',
 }
@@ -76,6 +77,12 @@ export const OSCHostedVLMModels: Record<
   },
   [OSCHostedVLMModelID.QWEN3_CODER]: {
     id: OSCHostedVLMModelID.QWEN3_CODER,
+    name: 'Qwen 3 Coder 30B (4 bit)',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [OSCHostedVLMModelID.QWEN3_CODER_30B]: {
+    id: OSCHostedVLMModelID.QWEN3_CODER_30B,
     name: 'Qwen 3 Coder 30B',
     tokenLimit: 32000,
     enabled: true,
