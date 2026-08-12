@@ -53,6 +53,8 @@ export interface HomeInitialState {
     id: string | undefined
     isLoading: boolean | undefined
   }
+  groups: string[]
+  selectedGroup: string
 }
 
 export const initialState: HomeInitialState = {
@@ -88,4 +90,6 @@ export const initialState: HomeInitialState = {
   documentGroups: [],
   tools: [],
   webLLMModelIdLoading: { id: undefined, isLoading: undefined },
+  groups: [],
+  selectedGroup: '',
 }

@@ -812,6 +812,7 @@ export const routeModelRequest = async (
       selectedConversation,
       chatBody?.llmProviders?.OSCHostedVLM as OSCHostedVLMProvider,
       chatBody.stream,
+      chatBody.group,
     )
   } else if (
     Object.values(OllamaModelIDs).includes(selectedConversation.model.id as any)

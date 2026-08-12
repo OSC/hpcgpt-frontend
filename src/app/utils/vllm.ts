@@ -1,6 +1,7 @@
 import { type CoreMessage, generateText, streamText } from 'ai'
 import { type Conversation } from '~/types/chat'
 import { type OSCHostedVLMProvider } from '~/utils/modelProviders/LLMProvider'
+import { getGroupSpecificVLMUrl } from '~/utils/groupUtils'
 export const dynamic = 'force-dynamic'
 
 import { createOpenAI } from '@ai-sdk/openai'
@@ -9,14 +10,23 @@ export async function runVLLM(
   conversation: Conversation,
   oscHostedVLMProvider: OSCHostedVLMProvider,
   stream: boolean,
+  group?: string,
 ) {
   try {
     if (!conversation) {
       throw new Error('Conversation is missing')
     }
 
+    let vlmUrl = process.env.OSC_HOSTED_VLM_BASE_URL || ''
+
+    if (group) {
+      const transformedUrl = getGroupSpecificVLMUrl(vlmUrl, group)
+      vlmUrl = transformedUrl
+    }
+
+
     const vlmModel = createOpenAI({
-      baseURL: process.env.OSC_HOSTED_VLM_BASE_URL,
+      baseURL: vlmUrl,
       apiKey: process.env.OSC_HOSTED_API_KEY || '',
       compatibility: 'compatible', // strict/compatible - enable 'strict' when using the OpenAI API
     })

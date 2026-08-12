@@ -27,6 +27,7 @@ import {
   ReasoningCapableModels,
 } from '~/utils/modelProviders/LLMProvider'
 import { decryptKeyIfNeeded } from '../crypto'
+import { getGroupSpecificVLMUrl } from '~/utils/groupUtils'
 
 export class OpenAIError extends Error {
   constructor(

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react' // Added useState
 import { Divider, Flex, Modal, Title, createStyles, Tabs } from '@mantine/core'
 import HomeContext from '~/pages/api/home/home.context'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { prebuiltAppConfig } from '~/utils/modelProviders/ConfigWebLLM'
 import * as webllm from '@mlc-ai/web-llm'
 import { type WebllmModel, webLLMModels } from '~/utils/modelProviders/WebLLM'
+import { useAuth } from 'react-oidc-context'
 
 const useStyles = createStyles((theme) => ({
   modalContent: {
@@ -64,7 +65,7 @@ appConfig.useIndexedDBCache = false
 
 export const UserSettings = () => {
   const {
-    state: { selectedConversation, prompts, showModelSettings },
+    state: { selectedConversation, prompts, showModelSettings, groups, selectedGroup }, 
     handleUpdateConversation,
     dispatch: homeDispatch,
   } = useContext(HomeContext)
@@ -73,6 +74,20 @@ export const UserSettings = () => {
   const { classes } = useStyles()
   const [opened, { open, close }] = useDisclosure(false)
   const isSmallScreen = useMediaQuery('(max-width: 960px)')
+
+/*
+  const auth = useAuth()
+  const groups = ((auth.user?.profile as any)?.groups as string[]) || []
+  const [selectedGroup, setSelectedGroup] = useState<string>('')
+
+  useEffect(() => {
+    const savedGroup = localStorage.getItem('selectedGroup')
+    if (savedGroup) {
+      setSelectedGroup(savedGroup)
+    }
+  }, [])
+*/
+
   const loadModelCache = async () => {
     for (const model of webLLMModels) {
       const theCachedModel = await webllm.hasModelInCache(model.name, appConfig)
@@ -99,6 +114,25 @@ export const UserSettings = () => {
 
   const handleClose = () => {
     homeDispatch({ field: 'showModelSettings', value: false })
+  }
+
+  const handleGroupChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const group = e.target.value
+    console.log(`[${new Date().toISOString()}] UserSettings handleGroupChange: selected group =`, group, '(previous: selectedGroup from context = ?)')
+
+    homeDispatch({ field: 'selectedGroup', value: group })
+    //setSelectedGroup(group)
+
+    //const baseUrl = process.env.OSC_HOSTED_VLM_BASE_URL || vlmUrl || ''
+
+    if (group) {
+      try {
+        localStorage.setItem('selectedGroup', group)
+
+      } catch (error) {
+        console.error("Failed to parse or construct the new VLM URL:", error)
+      }
+    }
   }
 
   return (
@@ -151,6 +185,12 @@ export const UserSettings = () => {
               >
                 Tools
               </Tabs.Tab>
+              <Tabs.Tab
+                className={`${classes.tab} ${isSmallScreen ? 'px-2 text-xs' : 'text-md'} ${montserrat_paragraph.variable} font-montserratParagraph text-[--modal-text]`}
+                value="groups"
+              >
+                Groups
+              </Tabs.Tab>
             </Tabs.List>
 
             <Divider ml={'sm'} orientation="vertical" />
@@ -182,6 +222,35 @@ export const UserSettings = () => {
 
             <Tabs.Panel value="tools" pt="xs">
               <ToolsItem />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="groups" pt="xs" pl="sm">
+              <Flex direction="column" gap="md">
+                <Title order={4} className={`${montserrat_heading.variable} font-montserratHeading`}>
+                  Select Project Group
+                </Title>
+                <p className={`text-sm text-[--foreground-faded] ${montserrat_paragraph.variable} font-montserratParagraph`}>
+                  Assign a VLM address based on your Keycloak group claims.
+                </p>
+                
+                <select 
+                  id="group-select"
+                  value={selectedGroup}
+                  onChange={handleGroupChange}
+                  className="border rounded p-2 max-w-[15rem] bg-[--background] text-[--foreground] border-[--border]"
+                >
+                  <option value="" disabled>Select a group...</option>
+                  {groups.length > 0 ? (
+                    groups.map((group: string, index: number) => (
+                      <option key={index} value={group}>
+                        {group}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="" disabled>No groups found</option>
+                  )}
+                </select>
+              </Flex>
             </Tabs.Panel>
           </Tabs>
         </Modal.Body>

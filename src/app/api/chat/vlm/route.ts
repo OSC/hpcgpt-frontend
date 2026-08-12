@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import { convertConversationToCoreMessagesWithoutSystem } from '~/utils/apiUtils'
 import { type AuthenticatedRequest } from '~/utils/appRouterAuth'
 import { withCourseAccessFromRequest } from '~/app/api/authorization'
+import { getGroupSpecificVLMUrl } from '~/utils/groupUtils'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -16,8 +17,16 @@ async function handler(req: AuthenticatedRequest): Promise<NextResponse> {
 
     console.log('In POST handler for VLM', conversation.messages[0].content)
 
+    const selectedGroup = req.headers.get('x-selected-group')
+    let baseURL = process.env.OSC_HOSTED_VLM_BASE_URL
+
+    if (selectedGroup) {
+      baseURL = getGroupSpecificVLMUrl(process.env.OSC_HOSTED_VLM_BASE_URL, selectedGroup)
+    }
+
+
     const openai = createOpenAI({
-      baseURL: process.env.OSC_HOSTED_VLM_BASE_URL,
+      baseURL: baseURL,
       apiKey: 'non-empty',
       compatibility: 'compatible', // strict/compatible - enable 'strict' when using the OpenAI API
     })

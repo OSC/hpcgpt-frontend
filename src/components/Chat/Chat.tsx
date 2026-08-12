@@ -183,6 +183,7 @@ export const Chat = memo(
         tools,
         llmProviders,
         selectedModel,
+        selectedGroup,
       },
       handleUpdateConversation,
       handleFeedbackUpdate,
@@ -724,6 +725,7 @@ export const Chat = memo(
                 llmProviders: llmProviders,
                 model: selectedConversation.model,
                 mode: 'chat',
+                group: selectedGroup,
               }
 
               if (!queryRewriteBody.model || !queryRewriteBody.model.id) {
@@ -1013,6 +1015,7 @@ export const Chat = memo(
           model: selectedConversation.model,
           skipQueryRewrite: documentExists === false,
           mode: 'chat',
+          group: selectedGroup,
         }
         updatedConversation = finalChatBody.conversation!
 
@@ -1427,6 +1430,7 @@ export const Chat = memo(
         conversations,
         pluginKeys,
         selectedConversation,
+        selectedGroup,
         stopConversationRef,
         chat_ui,
         agentModeEnabled,

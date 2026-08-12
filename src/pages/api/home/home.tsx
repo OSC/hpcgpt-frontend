@@ -35,6 +35,8 @@ import { saveConversationToLocalStorage } from '~/hooks/__internal__/conversatio
 import { type CourseMetadata } from '~/types/courseMetadata'
 import { type FolderType, type FolderWithConversation } from '~/types/folder'
 import { selectBestModel } from '~/utils/modelProviders/LLMProvider'
+import { extractGroupsFromToken } from '~/utils/groupUtils'
+import { useAuth } from 'react-oidc-context'
 
 import Navbar from '~/components/OSC-Components/navbars/Navbar'
 
@@ -59,6 +61,7 @@ const Home = ({
   const [isInitialSetupDone, setIsInitialSetupDone] = useState(false)
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [userGroups, setUserGroups] = useState<string[]>([])
 
   // Add these two new state setters
   const [isQueryRewriting, setIsQueryRewriting] = useState<boolean>(false)
@@ -133,9 +136,26 @@ const Home = ({
       llmProviders,
       documentGroups,
       tools,
+      groups,
+      selectedGroup,
     },
     dispatch,
   } = contextValue
+
+  const auth = useAuth()
+  useEffect(() => {
+    const tokenPayload = auth.user?.profile
+
+    if (tokenPayload) {
+      const extractedGroups = extractGroupsFromToken(tokenPayload)
+      setUserGroups(extractedGroups)
+
+      if (extractedGroups.length > 0 && groups.length === 0) {
+        dispatch({ field: 'groups', value: extractedGroups })
+        dispatch({ field: 'selectedGroup', value: extractedGroups[0] })
+      }
+    }
+  }, [dispatch, auth.user?.profile, groups.length])
 
   const updateConversationMutation = useUpdateConversation(
     current_email as string,
@@ -266,6 +286,9 @@ const Home = ({
       field: 'selectedConversation',
       value: conversation,
     })
+    if (conversation.group && userGroups.includes(conversation.group)) {
+      dispatch({ field: 'selectedGroup', value: conversation.group })
+    }
     saveConversationToLocalStorage(conversation, {
       allowEmptyMessages: true,
       logContext: 'handleSelectConversation',
@@ -312,6 +335,7 @@ const Home = ({
       updatedAt: new Date().toISOString(),
       linkParameters: newLinkParameters,
       agentModeEnabled: false,
+      group: selectedGroup,
     }
 
     // Only update selectedConversation, don't add to conversations list yet
@@ -511,6 +535,9 @@ const Home = ({
               field: 'selectedConversation',
               value: cleanedSelectedConversation,
             })
+            if (cleanedSelectedConversation.group && userGroups.includes(cleanedSelectedConversation.group)) {
+              dispatch({ field: 'selectedGroup', value: cleanedSelectedConversation.group })
+            }
           } else {
             handleNewConversation()
           }

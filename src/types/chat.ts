@@ -29,6 +29,7 @@ export interface Conversation {
     documentsOnly: boolean
     systemPromptOnly: boolean
   }
+  group?: string
 }
 
 export interface Message {
@@ -202,6 +203,7 @@ export interface ChatBody {
   skipQueryRewrite?: boolean
   mode: 'chat' | 'optimize_prompt'
   conversation_id?: string
+  group?: string
 }
 
 export interface ImageBody {

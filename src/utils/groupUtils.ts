@@ -100,3 +100,21 @@ export function hasGroupAccessForLogin(userGroups: string[], allowedGroupsEnv?: 
   // Check if user belongs to any allowed group
   return isUserInAllowedGroups(userGroups, allowedGroups);
 }
+
+export const getGroupSpecificVLMUrl = (baseUrl?: string, groupName?: string): string => {
+  if (!groupName || !baseUrl) {
+    return baseUrl || ''
+  }
+
+  try {
+    const urlObj = new URL(baseUrl)
+    
+    const newDomain = `${groupName}.${urlObj.hostname}`
+    const transformedUrl = `${urlObj.protocol}//${newDomain}${urlObj.pathname}`
+
+    return transformedUrl
+  } catch (error) {
+    console.error('Error transforming VLM URL:', error)
+    return baseUrl || ''
+  }
+}
