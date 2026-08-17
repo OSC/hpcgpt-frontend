@@ -150,9 +150,30 @@ const Home = ({
       const extractedGroups = extractGroupsFromToken(tokenPayload)
       setUserGroups(extractedGroups)
 
-      if (extractedGroups.length > 0 && groups.length === 0) {
+      // First, try to load saved group from localStorage
+      const savedGroup = typeof window !== 'undefined' ? localStorage.getItem('selectedGroup') : null
+
+      if (extractedGroups.length > 0) {
         dispatch({ field: 'groups', value: extractedGroups })
-        dispatch({ field: 'selectedGroup', value: extractedGroups[0] })
+
+        // If there's a saved group, use it if it's in the extracted groups
+        // Otherwise, use the first group from the token
+        if (savedGroup && extractedGroups.includes(savedGroup)) {
+          dispatch({ field: 'selectedGroup', value: savedGroup })
+        } else if (extractedGroups.length > 0 && groups.length === 0) {
+          dispatch({ field: 'selectedGroup', value: extractedGroups[0] })
+        }
+      } else if (savedGroup) {
+        // No groups from token, but there's a saved group - load it as a single group
+        dispatch({ field: 'groups', value: [savedGroup] })
+        dispatch({ field: 'selectedGroup', value: savedGroup })
+      }
+    } else if (groups.length === 0) {
+      // No token payload, check localStorage for saved group
+      const savedGroup = typeof window !== 'undefined' ? localStorage.getItem('selectedGroup') : null
+      if (savedGroup) {
+        dispatch({ field: 'groups', value: [savedGroup] })
+        dispatch({ field: 'selectedGroup', value: savedGroup })
       }
     }
   }, [dispatch, auth.user?.profile, groups.length])
@@ -286,9 +307,6 @@ const Home = ({
       field: 'selectedConversation',
       value: conversation,
     })
-    if (conversation.group && userGroups.includes(conversation.group)) {
-      dispatch({ field: 'selectedGroup', value: conversation.group })
-    }
     saveConversationToLocalStorage(conversation, {
       allowEmptyMessages: true,
       logContext: 'handleSelectConversation',

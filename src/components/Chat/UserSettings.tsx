@@ -75,18 +75,13 @@ export const UserSettings = () => {
   const [opened, { open, close }] = useDisclosure(false)
   const isSmallScreen = useMediaQuery('(max-width: 960px)')
 
-/*
   const auth = useAuth()
-  const groups = ((auth.user?.profile as any)?.groups as string[]) || []
-  const [selectedGroup, setSelectedGroup] = useState<string>('')
-
   useEffect(() => {
     const savedGroup = localStorage.getItem('selectedGroup')
-    if (savedGroup) {
-      setSelectedGroup(savedGroup)
+    if (savedGroup && !selectedGroup) {
+      homeDispatch({ field: 'selectedGroup', value: savedGroup })
     }
   }, [])
-*/
 
   const loadModelCache = async () => {
     for (const model of webLLMModels) {

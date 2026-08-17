@@ -8,6 +8,7 @@ import {
   Title,
   Paper,
   Progress,
+  Select,
   // useMantineTheme,
 } from '@mantine/core'
 
@@ -25,7 +26,7 @@ import { useRouter } from 'next/router'
 import { type CourseMetadata } from '~/types/courseMetadata'
 import SupportedFileUploadTypes from './SupportedFileUploadTypes'
 import { useMediaQuery } from '@mantine/hooks'
-import { callSetCourseMetadata } from '~/utils/apiUtils'
+import { callSetCourseMetadata, callUpdateProjectGroup } from '~/utils/apiUtils'
 import { v4 as uuidv4 } from 'uuid'
 import { type FileUpload } from './UploadNotification'
 import { type AuthContextProps } from 'react-oidc-context'
@@ -67,6 +68,8 @@ export function LargeDropzone({
   is_new_course,
   setUploadFiles,
   auth,
+  setMetadata,
+  queryClient,
 }: {
   courseName: string
   current_user_email: string
@@ -76,6 +79,8 @@ export function LargeDropzone({
   is_new_course: boolean
   setUploadFiles: React.Dispatch<React.SetStateAction<FileUpload[]>>
   auth: AuthContextProps
+  setMetadata: (metadata: CourseMetadata) => void
+  queryClient: import('@tanstack/react-query').QueryClient
 }) {
   // upload-in-progress spinner control
   const [uploadInProgress, setUploadInProgress] = useState(false)
@@ -86,6 +91,51 @@ export function LargeDropzone({
   const { classes, theme } = useStyles()
   const openRef = useRef<() => void>(null)
   const [files, setFiles] = useState<File[]>([])
+  const [selectedGroup, setSelectedGroup] = useState<string | undefined>(
+    courseMetadata.group,
+  )
+
+  // Get Keycloak groups from the auth profile
+  const userGroups = auth.user?.profile?.groups || []
+  const groupsArray = Array.isArray(userGroups) ? userGroups : []
+
+  // Persist group changes to database and local state
+  useEffect(() => {
+    // Check if group has changed from the database value
+    const groupChanged =
+      (selectedGroup || '') !== (courseMetadata.group || '')
+    if (groupChanged) {
+      const updatedMetadata = {
+        ...courseMetadata,
+        group: selectedGroup,
+      }
+      // Update local state via callback
+      setMetadata(updatedMetadata)
+      // Save to PostgreSQL projects table
+      callUpdateProjectGroup(courseName, selectedGroup || null).then((success) => {
+        if (!success) {
+          console.error('Failed to save group to PostgreSQL projects table')
+        }
+      }).catch((error) => {
+        console.error('Error saving group to PostgreSQL:', error)
+      })
+      // Save to Redis (for other metadata)
+      callSetCourseMetadata(courseName, updatedMetadata).then((success) => {
+        if (success) {
+          // Update the query cache to reflect the change immediately
+          queryClient.setQueryData(['courseMetadata', courseName], updatedMetadata)
+        } else {
+          console.error('Failed to save course metadata to Redis')
+          // Revert local state on failure
+          setMetadata(courseMetadata)
+        }
+      }).catch((error) => {
+        console.error('Error saving course metadata to Redis:', error)
+        // Revert local state on error
+        setMetadata(courseMetadata)
+      })
+    }
+  }, [selectedGroup, courseMetadata.group, courseName, setMetadata, queryClient])
 
   const refreshOrRedirect = async (redirect_to_gpt_4: boolean) => {
     if (is_new_course) {
@@ -213,6 +263,7 @@ export function LargeDropzone({
               uniqueFileName: uniqueFileName,
               courseName: courseName,
               readableFilename: uniqueReadableFileName,
+              group: selectedGroup,
             }),
           })
           const res = await response.json()
@@ -349,6 +400,49 @@ export function LargeDropzone({
             flexDirection: 'column',
           }}
         >
+          {/* Group Selection Dropdown */}
+          {groupsArray.length > 0 && (
+            <div className="mb-4 w-full max-w-md px-4">
+              <label className="mb-2 block text-sm font-medium text-[--foreground-faded]">
+                Select Group (Optional)
+              </label>
+              <Select
+                placeholder="Select a group"
+                value={selectedGroup}
+                onChange={(value) => setSelectedGroup(value || undefined)}
+                data={groupsArray.map((group) => ({
+                  value: group,
+                  label: group.split('/').pop() || group, // Show last part of group path
+                }))}
+                searchable
+                clearable
+                className="w-full"
+                styles={{
+                  input: {
+                    color: 'var(--foreground)',
+                    backgroundColor: 'var(--background)',
+                    borderColor: 'var(--dashboard-border)',
+                  },
+                  dropdown: {
+                    backgroundColor: 'var(--background)',
+                  },
+                  item: {
+                    color: 'var(--foreground)',
+                    '&[data-selected]': {
+                      color: 'var(--osc-orange)',
+                    },
+                    '&[data-hovered]': {
+                      backgroundColor: 'var(--background-faded)',
+                    },
+                  },
+                }}
+              />
+              <Text size="xs" className="mt-1 text-[--foreground-faded]">
+                Files will be ingested using the selected Keycloak group for
+                embedding and access control.
+              </Text>
+            </div>
+          )}
           <Dropzone
             openRef={openRef}
             className="group relative cursor-pointer overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"

@@ -112,6 +112,8 @@ const StepUpload = ({
             setUploadFiles={setUploadFiles}
             courseMetadata={courseMetadata || defaultMetadata}
             auth={auth}
+            setMetadata={() => {}}
+            queryClient={queryClient}
           />
         </div>
       </div>

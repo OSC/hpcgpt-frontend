@@ -191,6 +191,7 @@ export const Chat = memo(
     } = useContext(HomeContext)
 
     const agentModeEnabled = deriveAgentModeEnabled(selectedConversation)
+    //console.log("[Chat.tsx] selectedGroup from context:", selectedGroup)
 
     useEffect(() => {
       const loadModel = async () => {
@@ -330,6 +331,7 @@ export const Chat = memo(
         documentGroups: string[],
         llmProviders: AllLLMProviders,
       ) => {
+        //console.log("[handleSend] selectedGroup from context:", selectedGroup)
         const startOfHandleSend = performance.now()
         // Clear agent events at the start of a new generation
         message.agentEvents = undefined
@@ -859,13 +861,14 @@ export const Chat = memo(
           if (!agentModeEnabled) {
             homeDispatch({ field: 'isRetrievalLoading', value: true })
 
-            // Use enhanced query for context search
+            //console.log("[Chat.tsx] Before handleContextSearch - selectedGroup:", selectedGroup)
             await handleContextSearch(
               message,
               courseName,
               selectedConversation,
               rewrittenQuery,
               enabledDocumentGroups,
+              selectedGroup,
             )
 
             homeDispatch({ field: 'isRetrievalLoading', value: false })

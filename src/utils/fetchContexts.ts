@@ -8,15 +8,27 @@ export const fetchContextsFromBackend = async (
   token_limit = 4000,
   doc_groups: string[] = [],
   conversation_id?: string,
+  group?: string
 ): Promise<ContextWithMetadata[]> => {
   const backendUrl = getBackendUrl()
 
-  const requestBody = {
+  const requestBody: {
+    course_name: string
+    search_query: string
+    token_limit: number
+    doc_groups: string[]
+    conversation_id?: string
+    group?: string
+  } = {
     course_name: course_name,
     search_query: search_query,
     token_limit: token_limit,
     doc_groups: doc_groups,
     conversation_id: conversation_id,
+  }
+
+  if (group) {
+    requestBody.group = group
   }
 
   const response = await fetch(`${backendUrl}/getTopContexts`, {
@@ -42,13 +54,19 @@ export const fetchContexts = async (
   token_limit = 4000,
   doc_groups: string[] = [],
   conversation_id?: string,
+  group?: string,
 ): Promise<ContextWithMetadata[]> => {
   // Check if we're running on client-side (browser) or server-side
   const isClientSide = typeof window !== 'undefined'
 
+  //console.log("[fetchContexts.ts] isClientSide:", isClientSide)
+  //console.log("[fetchContexts.ts] doc_groups:", doc_groups)
+  //console.log("[fetchContexts.ts] group:", group)
+
   try {
     if (isClientSide) {
       // Client-side: use our API route
+      //console.log("[fetchContexts.ts] Calling /api/getContexts")
       const response = await fetch(
         `${window.location.origin}/api/getContexts`,
         {
@@ -62,6 +80,7 @@ export const fetchContexts = async (
             token_limit,
             doc_groups,
             conversation_id,
+            group,
           }),
         },
       )
@@ -81,6 +100,7 @@ export const fetchContexts = async (
         token_limit,
         doc_groups,
         conversation_id,
+        group,
       )
     }
   } catch (error) {
@@ -96,6 +116,7 @@ export const fetchMQRContexts = async (
   token_limit = 6000,
   doc_groups: string[] = [],
   conversation_id: string,
+  group?: string,
 ): Promise<ContextWithMetadata[]> => {
   try {
     const params = new URLSearchParams({
@@ -108,6 +129,10 @@ export const fetchMQRContexts = async (
     doc_groups.forEach((group) => params.append('doc_groups', group))
 
     params.append('conversation_id', conversation_id)
+
+    if (group) {
+      params.append('group', group)
+    }
 
     const response = await fetch(`/api/getContextsMQR?${params.toString()}`)
 

@@ -19,7 +19,13 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
       token_limit = 4000,
       doc_groups = [],
       conversation_id,
+      group,
     } = req.body
+
+    //console.log("[api/getContexts.ts] Received request:")
+    //console.log("  - course_name:", course_name)
+    //console.log("  - doc_groups:", doc_groups)
+    //console.log("  - group:", group)
 
     if (!course_name || !search_query) {
       return res.status(400).json({
@@ -34,6 +40,8 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
       token_limit,
       doc_groups,
       conversation_id,
+      undefined,
+      group,
     )
     return res.status(200).json(data)
   } catch (error) {

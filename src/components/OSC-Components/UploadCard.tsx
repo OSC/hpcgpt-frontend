@@ -225,6 +225,8 @@ export const UploadCard = memo(function UploadCard({
               is_new_course={false}
               setUploadFiles={handleSetUploadFiles}
               auth={auth}
+              setMetadata={setMetadata}
+              queryClient={queryClient}
             />
           </div>
 

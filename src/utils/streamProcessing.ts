@@ -434,6 +434,7 @@ export const handleContextSearch = async (
   selectedConversation: Conversation,
   searchQuery: string,
   documentGroups: string[],
+  group?: string,
 ): Promise<ContextWithMetadata[]> => {
   // Check if this message already has contexts (from file upload)
   if (
@@ -443,6 +444,11 @@ export const handleContextSearch = async (
   ) {
     return message.contexts
   }
+  //console.log("[streamProcessing.ts] handleContextSearch called with:")
+  //  console.log("  - courseName:", courseName)
+  //  console.log("  - documentGroups:", documentGroups)
+  //  console.log("  - group param:", group)
+  //  console.log("  - group type:", typeof group)
   if (courseName !== 'gpt4') {
     const token_limit = selectedConversation.model.tokenLimit
     const useMQRetrieval = false
@@ -454,6 +460,7 @@ export const handleContextSearch = async (
       token_limit,
       documentGroups,
       '',
+      group,
     )
 
     message.contexts = curr_contexts as ContextWithMetadata[]

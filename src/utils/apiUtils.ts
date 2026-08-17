@@ -76,6 +76,43 @@ export const callSetCourseMetadata = async (
 }
 
 /**
+ * Calls the API to update the Keycloak group associated with a project.
+ * @param {string} courseName - The name of the course.
+ * @param {string | null} group - The Keycloak group to set.
+ * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating success or failure.
+ */
+export const callUpdateProjectGroup = async (
+  courseName: string,
+  group: string | null,
+): Promise<boolean> => {
+  try {
+    const endpoint = '/api/OSC-api/updateProjectGroup'
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ project_name: courseName, group }),
+    })
+    const data = await response.json()
+
+    if (data.success) {
+      return true
+    } else {
+      console.error('Error updating project group', {
+        course_name: courseName,
+        error: data.error,
+      })
+      return false
+    }
+  } catch (error) {
+    console.error('Error updating project group', {
+      course_name: courseName,
+      error,
+    })
+    return false
+  }
+}
+
+/**
  * Uploads a file to S3 using a pre-signed URL.
  * @param {File | null} file - The file to upload.
  * @param {string} user_id - The user ID associated with the file.

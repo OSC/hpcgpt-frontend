@@ -15,7 +15,13 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
     token_limit = 6000,
     doc_groups = [],
     conversation_id,
+    group,
   } = req.query
+
+  //console.log("[api/getContextsMQR.ts] Received query:")
+  //console.log("  - course_name:", course_name)
+  //console.log("  - doc_groups:", doc_groups)
+  //console.log("  - group:", group)
 
   if (!course_name || !search_query || !conversation_id) {
     return res.status(400).json({
@@ -31,10 +37,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
         'No MQR backend URL configured. Please set RAILWAY_MQR_URL environment variable.',
       )
     }
-    const response: AxiosResponse<ContextWithMetadata[]> = await axios.get(
-      `${mqrUrl}/getTopContextsWithMQR`,
-      {
-        params: {
+    const params: any = {
           course_name: course_name,
           search_query: search_query,
           token_limit: token_limit,
@@ -42,9 +45,16 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
             ? doc_groups
             : [doc_groups].filter(Boolean),
           conversation_id: conversation_id,
-        },
-      },
-    )
+        }
+
+      if (group) {
+        params.group = group
+      }
+
+      const response: AxiosResponse<ContextWithMetadata[]> = await axios.get(
+        `${mqrUrl}/getTopContextsWithMQR`,
+         { params },
+      )
     return res.status(200).json(response.data)
   } catch (error) {
     console.error('Error fetching MQR contexts:', error)

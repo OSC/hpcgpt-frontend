@@ -19,7 +19,7 @@ const handler = async (
       })
     }
 
-    const { uniqueFileName, courseName, readableFilename, forceEmbeddings } =
+    const { uniqueFileName, courseName, readableFilename, forceEmbeddings, group } =
       req.body
 
     console.log(
@@ -28,6 +28,7 @@ const handler = async (
       courseName,
       readableFilename,
       forceEmbeddings,
+      group ? `group: ${group}` : '(no group specified)',
     )
 
     if (!uniqueFileName || !courseName || !readableFilename) {
@@ -39,18 +40,30 @@ const handler = async (
 
     const s3_filepath = `courses/${courseName}/${uniqueFileName}`
 
+    const requestBody: {
+      course_name: string
+      readable_filename: string
+      s3_paths: string
+      force_embeddings?: boolean
+      group?: string
+    } = {
+      course_name: courseName,
+      readable_filename: readableFilename,
+      s3_paths: s3_filepath,
+      force_embeddings: forceEmbeddings,
+    }
+
+    if (group) {
+      requestBody.group = group
+    }
+
     const response = await fetch(`${process.env.INGEST_URL}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        course_name: courseName,
-        readable_filename: readableFilename,
-        s3_paths: s3_filepath,
-        force_embeddings: forceEmbeddings,
-      }),
+      body: JSON.stringify(requestBody),
     })
 
     const responseBody = await response.json()
