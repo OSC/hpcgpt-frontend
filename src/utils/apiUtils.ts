@@ -372,6 +372,7 @@ export default {
  * @param project_name - The name of the project
  * @param project_description - Optional description of the project
  * @param project_owner_email - Email of the project owner
+ * @param project_owner_username - Username of the project owner (optional)
  * @param is_private - Whether the project is private (default: false)
  * @returns Promise<boolean> - true if successful, throws error on failure
  */
@@ -379,20 +380,26 @@ export const createProject = async (
   project_name: string,
   project_description: string | undefined,
   project_owner_email: string,
+  project_owner_username?: string,
   is_private = false,
 ): Promise<boolean> => {
   try {
+    const body: Record<string, unknown> = {
+      project_name,
+      project_description,
+      project_owner_email,
+      is_private,
+    }
+    if (project_owner_username) {
+      body.project_owner_username = project_owner_username
+    }
+
     const response = await fetch('/api/OSC-api/createProject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        project_name,
-        project_description,
-        project_owner_email,
-        is_private,
-      }),
+      body: JSON.stringify(body),
     })
 
     if (!response.ok) {

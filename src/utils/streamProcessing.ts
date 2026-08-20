@@ -435,6 +435,7 @@ export const handleContextSearch = async (
   searchQuery: string,
   documentGroups: string[],
   group?: string,
+  username?: string,
 ): Promise<ContextWithMetadata[]> => {
   // Check if this message already has contexts (from file upload)
   if (
@@ -461,6 +462,7 @@ export const handleContextSearch = async (
       documentGroups,
       '',
       group,
+      username,
     )
 
     message.contexts = curr_contexts as ContextWithMetadata[]
@@ -815,11 +817,13 @@ export const routeModelRequest = async (
     )
   ) {
     // OSC Hosted VLM
+    const username = chatBody.username || selectedConversation.userEmail || ''
     return await runVLLM(
       selectedConversation,
       chatBody?.llmProviders?.OSCHostedVLM as OSCHostedVLMProvider,
       chatBody.stream,
       chatBody.group,
+      username,
     )
   } else if (
     Object.values(OllamaModelIDs).includes(selectedConversation.model.id as any)

@@ -8,7 +8,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { project_name, project_description, project_owner_email, is_private } =
+  const { project_name, project_description, project_owner_email, is_private, project_owner_username } =
     req.body
 
   if (!project_name || !project_owner_email) {
@@ -43,6 +43,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
     project_description: project_description,
     project_owner_email: project_owner_email,
     is_private: is_private,
+    project_owner_username: project_owner_username,
   }
 
   try {

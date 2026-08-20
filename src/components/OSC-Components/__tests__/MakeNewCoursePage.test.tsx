@@ -463,6 +463,7 @@ describe('MakeNewCoursePage', () => {
           'NewBot',
           '',
           'owner@example.com',
+          undefined, // project_owner_username (not passed in test)
           true, // useOscChatConfig = true
         )
       })

@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
+import { useAuth } from 'react-oidc-context'
 
 import { Card } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
@@ -20,6 +21,7 @@ const Dashboard = ({
   is_new_course?: boolean
   project_description?: string
 }) => {
+  const auth = useAuth()
   const isSmallScreen = useMediaQuery('(max-width: 960px)')
   const [projectName, setProjectName] = useState(project_name || '')
   const [projectDescription, setProjectDescription] = useState(
@@ -76,10 +78,12 @@ const Dashboard = ({
   ) => {
     setIsLoading(true)
     try {
+      const project_owner_username = auth.user?.profile?.preferred_username || auth.user?.profile?.sub || current_user_email
       const result = await createProject(
         project_name,
         project_description,
         current_user_email,
+        project_owner_username,
       )
       console.log('Project created successfully:', result)
       if (is_new_course) {

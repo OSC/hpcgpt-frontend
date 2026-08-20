@@ -1,5 +1,6 @@
 import { type ContextWithMetadata } from '~/types/chat'
 import { getBackendUrl } from '~/utils/apiUtils'
+import { extractUsernameFromToken } from '~/utils/groupUtils'
 
 // Common function to fetch contexts from backend - can be used anywhere
 export const fetchContextsFromBackend = async (
@@ -8,7 +9,8 @@ export const fetchContextsFromBackend = async (
   token_limit = 4000,
   doc_groups: string[] = [],
   conversation_id?: string,
-  group?: string
+  group?: string,
+  username?: string
 ): Promise<ContextWithMetadata[]> => {
   const backendUrl = getBackendUrl()
 
@@ -19,6 +21,7 @@ export const fetchContextsFromBackend = async (
     doc_groups: string[]
     conversation_id?: string
     group?: string
+    username?: string
   } = {
     course_name: course_name,
     search_query: search_query,
@@ -29,6 +32,10 @@ export const fetchContextsFromBackend = async (
 
   if (group) {
     requestBody.group = group
+  }
+
+  if (username) {
+    requestBody.username = username
   }
 
   const response = await fetch(`${backendUrl}/getTopContexts`, {
@@ -55,6 +62,7 @@ export const fetchContexts = async (
   doc_groups: string[] = [],
   conversation_id?: string,
   group?: string,
+  username?: string,
 ): Promise<ContextWithMetadata[]> => {
   // Check if we're running on client-side (browser) or server-side
   const isClientSide = typeof window !== 'undefined'
@@ -67,6 +75,15 @@ export const fetchContexts = async (
     if (isClientSide) {
       // Client-side: use our API route
       //console.log("[fetchContexts.ts] Calling /api/getContexts")
+      const body = {
+        course_name,
+        search_query,
+        token_limit,
+        doc_groups,
+        conversation_id,
+        group,
+        username,
+      }
       const response = await fetch(
         `${window.location.origin}/api/getContexts`,
         {
@@ -74,14 +91,7 @@ export const fetchContexts = async (
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            course_name,
-            search_query,
-            token_limit,
-            doc_groups,
-            conversation_id,
-            group,
-          }),
+          body: JSON.stringify(body),
         },
       )
 
@@ -101,6 +111,7 @@ export const fetchContexts = async (
         doc_groups,
         conversation_id,
         group,
+        username,
       )
     }
   } catch (error) {
@@ -117,6 +128,7 @@ export const fetchMQRContexts = async (
   doc_groups: string[] = [],
   conversation_id: string,
   group?: string,
+  username?: string,
 ): Promise<ContextWithMetadata[]> => {
   try {
     const params = new URLSearchParams({
@@ -134,7 +146,13 @@ export const fetchMQRContexts = async (
       params.append('group', group)
     }
 
-    const response = await fetch(`/api/getContextsMQR?${params.toString()}`)
+    params.append('username', username || '')
+
+    const response = await fetch(`/api/getContextsMQR?${params.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
     if (!response.ok) {
       console.error(

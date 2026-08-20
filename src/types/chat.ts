@@ -204,6 +204,7 @@ export interface ChatBody {
   mode: 'chat' | 'optimize_prompt'
   conversation_id?: string
   group?: string
+  username?: string
 }
 
 export interface ImageBody {

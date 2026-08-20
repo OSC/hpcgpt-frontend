@@ -33,6 +33,13 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
       })
     }
 
+    let username = req.body.username
+    if (!username) {
+      username = req.headers['x-osc-user'] as string | undefined
+    }
+    if (!username && req.user) {
+      username = req.user?.preferred_username || req.user?.sub || req.user?.email || ''
+    }
     // Use the common function
     const data = await fetchContextsFromBackend(
       course_name,
@@ -42,6 +49,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
       conversation_id,
       undefined,
       group,
+      username,
     )
     return res.status(200).json(data)
   } catch (error) {

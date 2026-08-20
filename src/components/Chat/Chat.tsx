@@ -861,6 +861,7 @@ export const Chat = memo(
           if (!agentModeEnabled) {
             homeDispatch({ field: 'isRetrievalLoading', value: true })
 
+            const username = auth.user?.profile?.preferred_username || auth.user?.profile?.sub || currentEmail
             //console.log("[Chat.tsx] Before handleContextSearch - selectedGroup:", selectedGroup)
             await handleContextSearch(
               message,
@@ -869,6 +870,7 @@ export const Chat = memo(
               rewrittenQuery,
               enabledDocumentGroups,
               selectedGroup,
+              username,
             )
 
             homeDispatch({ field: 'isRetrievalLoading', value: false })
@@ -1008,6 +1010,7 @@ export const Chat = memo(
           }
         }
 
+        const username = auth.user?.profile?.preferred_username || auth.user?.profile?.sub || currentEmail
         const finalChatBody: ChatBody = {
           conversation: updatedConversation,
           key: getOpenAIKey(llmProviders, courseMetadata, apiKey),
@@ -1019,6 +1022,7 @@ export const Chat = memo(
           skipQueryRewrite: documentExists === false,
           mode: 'chat',
           group: selectedGroup,
+          username: username,
         }
         updatedConversation = finalChatBody.conversation!
 

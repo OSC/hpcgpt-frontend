@@ -144,7 +144,9 @@ function defaultProps(overrides: Record<string, any> = {}) {
     is_new_course: false,
     redirect_to_gpt_4: true,
     setUploadFiles: vi.fn() as any,
-    auth: { isAuthenticated: true } as any,
+    auth: { isAuthenticated: true, user: { profile: { groups: [] } } } as any,
+    setMetadata: vi.fn() as any,
+    queryClient: { setQueryData: vi.fn() } as any,
     ...overrides,
   }
 }

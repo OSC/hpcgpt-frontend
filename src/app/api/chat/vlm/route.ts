@@ -24,11 +24,19 @@ async function handler(req: AuthenticatedRequest): Promise<NextResponse> {
       baseURL = getGroupSpecificVLMUrl(process.env.OSC_HOSTED_VLM_BASE_URL, selectedGroup)
     }
 
+    const username = req.user?.preferred_username || req.user?.sub || req.user?.email || ''
+
+    const customFetch: typeof fetch = async (input, init) => {
+      const headers = new Headers(init?.headers)
+      headers.set('x-osc-user', username)
+      return fetch(input, { ...init, headers })
+    }
 
     const openai = createOpenAI({
       baseURL: baseURL,
       apiKey: 'non-empty',
       compatibility: 'compatible', // strict/compatible - enable 'strict' when using the OpenAI API
+      fetch: customFetch,
     })
 
     const messages =

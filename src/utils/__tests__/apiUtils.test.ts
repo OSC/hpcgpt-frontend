@@ -169,7 +169,7 @@ describe('apiUtils (browser/jsdom)', () => {
     )
 
     await expect(
-      createProject('p', undefined, 'owner@example.com', false),
+      createProject('p', undefined, 'owner@example.com', undefined, false),
     ).resolves.toBe(true)
   })
 
@@ -182,7 +182,7 @@ describe('apiUtils (browser/jsdom)', () => {
     )
 
     await expect(
-      createProject('p', undefined, 'owner@example.com', false),
+      createProject('p', undefined, 'owner@example.com', undefined, false),
     ).rejects.toMatchObject({ status: 400, error: 'bad' })
   })
 
@@ -193,7 +193,7 @@ describe('apiUtils (browser/jsdom)', () => {
     )
 
     await expect(
-      createProject('p', undefined, 'owner@example.com', false),
+      createProject('p', undefined, 'owner@example.com', undefined, false),
     ).rejects.toMatchObject({ status: 400, error: 'Unknown error' })
   })
 

@@ -10,6 +10,7 @@ export default async function fetchContextsFromBackend(
   conversation_id?: string,
   signal?: AbortSignal,
   group?: string,
+  username?: string,
 ): Promise<ContextWithMetadata[]> {
   const backendUrl = getBackendUrl()
 
@@ -24,6 +25,7 @@ export default async function fetchContextsFromBackend(
     doc_groups: string[]
     conversation_id?: string
     group?: string
+    username?: string
   } = {
     course_name: course_name,
     search_query: search_query,
@@ -34,6 +36,9 @@ export default async function fetchContextsFromBackend(
 
   if (group) {
     requestBody.group = group
+  }
+  if (username && username !== '') {
+    requestBody.username = username
   }
 
   const response = await fetch(`${backendUrl}/getTopContexts`, {
@@ -61,6 +66,7 @@ export const fetchContexts = async (
   doc_groups: string[] = [],
   conversation_id?: string,
   group?: string,
+  username?: string,
 ): Promise<ContextWithMetadata[]> => {
   // Check if we're running on client-side (browser) or server-side
   const isClientSide = typeof window !== 'undefined'
@@ -82,6 +88,7 @@ export const fetchContexts = async (
             doc_groups,
             conversation_id,
             group,
+            username,
           }),
         },
       )
@@ -103,6 +110,7 @@ export const fetchContexts = async (
         conversation_id,
         undefined,  // signal
         group,
+        username,  // username
       )
     }
   } catch (error) {
@@ -119,6 +127,7 @@ export const fetchMQRContexts = async (
   doc_groups: string[] = [],
   conversation_id: string,
   group?: string,
+  username?: string,
 ): Promise<ContextWithMetadata[]> => {
   try {
     const params = new URLSearchParams({
@@ -136,7 +145,13 @@ export const fetchMQRContexts = async (
       params.append('group', group)
     }
 
-    const response = await fetch(`/api/getContextsMQR?${params.toString()}`)
+    params.append('username', username || '')
+
+    const response = await fetch(`/api/getContextsMQR?${params.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
     if (!response.ok) {
       console.error(

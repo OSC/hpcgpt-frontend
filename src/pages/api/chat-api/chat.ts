@@ -93,6 +93,8 @@ export default async function chat(
     api_key,
     retrieval_only,
     conversation_id,
+    group,
+    username,
   }: {
     model: string
     messages: Message[]
@@ -103,6 +105,8 @@ export default async function chat(
     api_key: string
     retrieval_only: boolean
     conversation_id?: string
+    group?: string
+    username?: string
   } = body
 
   // Validate the API key and retrieve user data
@@ -276,6 +280,8 @@ export default async function chat(
     courseName: course_name,
     searchQuery,
     documentGroups: doc_groups,
+    group,
+    username: username,
   })
   const contexts = await handleContextSearch(
     lastMessage,
@@ -283,6 +289,8 @@ export default async function chat(
     conversation,
     searchQuery,
     doc_groups,
+    group,
+    username,
   )
   // Check if contexts were found
   if (contexts.length === 0) {
@@ -342,6 +350,8 @@ export default async function chat(
     courseMetadata,
     llmProviders,
     mode: 'chat',
+    group,
+    username: username,
   }
 
   // Build the prompt

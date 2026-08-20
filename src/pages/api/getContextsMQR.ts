@@ -16,6 +16,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
     doc_groups = [],
     conversation_id,
     group,
+    username,
   } = req.query
 
   //console.log("[api/getContextsMQR.ts] Received query:")
@@ -51,6 +52,9 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
         params.group = group
       }
 
+      if (username) {
+        params.username = username
+      }
       const response: AxiosResponse<ContextWithMetadata[]> = await axios.get(
         `${mqrUrl}/getTopContextsWithMQR`,
          { params },

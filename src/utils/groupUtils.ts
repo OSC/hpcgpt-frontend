@@ -108,7 +108,7 @@ export const getGroupSpecificVLMUrl = (baseUrl?: string, groupName?: string): st
 
   try {
     const urlObj = new URL(baseUrl)
-    
+
     const newDomain = `${groupName}.${urlObj.hostname}`
     const transformedUrl = `${urlObj.protocol}//${newDomain}${urlObj.pathname}`
 
@@ -117,4 +117,24 @@ export const getGroupSpecificVLMUrl = (baseUrl?: string, groupName?: string): st
     console.error('Error transforming VLM URL:', error)
     return baseUrl || ''
   }
+}
+
+/**
+ * Extracts username from a Keycloak token payload
+ * @param tokenPayload - Decoded JWT token payload
+ * @returns Username string or empty string if not found
+ */
+export function extractUsernameFromToken(tokenPayload: any): string {
+  if (tokenPayload && typeof tokenPayload === 'object') {
+    if (typeof tokenPayload.preferred_username === 'string') {
+      return tokenPayload.preferred_username
+    }
+    if (typeof tokenPayload.sub === 'string') {
+      return tokenPayload.sub
+    }
+    if (typeof tokenPayload.email === 'string') {
+      return tokenPayload.email
+    }
+  }
+  return ''
 }

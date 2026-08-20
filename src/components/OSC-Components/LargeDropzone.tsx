@@ -254,6 +254,7 @@ export function LargeDropzone({
           await uploadToS3(file, uniqueFileName)
           setSuccessfulUploads((prev) => prev + 1)
 
+          const username = auth.user?.profile?.preferred_username || auth.user?.profile?.sub || current_user_email
           const response = await fetch(`/api/OSC-api/ingest`, {
             method: 'POST',
             headers: {
@@ -264,6 +265,7 @@ export function LargeDropzone({
               courseName: courseName,
               readableFilename: uniqueReadableFileName,
               group: selectedGroup,
+              username: username,
             }),
           })
           const res = await response.json()

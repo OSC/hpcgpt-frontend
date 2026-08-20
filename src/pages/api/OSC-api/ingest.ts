@@ -40,12 +40,20 @@ const handler = async (
 
     const s3_filepath = `courses/${courseName}/${uniqueFileName}`
 
+    let username = req.body.username
+    if (!username) {
+      username = req.headers['x-osc-user'] as string | undefined
+    }
+    if (!username && req.user) {
+      username = req.user?.preferred_username || req.user?.sub || req.user?.email || ''
+    }
     const requestBody: {
       course_name: string
       readable_filename: string
       s3_paths: string
       force_embeddings?: boolean
       group?: string
+      username?: string
     } = {
       course_name: courseName,
       readable_filename: readableFilename,
@@ -55,6 +63,9 @@ const handler = async (
 
     if (group) {
       requestBody.group = group
+    }
+    if (username) {
+      requestBody.username = username
     }
 
     const response = await fetch(`${process.env.INGEST_URL}`, {

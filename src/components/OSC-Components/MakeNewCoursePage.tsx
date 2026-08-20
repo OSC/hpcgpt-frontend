@@ -217,10 +217,12 @@ const MakeNewCoursePage = ({
   ): Promise<boolean> => {
     setIsLoading(true)
     try {
+      const project_owner_username = auth.user?.profile?.preferred_username || auth.user?.profile?.sub || current_user_email
       const result = await createProject(
         project_name,
         project_description,
         current_user_email,
+        project_owner_username,
         is_private,
       )
       if (!result) {
