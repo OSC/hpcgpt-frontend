@@ -21,6 +21,9 @@ export enum OSCHostedVLMModelID {
   QWEN3_CODER_30B = 'qwen3-coder-30b',
   QWEN3_CODER_NEXT = 'qwen3-coder-next',
   QWEN3 = 'qwen3',
+  QWEN3_8_27B_FP8 = 'qwen3.8-27b-fp8',
+  GPT_OSS_120B = 'gpt-oss-120b'
+  QWEN35_122B_FP8 = 'qwen35-122b-fp8'
 }
 
 export const OSCHostedVLMModels: Record<
@@ -90,6 +93,24 @@ export const OSCHostedVLMModels: Record<
   [OSCHostedVLMModelID.QWEN3_CODER_NEXT]: {
     id: OSCHostedVLMModelID.QWEN3_CODER_NEXT,
     name: 'Qwen 3 Coder Next',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [OSCHostedVLMModelID.QWEN3_8_27B_FP8]: {
+    id: OSCHostedVLMModelID.QWEN3_8_27B_FP8,
+    name: 'Qwen 3.8 27B (FP 8)',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [OSCHostedVLMModelID.GPT_OSS_120B]: {
+    id: OSCHostedVLMModelID.GPT_OSS_120B,
+    name: 'GPT OSS 120B',
+    tokenLimit: 32000,
+    enabled: true,
+  },
+  [OSCHostedVLMModelID.QWEN35_122B_FP8]: {
+    id: OSCHostedVLMModelID.QWEN35_122B_FP8,
+    name: 'Qwen 3.5 122B (FP8)',
     tokenLimit: 32000,
     enabled: true,
   },

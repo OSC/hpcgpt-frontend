@@ -143,6 +143,9 @@ export const VisionCapableModels: Set<
   OSCHostedVLMModelID.QWEN3_CODER_30B,
   OSCHostedVLMModelID.QWEN3_CODER_NEXT,
   OSCHostedVLMModelID.QWEN3,
+  OSCHostedVLMModelID.QWEN3_8_27B_FP8,
+  OSCHostedVLMModelID.GPT_OSS_120B,
+  OSCHostedVLMModelID.QWEN35_122B_FP8,
 
   // Gemini
   GeminiModelID.Gemini_2_5_Pro_Exp_03_25,
@@ -427,6 +430,9 @@ export const preferredModelIds = [
   OSCHostedVLMModelID.QWEN3_CODER_30B,
   OSCHostedVLMModelID.QWEN3_CODER_NEXT,
   OSCHostedVLMModelID.QWEN3,
+  OSCHostedVLMModelID.QWEN3_8_27B_FP8,
+  OSCHostedVLMModelID.GPT_OSS_120B,
+  OSCHostedVLMModelID.QWEN35_122B_FP8,
 ]
 
 export const selectBestModel = (
