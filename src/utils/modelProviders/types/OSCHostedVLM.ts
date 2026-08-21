@@ -22,7 +22,7 @@ export enum OSCHostedVLMModelID {
   QWEN3_CODER_NEXT = 'qwen3-coder-next',
   QWEN3 = 'qwen3',
   QWEN3_8_27B_FP8 = 'qwen3.8-27b-fp8',
-  GPT_OSS_120B = 'gpt-oss-120b'
+  GPT_OSS_120B = 'gpt-oss-120b',
   QWEN35_122B_FP8 = 'qwen35-122b-fp8'
 }
 
