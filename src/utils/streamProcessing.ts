@@ -392,6 +392,15 @@ export async function validateRequestBody(body: ChatApiBody): Promise<void> {
     throw new Error("Invalid stream provided. 'stream' must be a boolean.")
   }
 
+  if (
+    body.top_n !== undefined &&
+    (!Number.isSafeInteger(body.top_n) || body.top_n < 1)
+  ) {
+    throw new Error(
+      "Invalid top_n provided. 'top_n' must be a positive safe integer.",
+    )
+  }
+
   const hasImageContent = body.messages.some(
     (message) =>
       Array.isArray(message.content) &&
@@ -436,6 +445,7 @@ export const handleContextSearch = async (
   documentGroups: string[],
   group?: string,
   username?: string,
+  topN = 100,
 ): Promise<ContextWithMetadata[]> => {
   // Check if this message already has contexts (from file upload)
   if (
@@ -463,6 +473,7 @@ export const handleContextSearch = async (
       '',
       group,
       username,
+      topN,
     )
 
     message.contexts = curr_contexts as ContextWithMetadata[]

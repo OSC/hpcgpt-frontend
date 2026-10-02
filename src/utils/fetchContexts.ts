@@ -10,7 +10,8 @@ export const fetchContextsFromBackend = async (
   doc_groups: string[] = [],
   conversation_id?: string,
   group?: string,
-  username?: string
+  username?: string,
+  top_n?: number
 ): Promise<ContextWithMetadata[]> => {
   const backendUrl = getBackendUrl()
 
@@ -22,6 +23,7 @@ export const fetchContextsFromBackend = async (
     conversation_id?: string
     group?: string
     username?: string
+    top_n?: number
   } = {
     course_name: course_name,
     search_query: search_query,
@@ -29,6 +31,8 @@ export const fetchContextsFromBackend = async (
     doc_groups: doc_groups,
     conversation_id: conversation_id,
   }
+
+  if (top_n !== undefined) requestBody.top_n = top_n
 
   if (group) {
     requestBody.group = group
@@ -63,6 +67,7 @@ export const fetchContexts = async (
   conversation_id?: string,
   group?: string,
   username?: string,
+  top_n = 100,
 ): Promise<ContextWithMetadata[]> => {
   // Check if we're running on client-side (browser) or server-side
   const isClientSide = typeof window !== 'undefined'
@@ -83,6 +88,7 @@ export const fetchContexts = async (
         conversation_id,
         group,
         username,
+        top_n,
       }
       const response = await fetch(
         `${window.location.origin}/api/getContexts`,
@@ -112,6 +118,7 @@ export const fetchContexts = async (
         conversation_id,
         group,
         username,
+        top_n,
       )
     }
   } catch (error) {
@@ -129,6 +136,7 @@ export const fetchMQRContexts = async (
   conversation_id: string,
   group?: string,
   username?: string,
+  top_n = 100,
 ): Promise<ContextWithMetadata[]> => {
   try {
     const params = new URLSearchParams({
@@ -141,6 +149,8 @@ export const fetchMQRContexts = async (
     doc_groups.forEach((group) => params.append('doc_groups', group))
 
     params.append('conversation_id', conversation_id)
+
+    if (top_n !== undefined) params.append('top_n', top_n.toString())
 
     if (group) {
       params.append('group', group)

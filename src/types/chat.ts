@@ -222,6 +222,7 @@ export interface ChatApiBody {
   course_name: string
   stream?: boolean
   api_key: string
+  top_n?: number
 }
 
 export interface Action {

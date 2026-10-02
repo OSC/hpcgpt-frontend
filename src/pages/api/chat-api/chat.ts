@@ -95,6 +95,7 @@ export default async function chat(
     conversation_id,
     group,
     username,
+    top_n = 100,
   }: {
     model: string
     messages: Message[]
@@ -107,6 +108,7 @@ export default async function chat(
     conversation_id?: string
     group?: string
     username?: string
+    top_n?: number
   } = body
 
   // Validate the API key and retrieve user data
@@ -291,6 +293,7 @@ export default async function chat(
     doc_groups,
     group,
     username,
+    top_n,
   )
   // Check if contexts were found
   if (contexts.length === 0) {
