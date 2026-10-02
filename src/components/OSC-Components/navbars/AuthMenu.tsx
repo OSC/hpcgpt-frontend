@@ -1,8 +1,10 @@
-import { Menu, Avatar, type MantineNumberSize, rem } from '@mantine/core'
+import { Menu, Avatar, type MantineNumberSize, rem, Tooltip, Notification } from '@mantine/core'
+import { IconCopy, IconCheck } from '@tabler/icons-react'
 import { useAuth } from 'react-oidc-context'
 import { montserrat_heading } from 'fonts'
 import { createStyles } from '@mantine/core'
 import { getKeycloakIssuerUrl, initiateSignIn } from '~/utils/authHelpers'
+import { useState } from 'react'
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -86,6 +88,26 @@ interface AuthMenuProps {
 export const AuthMenu = ({ size = 34 }: AuthMenuProps) => {
   const { classes } = useStyles()
   const auth = useAuth()
+  const [copied, setCopied] = useState(false)
+
+  const copyJwtToClipboard = async () => {
+    const token = auth.user?.access_token
+    if (!token) {
+      console.error('No JWT token available')
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(token)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+
+      // Show success feedback
+      console.log('✅ JWT token copied to clipboard!')
+    } catch (err) {
+      console.error('Failed to copy token:', err)
+    }
+  }
 
   if (auth.isAuthenticated) {
     return (
@@ -128,6 +150,21 @@ export const AuthMenu = ({ size = 34 }: AuthMenuProps) => {
           >
             Manage Account
           </Menu.Item>
+
+          <Menu.Item
+            tabIndex={0}
+            onClick={copyJwtToClipboard}
+            rightSection={
+              copied ? (
+                <IconCheck style={{ width: rem(16), height: rem(16) }} />
+              ) : (
+                <IconCopy style={{ width: rem(16), height: rem(16) }} />
+              )
+            }
+          >
+            {copied ? 'Token Copied!' : 'Copy JWT Token'}
+          </Menu.Item>
+
           <Menu.Item onClick={() => auth.signoutRedirect()} tabIndex={0}>
             Sign Out
           </Menu.Item>
